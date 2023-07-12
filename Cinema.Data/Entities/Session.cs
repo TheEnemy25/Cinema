@@ -3,7 +3,7 @@
     public class Session
     {
         public Guid Id { get; set; }
-        public string SessionScreenStart { get; set; }
-        public string SessionScreenEnd { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
     }
 }

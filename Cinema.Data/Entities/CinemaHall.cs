@@ -1,6 +1,6 @@
 ﻿namespace Cinema.Data.Entities
 {
-    public class Hall
+    public class CinemaHall
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

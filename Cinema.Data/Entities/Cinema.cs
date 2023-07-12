@@ -4,6 +4,6 @@
     {
         public Guid Id { get; set; }
         public string Adress { get; set; }
-        public virtual City City { get; set; }
+        public City City { get; set; }
     }
 }

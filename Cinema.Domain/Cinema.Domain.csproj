@@ -24,4 +24,10 @@
     <ProjectReference Include="..\Cinema.Data\Cinema.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dto\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Services\Implementation\" />
+  </ItemGroup>
+
 </Project>

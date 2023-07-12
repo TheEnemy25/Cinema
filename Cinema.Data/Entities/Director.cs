@@ -7,6 +7,6 @@
         public string FullName { get; set; }
         public string Image { get; set; }
         public string Biography { get; set; }
-        public string Age { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 }

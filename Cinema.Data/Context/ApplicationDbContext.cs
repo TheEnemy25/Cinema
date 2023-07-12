@@ -9,7 +9,7 @@ namespace Cinema.Data.Context
         {
         }
 
-        public DbSet<Category> Categories{ get; set; }
+        public DbSet<Genre> Categories{ get; set; }
         public DbSet<Entities.Cinema> Cinemas { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<CinemaHall> Halls { get; set; }

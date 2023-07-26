@@ -4,7 +4,7 @@
     {
         public Guid Id { get; set; }
         public decimal TotalPrice { get; set; }
-        public string PaymentType { get; set; }
-        public DateTime DateTime { get; set; }
+        public string PaymentMethod { get; set; }
+        public DateTime PaymentDate { get; set; }
     }
 }

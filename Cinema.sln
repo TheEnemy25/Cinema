@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.API", "Cinema.API\Cinema.API.csproj", "{32C6618D-E7A6-4838-A0D5-A062080E28BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.API", "Cinema.API\Cinema.API.csproj", "{32C6618D-E7A6-4838-A0D5-A062080E28BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Domain", "Cinema.Domain\Cinema.Domain.csproj", "{7DF50506-305A-4115-84C0-D90F5DDD5F7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Domain", "Cinema.Domain\Cinema.Domain.csproj", "{7DF50506-305A-4115-84C0-D90F5DDD5F7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Data", "Cinema.Data\Cinema.Data.csproj", "{D300136F-C4A0-4AF8-BD91-C775D5678DAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Data", "Cinema.Data\Cinema.Data.csproj", "{D300136F-C4A0-4AF8-BD91-C775D5678DAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Application", "Cinema.Application\Cinema.Application.csproj", "{01DE4FDD-7C52-430A-817F-FE9D90C3CC94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{D300136F-C4A0-4AF8-BD91-C775D5678DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D300136F-C4A0-4AF8-BD91-C775D5678DAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D300136F-C4A0-4AF8-BD91-C775D5678DAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01DE4FDD-7C52-430A-817F-FE9D90C3CC94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01DE4FDD-7C52-430A-817F-FE9D90C3CC94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01DE4FDD-7C52-430A-817F-FE9D90C3CC94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01DE4FDD-7C52-430A-817F-FE9D90C3CC94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,12 +1,8 @@
 using Cinema.Application;
+using Cinema.Application.Entities;
 using Cinema.Data.Context;
-using Cinema.Data.Entities;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
-builder.Services.AddIdentity<User, IdentityRole>(config =>
+builder.Services.AddIdentity<AppUser, IdentityRole>(config =>
 {
     config.Password.RequiredLength = 8;
     config.Password.RequireDigit = true;
@@ -30,7 +26,7 @@ builder.Services.AddIdentity<User, IdentityRole>(config =>
     .AddDefaultTokenProviders();
 
 builder.Services.AddIdentityServer()
-    .AddAspNetIdentity<User>()
+    .AddAspNetIdentity<AppUser>()
     .AddInMemoryApiResources(Configuration.ApiResources)
     .AddInMemoryIdentityResources(Configuration.IdentityResources)
     .AddInMemoryApiScopes(Configuration.ApiScopes)

@@ -11,12 +11,14 @@ namespace Cinema.Application
             {
                 new ApiScope("CinemaWebAPI","Web API")
             };
+
         public static IEnumerable<IdentityResource> IdentityResources =>
-        new List<IdentityResource>
-        {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
-        };
+            new List<IdentityResource>
+            {
+                    new IdentityResources.OpenId(),
+                    new IdentityResources.Profile()
+            };
+
         public static IEnumerable<ApiResource> ApiResources =>
             new List<ApiResource>
             {
@@ -26,35 +28,28 @@ namespace Cinema.Application
                     Scopes = { "CinemaWebAPI" }
                 }
             };
+
         public static IEnumerable<Client> Clients =>
             new List<Client>
             {
                 new Client()
                 {
-                    ClientId = "",
+                    ClientId = "k-spot",
                     ClientName = "",
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireClientSecret = false,
                     RequirePkce = true,
-                    RedirectUris =
-                    {
-                        "http://.../signin-oidc"
-                    },
-                    AllowedCorsOrigins =
-                    {
-                        "http://..."
-                    },
-                    PostLogoutRedirectUris =
-                    {
-                        "http:/.../signout-oidc"
-                    },
+                    RedirectUris = { "http://localhost:3000/signin-oidc" },
+                    AllowedCorsOrigins = { "http://localhost:3000" },
+                    PostLogoutRedirectUris = { "http://localhost:3000/signout-oidc" },
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
                         "CinemaWebAPI"
                     },
                     AllowAccessTokensViaBrowser = false,
-
+                    RequireConsent = false
                 }
             };
     }

@@ -7,6 +7,7 @@
         public string Description { get; set; }
         public string ImageURL { get; set; }
 
+        //Relationships
         public ICollection<MovieGenre> MovieGenres { get; set; } // Зв'язки між жанрами і фільмами
     }
 }

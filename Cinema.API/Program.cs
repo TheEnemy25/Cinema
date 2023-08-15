@@ -39,21 +39,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-    var service = scope.ServiceProvider;
-    try
-    {
-        var context = service.GetRequiredService<ApplicationDbContext>();
-        DbInitializer.Initialize(context);
-    }
-    catch (Exception exception)
-    {
-        var logger = service.GetRequiredService<ILogger<Program>>();
-        logger.LogError(exception, "An error occurred while seeding the database.");
-    }
-}
-
 app.Run();
 
 

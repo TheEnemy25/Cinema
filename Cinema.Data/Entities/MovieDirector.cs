@@ -1,12 +1,12 @@
 ﻿namespace Cinema.Data.Entities
 {
-    public class MovieStudio
+    public class MovieDirector
     {
         public Guid MovieId { get; set; }
-        public Guid StudioId { get; set; }
+        public Guid DirectorId { get; set; }
 
         //Relationships
         public Movie Movie { get; set; }
-        public Studio Studio { get; set; }
+        public Director Director { get; set; }
     }
 }

@@ -5,12 +5,10 @@
         public Guid Id { get; set; }
         public Guid CountryId { get; set; }
 
-
         public string Name { get; set; }
-        public string District { get; set; }
-        public string Street { get; set; }
 
+        //Relationships
         public Country Country { get; set; } 
-        public ICollection<Cinema> Cinemas { get; set; } 
+        public ICollection<CinemaTheater> CinemaTheaters { get; set; } 
     }
 }

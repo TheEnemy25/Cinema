@@ -8,3 +8,4 @@ namespace Cinema.Application.Entities
         public string LastName { get; set; }
     }
 }
+//public ICollection<Review> Reviews { get; set; } // Зв'язок багато до багатьох з відгуками, що залишив користувач

@@ -3,7 +3,7 @@
     public class Movie
     {
         public Guid Id { get; set; }
-        public Guid DirectorId { get; set; } // Зовнішній ключ для режисера
+        public Guid DiscountId { get; set; } // Зовнішній ключ для знижки
 
         public string Title { get; set; }//Назва фільму
         public int AgeRestriction { get; set; } // Вікове обмеження фільму
@@ -11,18 +11,23 @@
         public string ImageLink { get; set; }//Зображення
         public string TrailerLink { get; set; }//Трейлер
         public double Rating { get; set; }//Рейтинг
-        public string Duration { get; set; } //Тривалість
+        public TimeSpan Duration { get; set; } //Тривалість фільму
         public DateTime ReleaseDate { get; set; } // Дата випуску фільму
 
         public List<string> ProductionCountries { get; set; } // Країни виробництва
 
-        public Director Director { get; set; } // Зв'язок з моделлю "Director"
-        public ICollection<MovieDiscount> MovieDiscounts { get; set; } // Зв'язок багато до багатьох зі знижками
-        public ICollection<MovieActor> MovieActors { get; set; }
+        // Relationships
+        public Discount Discount { get; set; }
+        public ICollection<MovieDirector> MovieDirectors { get; set; }// Зв'язок з акторами
+        public ICollection<MovieActor> MovieActors { get; set; }// Зв'язок з акторами
         public ICollection<MovieGenre> MovieGenres { get; set; } // Зв'язки між жанрами і фільмами
         public ICollection<MovieProducer> MovieProducers { get; set; } // Зв'язок багато до багатьох з продюсерами
         public ICollection<MovieScreenwriter> MovieScreenwriters { get; set; } // Зв'язок багато до багатьох з сценаристами
         public ICollection<MovieStudio> MovieStudios { get; set; } // Зв'язок багато до багатьох зі студіями
         public ICollection<Review> Reviews { get; set; } // Відгуки про фільм
+        public ICollection<Session> Sessions { get; set; }// Зв'язок з сеансами
+        public ICollection<MoviePromoCode> MoviePromoCodes { get; set; } // Зв'язок з промокодами фільму
     }
 }
+
+//public ICollection<Product> Products { get; set; } // Зв'язок з продуктами

@@ -9,6 +9,6 @@
         public DateTime RentalDate { get; set; } // Дата прокату
 
         public Movie Movie { get; set; } // Зв'язок з моделлю "Movie"
-        public Cinema Cinema { get; set; } // Зв'язок з моделлю "Cinema"
+        public CinemaTheater Cinema { get; set; } // Зв'язок з моделлю "Cinema"
     }
 }

@@ -15,6 +15,11 @@ namespace Cinema.API.Controllers
             _context = context;
         }
 
+        //public IActionResult Index()
+        //{
+        //    var user = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "sub");
+        //    return Ok(user);
+        //}
 
     }
 }

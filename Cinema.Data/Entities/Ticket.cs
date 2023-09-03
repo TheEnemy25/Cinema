@@ -1,9 +1,10 @@
-﻿using Cinema.Data.Enums;
+﻿using Cinema.Data.Entities.Interfaces;
+using Cinema.Data.Enums;
 
 namespace Cinema.Data.Entities
 {
     // Пропуск на фільм
-    public class Ticket
+    public class Ticket : IEntity
     {
         public Guid Id { get; set; }
         public Guid SessionId { get; set; } // Зовнішній ключ для сесії

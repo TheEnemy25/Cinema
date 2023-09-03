@@ -1,6 +1,8 @@
-﻿namespace Cinema.Data.Entities
+﻿using Cinema.Data.Entities.Interfaces;
+
+namespace Cinema.Data.Entities
 {
-    public class MovieDirector
+    public class MovieDirector : IEntity
     {
         public Guid MovieId { get; set; }
         public Guid DirectorId { get; set; }

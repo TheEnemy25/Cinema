@@ -1,7 +1,9 @@
-﻿namespace Cinema.Data.Entities
+﻿using Cinema.Data.Entities.Interfaces;
+
+namespace Cinema.Data.Entities
 {
     // Відгуки
-    public class Review
+    public class Review : IEntity
     {
         public Guid Id { get; set; }
         public Guid MovieId { get; set; }

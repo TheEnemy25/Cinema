@@ -1,6 +1,8 @@
-﻿namespace Cinema.Data.Entities
+﻿using Cinema.Data.Entities.Interfaces;
+
+namespace Cinema.Data.Entities
 {
-    public class MovieGenre
+    public class MovieGenre : IEntity
     {
         public Guid MovieId { get; set; } // Ідентифікатор фільму
         public Guid GenreId { get; set; } // Ідентифікатор жанру

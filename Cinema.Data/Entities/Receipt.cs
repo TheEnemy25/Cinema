@@ -1,7 +1,9 @@
-﻿namespace Cinema.Data.Entities
+﻿using Cinema.Data.Entities.Interfaces;
+
+namespace Cinema.Data.Entities
 {
     //Квиток
-    public class Receipt
+    public class Receipt : IEntity
     {
         public Guid Id { get; set; }
         public Guid ShoppingCartId { get; set; }

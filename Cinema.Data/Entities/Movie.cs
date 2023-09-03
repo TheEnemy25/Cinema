@@ -14,10 +14,7 @@
         public TimeSpan Duration { get; set; } //Тривалість фільму
         public DateTime ReleaseDate { get; set; } // Дата випуску фільму
 
-        public List<string> ProductionCountries { get; set; } // Країни виробництва
-
         // Relationships
-        public Discount Discount { get; set; }
         public ICollection<MovieDirector> MovieDirectors { get; set; }// Зв'язок з акторами
         public ICollection<MovieActor> MovieActors { get; set; }// Зв'язок з акторами
         public ICollection<MovieGenre> MovieGenres { get; set; } // Зв'язки між жанрами і фільмами
@@ -27,6 +24,8 @@
         public ICollection<Review> Reviews { get; set; } // Відгуки про фільм
         public ICollection<Session> Sessions { get; set; }// Зв'язок з сеансами
         public ICollection<MoviePromoCode> MoviePromoCodes { get; set; } // Зв'язок з промокодами фільму
+        public ICollection<Rental> Rentals { get; set; } // Зв'язок з промокодами фільму
+        public ICollection<MovieProductionCountry> MovieProductionCountries { get; set; }// Країни виробництва
     }
 }
 

@@ -6,7 +6,7 @@ namespace Cinema.Data.EntityConfiguration
 {
     public class MovieActorConfiguration : IEntityTypeConfiguration<MovieActor>
     {
-        public void Configure(EntityTypeBuilder<MovieActor> builder) 
+        public void Configure(EntityTypeBuilder<MovieActor> builder)
         {
             builder.ToTable("MovieActor");
 

@@ -58,8 +58,7 @@ namespace Exam.Data.Infrastructure
         /// </summary>
         /// <param name="entity">entity</param>
         /// <returns>awaitable task with updated entity</returns>
-        public async Task<TEntity> UpdateAsync(TEntity entity) =>
-            await Task.Run(() => dbEntities.Update(entity).Entity);
+        public async Task<TEntity> UpdateAsync(TEntity entity) => await Task.Run(() => dbEntities.Update(entity).Entity);
 
         public async Task UpdateRangeAsync(IEnumerable<TEntity> entities) => await Task.Run(() => dbEntities.UpdateRange(entities));
 
@@ -80,7 +79,7 @@ namespace Exam.Data.Infrastructure
             {
                 return await context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch
             {
                 if (context.Database.CurrentTransaction is not null)
                 {

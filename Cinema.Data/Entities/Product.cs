@@ -13,7 +13,7 @@
 
         //Relationships
         public Discount Discount { get; set; }
-        public ICollection<ProductPromoCode> ProductPromoCodes{ get; set; }
+        public ICollection<ProductPromoCode> ProductPromoCodes { get; set; }
         public ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
     }
 }

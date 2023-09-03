@@ -1,5 +1,4 @@
 ﻿using Cinema.Data.Context;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.API.Controllers

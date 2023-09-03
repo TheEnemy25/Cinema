@@ -4,7 +4,7 @@
     public class Review
     {
         public Guid Id { get; set; }
-        public Guid MovieId { get; set; } 
+        public Guid MovieId { get; set; }
 
         //public string Author { get; set; }
         public string Content { get; set; } // Вміст відгуку

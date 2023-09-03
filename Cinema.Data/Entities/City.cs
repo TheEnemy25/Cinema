@@ -8,7 +8,7 @@
         public string Name { get; set; }
 
         //Relationships
-        public Country Country { get; set; } 
-        public ICollection<CinemaTheater> CinemaTheaters { get; set; } 
+        public Country Country { get; set; }
+        public ICollection<CinemaTheater> CinemaTheaters { get; set; }
     }
 }

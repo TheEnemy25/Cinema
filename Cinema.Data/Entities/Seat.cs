@@ -1,6 +1,4 @@
-﻿using Cinema.Data.Enums;
-
-namespace Cinema.Data.Entities
+﻿namespace Cinema.Data.Entities
 {
     public class Seat
     {
@@ -13,6 +11,6 @@ namespace Cinema.Data.Entities
         //Relationships
         public Hall Hall { get; set; }
         public ICollection<SessionSeat> SessionSeats { get; set; }
-        public ICollection<ShoppingCartItem > ShoppingCartItems { get; set; }
+        public ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Cinema.Data.Enums;
-
-namespace Cinema.Data.Entities
+﻿namespace Cinema.Data.Entities
 {
     public class SessionSeat
     {

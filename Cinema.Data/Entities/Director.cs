@@ -1,7 +1,7 @@
 ﻿namespace Cinema.Data.Entities
 {
     //Режисер
-    public class Director 
+    public class Director
     {
         public Guid Id { get; set; }
         public string FullName { get; set; }

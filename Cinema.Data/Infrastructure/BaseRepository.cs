@@ -25,8 +25,7 @@ namespace Exam.Data.Infrastructure
         public IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes)
         {
             var dbSet = context.Set<TEntity>();
-            var query = includes
-                .Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>(dbSet, (current, include) => current.Include(include));
+            var query = includes.Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>(dbSet, (current, include) => current.Include(include));
 
             return query ?? dbSet;
         }

@@ -13,6 +13,7 @@ namespace Cinema.Data.Entities
 
         //Relationships
         public Hall Hall { get; set; }
-        public ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public ICollection<SessionSeat> SessionSeats { get; set; }
+        public ICollection<ShoppingCartItem > ShoppingCartItems { get; set; }
     }
 }

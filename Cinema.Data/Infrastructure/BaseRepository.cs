@@ -44,10 +44,7 @@ namespace Exam.Data.Infrastructure
         /// <param name="entity">entity</param>
         /// <exception cref="ArgumentNullException">The entity to add cannot be <see langword="null"/>.</exception>
         /// <returns>added entity</returns>
-        public async Task<TEntity> AddAsync(TEntity entity)
-        {
-            return (await dbEntities.AddAsync(entity)).Entity;
-        }
+        public async Task<TEntity> AddAsync(TEntity entity) => (await dbEntities.AddAsync(entity)).Entity;
 
         /// <summary>
         /// Adds a range of entities.

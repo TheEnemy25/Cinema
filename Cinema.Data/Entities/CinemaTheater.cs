@@ -4,14 +4,13 @@
     {
         public Guid Id { get; set; }
         public Guid CityId { get; set; }
-        public Guid RentalId { get; set; }
 
         public string Address { get; set; }
         public string ContactInfo { get; set; }
 
         //Relationships
         public City City { get; set; }
-        public Rental Rental { get; set; }
+        public ICollection<Rental> Rentals { get; set; }
         public ICollection<Hall> Halls { get; set; }
         public ICollection<Employee> Employees { get; set; }
     }

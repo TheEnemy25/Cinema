@@ -27,9 +27,8 @@ namespace Cinema.Data.EntityConfiguration
                 .HasForeignKey(ct => ct.CityId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(ct => ct.Rental) 
+            builder.HasMany(ct => ct.Rentals) 
                .WithOne(r => r.CinemaTheater)
-               .HasForeignKey<Rental>(r => r.CinemaTheaterId)
                .OnDelete(DeleteBehavior.NoAction);
         }
     }

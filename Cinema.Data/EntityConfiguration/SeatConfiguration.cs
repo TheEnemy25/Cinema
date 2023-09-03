@@ -21,11 +21,6 @@ namespace Cinema.Data.EntityConfiguration
                 .WithOne(ss => ss.Seat)
                 .HasForeignKey(ss => ss.SeatId)
                 .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasMany(s => s.ShoppingCartItems)
-                .WithOne(sci => sci.Seat)
-                .HasForeignKey(sci => sci.SeatId)
-                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

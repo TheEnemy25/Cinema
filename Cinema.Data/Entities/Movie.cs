@@ -1,6 +1,8 @@
-﻿namespace Cinema.Data.Entities
+﻿using Cinema.Data.Entities.Interfaces;
+
+namespace Cinema.Data.Entities
 {
-    public class Movie
+    public class Movie : IEntity
     {
         public Guid Id { get; set; }
         public Guid DiscountId { get; set; } // Зовнішній ключ для знижки

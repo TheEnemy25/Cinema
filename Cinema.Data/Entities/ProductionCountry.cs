@@ -1,6 +1,8 @@
-﻿namespace Cinema.Data.Entities
+﻿using Cinema.Data.Entities.Interfaces;
+
+namespace Cinema.Data.Entities
 {
-    public class ProductionCountry
+    public class ProductionCountry : IEntity
     {
         public Guid Id { get; set; }
         public string CountryName { get; set; }

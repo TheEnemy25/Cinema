@@ -1,8 +1,9 @@
-﻿using Cinema.Data.Enums;
+﻿using Cinema.Data.Entities.Interfaces;
+using Cinema.Data.Enums;
 
 namespace Cinema.Data.Entities
 {
-    public class Employee
+    public class Employee : IEntity
     {
         public Guid Id { get; set; }
         public Guid CinemaTheaterId { get; set; } // Ідентифікатор кінотеатру, до якого належить працівник

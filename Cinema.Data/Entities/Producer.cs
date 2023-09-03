@@ -1,7 +1,9 @@
-﻿namespace Cinema.Data.Entities
+﻿using Cinema.Data.Entities.Interfaces;
+
+namespace Cinema.Data.Entities
 {
     //Продюсер
-    public class Producer
+    public class Producer : IEntity
     {
         public Guid Id { get; set; }
         public string FullName { get; set; }

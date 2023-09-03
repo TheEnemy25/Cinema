@@ -1,8 +1,9 @@
-﻿using Cinema.Data.Enums;
+﻿using Cinema.Data.Entities.Interfaces;
+using Cinema.Data.Enums;
 
 namespace Cinema.Data.Entities
 {
-    public class Hall
+    public class Hall : IEntity
     {
         public Guid Id { get; set; }
         public Guid CinemaTheaterId { get; set; }

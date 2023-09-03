@@ -1,7 +1,9 @@
-﻿namespace Cinema.Data.Entities
+﻿using Cinema.Data.Entities.Interfaces;
+
+namespace Cinema.Data.Entities
 {
     //Сценарист
-    public class Screenwriter
+    public class Screenwriter : IEntity
     {
         public Guid Id { get; set; }
 

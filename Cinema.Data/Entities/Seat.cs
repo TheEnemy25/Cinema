@@ -1,6 +1,8 @@
-﻿namespace Cinema.Data.Entities
+﻿using Cinema.Data.Entities.Interfaces;
+
+namespace Cinema.Data.Entities
 {
-    public class Seat
+    public class Seat : IEntity
     {
         public Guid Id { get; set; }
         public Guid HallId { get; set; }

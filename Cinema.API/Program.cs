@@ -1,4 +1,6 @@
 using Cinema.Data.Context;
+using Cinema.Data.Entities;
+using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Cinema", Version = "v1" });
 });
+
+//rep
+builder.Services.AddScoped<IBaseRepository<Movie>, BaseRepository<Movie>>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 

@@ -1,3 +1,4 @@
+using Cinema.API;
 using Cinema.Data.Context;
 using Cinema.Data.Entities;
 using Exam.Data.Infrastructure;
@@ -13,7 +14,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 //rep
-builder.Services.AddScoped<IBaseRepository<Movie>, BaseRepository<Movie>>();
+DependencyInjection.RegisterDependencies(builder.Services);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 

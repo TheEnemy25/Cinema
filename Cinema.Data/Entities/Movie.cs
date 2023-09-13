@@ -5,7 +5,6 @@ namespace Cinema.Data.Entities
     public class Movie : IEntity
     {
         public Guid Id { get; set; }
-        public Guid DiscountId { get; set; } // Зовнішній ключ для знижки
 
         public string Title { get; set; }//Назва фільму
         public int AgeRestriction { get; set; } // Вікове обмеження фільму
@@ -30,5 +29,3 @@ namespace Cinema.Data.Entities
         public ICollection<MovieProductionCountry> MovieProductionCountries { get; set; }// Країни виробництва
     }
 }
-
-//public ICollection<Product> Products { get; set; } // Зв'язок з продуктами

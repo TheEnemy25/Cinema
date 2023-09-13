@@ -4,11 +4,11 @@ namespace Cinema.Data.Entities
 {
     public class MovieGenre : IEntity
     {
-        public Guid MovieId { get; set; } // Ідентифікатор фільму
-        public Guid GenreId { get; set; } // Ідентифікатор жанру
+        public Guid MovieId { get; set; }
+        public Guid GenreId { get; set; }
 
         //Relationships
-        public Movie Movie { get; set; } // Зв'язок з моделлю "Movie"
-        public Genre Genre { get; set; } // Зв'язок з моделлю "Genre"
+        public Movie Movie { get; set; }
+        public Genre Genre { get; set; }
     }
 }

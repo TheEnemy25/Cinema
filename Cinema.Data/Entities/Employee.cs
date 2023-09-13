@@ -19,4 +19,3 @@ namespace Cinema.Data.Entities
         public CinemaTheater CinemaTheater { get; set; } // Зв'язок з моделлю Кінотеатром
     }
 }
-//public string Gender { get; set; } // стать працівника

@@ -27,6 +27,11 @@ namespace Cinema.Data.EntityConfiguration
                 .HasForeignKey(s => s.DiscountId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.HasMany(s => s.SessionPromoCodes)
+                .WithOne(spc => spc.Session)
+                .HasForeignKey(spc => spc.SessionId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasMany(s => s.SessionSeats)
                 .WithOne(ss => ss.Session)
                 .HasForeignKey(ss => ss.SessionId)

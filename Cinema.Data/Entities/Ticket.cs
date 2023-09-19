@@ -7,9 +7,9 @@ namespace Cinema.Data.Entities
     public class Ticket : IEntity
     {
         public Guid Id { get; set; }
-        public Guid SessionId { get; set; } // Зовнішній ключ для сесії
-        public Guid ReceiptId { get; set; } // Зовнішній ключ для сесії
-        public Guid SessionSeatId { get; set; } // Зовнішній ключ для сесії
+        public Guid SessionId { get; set; }
+        public Guid ReceiptId { get; set; }
+        public Guid SessionSeatId { get; set; }
 
         public ETicketStatus Status { get; set; } // Статус чеку
         public int Row { get; set; }

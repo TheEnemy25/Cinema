@@ -21,7 +21,6 @@ namespace Cinema.Data.Context
         public DbSet<MovieGenre> MovieGenres { get; set; }
         public DbSet<MovieProducer> MovieProducers { get; set; }
         public DbSet<MovieProductionCountry> MovieProductionCountris { get; set; }
-        public DbSet<MoviePromoCode> MoviePromoCodes { get; set; }
         public DbSet<MovieScreenwriter> MovieScreenwriters { get; set; }
         public DbSet<MovieStudio> MovieStudios { get; set; }
         public DbSet<Producer> Producers { get; set; }
@@ -35,6 +34,7 @@ namespace Cinema.Data.Context
         public DbSet<Screenwriter> Screenwriters { get; set; }
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Session> Sessions { get; set; }
+        public DbSet<SessionPromoCode> SessionPromoCode { get; set; }
         public DbSet<SessionSeat> SessionSeats { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
@@ -63,7 +63,6 @@ namespace Cinema.Data.Context
             modelBuilder.ApplyConfiguration(new MovieGenreConfiguration());
             modelBuilder.ApplyConfiguration(new MovieProducerConfiguration());
             modelBuilder.ApplyConfiguration(new MovieProductionCountryConfiguration());
-            modelBuilder.ApplyConfiguration(new MoviePromoCodeConfiguration());
             modelBuilder.ApplyConfiguration(new MovieScreenwriterConfiguration());
             modelBuilder.ApplyConfiguration(new MovieStudioConfiguration());
             modelBuilder.ApplyConfiguration(new ProducerConfiguration());
@@ -77,6 +76,7 @@ namespace Cinema.Data.Context
             modelBuilder.ApplyConfiguration(new ScreenwriterConfiguration());
             modelBuilder.ApplyConfiguration(new SeatConfiguration());
             modelBuilder.ApplyConfiguration(new SessionConfiguration());
+            modelBuilder.ApplyConfiguration(new SessionPromoCodeConfiguration());
             modelBuilder.ApplyConfiguration(new SessionSeatConfiguration());
             modelBuilder.ApplyConfiguration(new ShoppingCartConfiguration());
             modelBuilder.ApplyConfiguration(new ShoppingCartItemConfiguration());

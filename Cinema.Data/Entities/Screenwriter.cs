@@ -13,6 +13,6 @@ namespace Cinema.Data.Entities
         public DateTime DateOfBirth { get; set; }
 
         //Relationships
-        public ICollection<MovieScreenwriter> MovieScreenwriters { get; set; } // Зв'язок багато до багатьох з фільмами
+        public ICollection<MovieScreenwriter> MovieScreenwriters { get; set; }
     }
 }

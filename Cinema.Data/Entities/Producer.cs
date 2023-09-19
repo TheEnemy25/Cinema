@@ -14,3 +14,4 @@ namespace Cinema.Data.Entities
         public ICollection<MovieProducer> MovieProducers { get; set; } // Зв'язок багато до багатьох з фільмами
     }
 }
+

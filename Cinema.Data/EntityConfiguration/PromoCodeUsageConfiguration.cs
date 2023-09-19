@@ -12,9 +12,9 @@ namespace Cinema.Data.EntityConfiguration
 
             builder.HasKey(pcu => pcu.Id);
 
-            builder.HasOne(pcu => pcu.MoviePromoCode)
-                .WithMany(mpc => mpc.PromoCodeUsages)
-                .HasForeignKey(pcu => pcu.MoviePromoCodeId)
+            builder.HasOne(pcu => pcu.SessionPromoCode)
+                .WithMany(spc => spc.PromoCodeUsages)
+                .HasForeignKey(pcu => pcu.SessionPromoCodeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pcu => pcu.ProductPromoCode)

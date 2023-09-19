@@ -24,4 +24,3 @@ namespace Cinema.Data.Entities
         public ICollection<Session> Sessions { get; set; }
     }
 }
-// public string HallType { get; set; } // Тип залу (Default, 3D, IMAX, VIP)

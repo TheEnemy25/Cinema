@@ -9,6 +9,6 @@ namespace Cinema.Data.Entities
         public string Description { get; set; }
         public string Image { get; set; }
 
-        public ICollection<MovieStudio> MovieStudios { get; set; } // Зв'язок багато до багатьох з фільмами
+        public ICollection<MovieStudio> MovieStudios { get; set; }
     }
 }

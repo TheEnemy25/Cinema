@@ -32,6 +32,10 @@ namespace Cinema.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
@@ -118,6 +122,10 @@ namespace Cinema.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Biography")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -282,9 +290,6 @@ namespace Cinema.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("DiscountId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
 
@@ -384,32 +389,6 @@ namespace Cinema.Data.Migrations
                     b.HasIndex("ProductionCountryId");
 
                     b.ToTable("MovieProductionCountry", (string)null);
-                });
-
-            modelBuilder.Entity("Cinema.Data.Entities.MoviePromoCode", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("DiscountPercentage")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("MaxUsageCount")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("MovieId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("PromoCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("MoviePromoCode", (string)null);
                 });
 
             modelBuilder.Entity("Cinema.Data.Entities.MovieScreenwriter", b =>
@@ -546,10 +525,10 @@ namespace Cinema.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("MoviePromoCodeId")
+                    b.Property<Guid>("ProductPromoCodeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ProductPromoCodeId")
+                    b.Property<Guid>("SessionPromoCodeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UsageDate")
@@ -557,9 +536,9 @@ namespace Cinema.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MoviePromoCodeId");
-
                     b.HasIndex("ProductPromoCodeId");
+
+                    b.HasIndex("SessionPromoCodeId");
 
                     b.ToTable("PromoCodeUsage", (string)null);
                 });
@@ -715,6 +694,32 @@ namespace Cinema.Data.Migrations
                     b.HasIndex("MovieId");
 
                     b.ToTable("Session", (string)null);
+                });
+
+            modelBuilder.Entity("Cinema.Data.Entities.SessionPromoCode", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("DiscountPercentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("MaxUsageCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PromoCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("SessionPromoCode", (string)null);
                 });
 
             modelBuilder.Entity("Cinema.Data.Entities.SessionSeat", b =>
@@ -990,17 +995,6 @@ namespace Cinema.Data.Migrations
                     b.Navigation("ProductionCountry");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MoviePromoCode", b =>
-                {
-                    b.HasOne("Cinema.Data.Entities.Movie", "Movie")
-                        .WithMany("MoviePromoCodes")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
-                });
-
             modelBuilder.Entity("Cinema.Data.Entities.MovieScreenwriter", b =>
                 {
                     b.HasOne("Cinema.Data.Entities.Movie", "Movie")
@@ -1063,21 +1057,21 @@ namespace Cinema.Data.Migrations
 
             modelBuilder.Entity("Cinema.Data.Entities.PromoCodeUsage", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.MoviePromoCode", "MoviePromoCode")
-                        .WithMany("PromoCodeUsages")
-                        .HasForeignKey("MoviePromoCodeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Cinema.Data.Entities.ProductPromoCode", "ProductPromoCode")
                         .WithMany("PromoCodeUsages")
                         .HasForeignKey("ProductPromoCodeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("MoviePromoCode");
+                    b.HasOne("Cinema.Data.Entities.SessionPromoCode", "SessionPromoCode")
+                        .WithMany("PromoCodeUsages")
+                        .HasForeignKey("SessionPromoCodeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("ProductPromoCode");
+
+                    b.Navigation("SessionPromoCode");
                 });
 
             modelBuilder.Entity("Cinema.Data.Entities.Receipt", b =>
@@ -1157,6 +1151,17 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Hall");
 
                     b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("Cinema.Data.Entities.SessionPromoCode", b =>
+                {
+                    b.HasOne("Cinema.Data.Entities.Session", "Session")
+                        .WithMany("SessionPromoCodes")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Session");
                 });
 
             modelBuilder.Entity("Cinema.Data.Entities.SessionSeat", b =>
@@ -1296,8 +1301,6 @@ namespace Cinema.Data.Migrations
 
                     b.Navigation("MovieProductionCountries");
 
-                    b.Navigation("MoviePromoCodes");
-
                     b.Navigation("MovieScreenwriters");
 
                     b.Navigation("MovieStudios");
@@ -1307,11 +1310,6 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Reviews");
 
                     b.Navigation("Sessions");
-                });
-
-            modelBuilder.Entity("Cinema.Data.Entities.MoviePromoCode", b =>
-                {
-                    b.Navigation("PromoCodeUsages");
                 });
 
             modelBuilder.Entity("Cinema.Data.Entities.Producer", b =>
@@ -1355,9 +1353,16 @@ namespace Cinema.Data.Migrations
 
             modelBuilder.Entity("Cinema.Data.Entities.Session", b =>
                 {
+                    b.Navigation("SessionPromoCodes");
+
                     b.Navigation("SessionSeats");
 
                     b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("Cinema.Data.Entities.SessionPromoCode", b =>
+                {
+                    b.Navigation("PromoCodeUsages");
                 });
 
             modelBuilder.Entity("Cinema.Data.Entities.ShoppingCart", b =>

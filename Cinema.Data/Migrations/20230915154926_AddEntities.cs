@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Cinema.Data.Migrations
 {
-    public partial class init : Migration
+    public partial class AddEntities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +17,7 @@ namespace Cinema.Data.Migrations
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -44,6 +46,7 @@ namespace Cinema.Data.Migrations
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -86,7 +89,6 @@ namespace Cinema.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DiscountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AgeRestriction = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -275,45 +277,6 @@ namespace Cinema.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MoviePromoCode",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MovieId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PromoCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DiscountPercentage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    MaxUsageCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MoviePromoCode", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MoviePromoCode_Movie_MovieId",
-                        column: x => x.MovieId,
-                        principalTable: "Movie",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Rental",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MovieId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CinemaTheaterId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RentalDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Rental", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Rental_Movie_MovieId",
-                        column: x => x.MovieId,
-                        principalTable: "Movie",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Review",
                 columns: table => new
                 {
@@ -441,6 +404,25 @@ namespace Cinema.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CinemaTheater",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactInfo = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CinemaTheater", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CinemaTheater_City_CityId",
+                        column: x => x.CityId,
+                        principalTable: "City",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductPromoCode",
                 columns: table => new
                 {
@@ -457,55 +439,6 @@ namespace Cinema.Data.Migrations
                         name: "FK_ProductPromoCode_Product_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Product",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CinemaTheater",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RentalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContactInfo = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CinemaTheater", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CinemaTheater_City_CityId",
-                        column: x => x.CityId,
-                        principalTable: "City",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_CinemaTheater_Rental_RentalId",
-                        column: x => x.RentalId,
-                        principalTable: "Rental",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PromoCodeUsage",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MoviePromoCodeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductPromoCodeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UsageDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PromoCodeUsage", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PromoCodeUsage_MoviePromoCode_MoviePromoCodeId",
-                        column: x => x.MoviePromoCodeId,
-                        principalTable: "MoviePromoCode",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_PromoCodeUsage_ProductPromoCode_ProductPromoCodeId",
-                        column: x => x.ProductPromoCodeId,
-                        principalTable: "ProductPromoCode",
                         principalColumn: "Id");
                 });
 
@@ -559,14 +492,37 @@ namespace Cinema.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rental",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MovieId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CinemaTheaterId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RentalDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rental", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rental_CinemaTheater_CinemaTheaterId",
+                        column: x => x.CinemaTheaterId,
+                        principalTable: "CinemaTheater",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Rental_Movie_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movie",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Seat",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     HallId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Row = table.Column<int>(type: "int", nullable: false),
-                    Number = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    Number = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -610,11 +566,32 @@ namespace Cinema.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SessionPromoCode",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PromoCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DiscountPercentage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    MaxUsageCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SessionPromoCode", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SessionPromoCode_Session_SessionId",
+                        column: x => x.SessionId,
+                        principalTable: "Session",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SessionSeats",
                 columns: table => new
                 {
                     SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SeatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    SeatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -632,15 +609,42 @@ namespace Cinema.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PromoCodeUsage",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionPromoCodeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductPromoCodeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UsageDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PromoCodeUsage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PromoCodeUsage_ProductPromoCode_ProductPromoCodeId",
+                        column: x => x.ProductPromoCodeId,
+                        principalTable: "ProductPromoCode",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PromoCodeUsage_SessionPromoCode_SessionPromoCodeId",
+                        column: x => x.SessionPromoCodeId,
+                        principalTable: "SessionPromoCode",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ticket",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReceiptId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionSeatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     Row = table.Column<int>(type: "int", nullable: false),
-                    SeatNumber = table.Column<int>(type: "int", nullable: false)
+                    SeatNumber = table.Column<int>(type: "int", nullable: false),
+                    SessionSeatSessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionSeatSeatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -655,6 +659,12 @@ namespace Cinema.Data.Migrations
                         column: x => x.SessionId,
                         principalTable: "Session",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Ticket_SessionSeats_SessionSeatSessionId_SessionSeatSeatId",
+                        columns: x => new { x.SessionSeatSessionId, x.SessionSeatSeatId },
+                        principalTable: "SessionSeats",
+                        principalColumns: new[] { "SessionId", "SeatId" },
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -665,9 +675,9 @@ namespace Cinema.Data.Migrations
                     ShoppingCartId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TicketId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SeatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SeatId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -698,12 +708,6 @@ namespace Cinema.Data.Migrations
                 name: "IX_CinemaTheater_CityId",
                 table: "CinemaTheater",
                 column: "CityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CinemaTheater_RentalId",
-                table: "CinemaTheater",
-                column: "RentalId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_City_CountryId",
@@ -746,11 +750,6 @@ namespace Cinema.Data.Migrations
                 column: "ProductionCountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MoviePromoCode_MovieId",
-                table: "MoviePromoCode",
-                column: "MovieId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_MovieScreenwriter_ScreenwriterId",
                 table: "MovieScreenwriter",
                 column: "ScreenwriterId");
@@ -771,20 +770,25 @@ namespace Cinema.Data.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PromoCodeUsage_MoviePromoCodeId",
-                table: "PromoCodeUsage",
-                column: "MoviePromoCodeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PromoCodeUsage_ProductPromoCodeId",
                 table: "PromoCodeUsage",
                 column: "ProductPromoCodeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PromoCodeUsage_SessionPromoCodeId",
+                table: "PromoCodeUsage",
+                column: "SessionPromoCodeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Receipt_ShoppingCartId",
                 table: "Receipt",
                 column: "ShoppingCartId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rental_CinemaTheaterId",
+                table: "Rental",
+                column: "CinemaTheaterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rental_MovieId",
@@ -815,6 +819,11 @@ namespace Cinema.Data.Migrations
                 name: "IX_Session_MovieId",
                 table: "Session",
                 column: "MovieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SessionPromoCode_SessionId",
+                table: "SessionPromoCode",
+                column: "SessionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SessionSeats_SeatId",
@@ -850,6 +859,11 @@ namespace Cinema.Data.Migrations
                 name: "IX_Ticket_SessionId",
                 table: "Ticket",
                 column: "SessionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ticket_SessionSeatSessionId_SessionSeatSeatId",
+                table: "Ticket",
+                columns: new[] { "SessionSeatSessionId", "SessionSeatSeatId" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -882,10 +896,10 @@ namespace Cinema.Data.Migrations
                 name: "PromoCodeUsage");
 
             migrationBuilder.DropTable(
-                name: "Review");
+                name: "Rental");
 
             migrationBuilder.DropTable(
-                name: "SessionSeats");
+                name: "Review");
 
             migrationBuilder.DropTable(
                 name: "ShoppingCartItem");
@@ -912,13 +926,10 @@ namespace Cinema.Data.Migrations
                 name: "Studio");
 
             migrationBuilder.DropTable(
-                name: "MoviePromoCode");
-
-            migrationBuilder.DropTable(
                 name: "ProductPromoCode");
 
             migrationBuilder.DropTable(
-                name: "Seat");
+                name: "SessionPromoCode");
 
             migrationBuilder.DropTable(
                 name: "Ticket");
@@ -930,10 +941,16 @@ namespace Cinema.Data.Migrations
                 name: "Receipt");
 
             migrationBuilder.DropTable(
-                name: "Session");
+                name: "SessionSeats");
 
             migrationBuilder.DropTable(
                 name: "ShoppingCart");
+
+            migrationBuilder.DropTable(
+                name: "Seat");
+
+            migrationBuilder.DropTable(
+                name: "Session");
 
             migrationBuilder.DropTable(
                 name: "Discount");
@@ -942,19 +959,16 @@ namespace Cinema.Data.Migrations
                 name: "Hall");
 
             migrationBuilder.DropTable(
+                name: "Movie");
+
+            migrationBuilder.DropTable(
                 name: "CinemaTheater");
 
             migrationBuilder.DropTable(
                 name: "City");
 
             migrationBuilder.DropTable(
-                name: "Rental");
-
-            migrationBuilder.DropTable(
                 name: "Country");
-
-            migrationBuilder.DropTable(
-                name: "Movie");
         }
     }
 }

@@ -8,7 +8,6 @@ namespace Cinema.Data.Entities
         public Guid Id { get; set; }
         public Guid MovieId { get; set; }
 
-        //public string Author { get; set; }
         public string Content { get; set; } // Вміст відгуку
         public int Rating { get; set; } // Рейтинг відгуку
         public DateTime Date { get; set; } // Дата відгуку
@@ -18,4 +17,5 @@ namespace Cinema.Data.Entities
     }
 }
 
+//public string Author { get; set; }
 // public User User { get; set; } // Зв'язок з користувачем, який залишив відгук

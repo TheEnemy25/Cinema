@@ -2,6 +2,7 @@
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
@@ -11,22 +12,20 @@ namespace Cinema.Domain.Services.Implementation
         {
         }
 
-        public Task<IEnumerable<Director>> GetDirectorsByCountryAsync(int countryId)
+        public async Task<IEnumerable<Director>> GetDirectorsByMovieAsync(Guid movieId)
         {
-            // return await _repository.Query().Where(director => director.CountryId == countryId).ToListAsync();
-            throw new NotImplementedException(); 
+            return await _repository
+                .Query()
+                .Where(director => director.MovieDirectors.Any(movieDirector => movieDirector.MovieId == movieId))
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<Director>> GetDirectorsByMovieAsync(int movieId)
+        public async Task<IEnumerable<Director>> SearchDirectorsAsync(string query)
         {
-            // return await _repository.Query().Where(director => director.Movies.Any(movie => movie.Id == movieId)).ToListAsync();
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Director>> SearchDirectorsAsync(string query)
-        {
-            // return await _repository.Query().Where(director => director.Name.Contains(query)).ToListAsync();
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .Where(director => director.FullName.Contains(query))
+                .ToListAsync();
         }
     }
 }

@@ -5,6 +5,6 @@ namespace Cinema.Domain.Services.Interfaces
 {
     public interface ICityService : IBaseService<City>
     {
-        Task<IEnumerable<City>> GetCitiesByCountryAsync(int countryId);
+        Task<IEnumerable<City>> GetCitiesByCountryAsync(Guid countryId);
     }
 }

@@ -7,6 +7,6 @@ namespace Cinema.Domain.Services.Interfaces
     {
         Task<IEnumerable<CinemaTheater>> GetCinemaTheatersByCityAsync(string cityName);
         Task<IEnumerable<CinemaTheater>> GetCinemaTheatersWithUpcomingMoviesAsync();
-        Task<IEnumerable<Session>> GetCinemaTheaterScheduleAsync(int cinemaTheaterId);
+        Task<IEnumerable<Session>> GetCinemaTheaterScheduleAsync(Guid cinemaTheaterId);
     }
 }

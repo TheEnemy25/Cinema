@@ -6,6 +6,7 @@ namespace Cinema.Data.Entities
     public class Producer : IEntity
     {
         public Guid Id { get; set; }
+
         public string FullName { get; set; }
         public string Image { get; set; }
         public string Biography { get; set; }

@@ -3,6 +3,7 @@ using Cinema.Data.Enums;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
@@ -12,14 +13,20 @@ namespace Cinema.Domain.Services.Implementation
         {
         }
 
-        public Task<IEnumerable<Employee>> GetEmployeesByBirthDateRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<Employee>> GetEmployeesByBirthDateRangeAsync(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .Where(employee => employee.DateOfBirth >= startDate && employee.DateOfBirth <= endDate)
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<Employee>> GetEmployeesByRoleAsync(EEmployeeRole role)
+        public async Task<IEnumerable<Employee>> GetEmployeesByRoleAsync(EEmployeeRole role)
         {
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .Where(employee => employee.Role == role)
+                .ToListAsync();
         }
     }
 }

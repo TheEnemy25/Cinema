@@ -2,6 +2,7 @@
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
@@ -11,19 +12,31 @@ namespace Cinema.Domain.Services.Implementation
         {
         }
 
-        public Task<IEnumerable<CinemaTheater>> GetCinemaTheatersByCityAsync(string cityName)
+        public async Task<IEnumerable<CinemaTheater>> GetCinemaTheatersByCityAsync(string cityName)
         {
-            throw new NotImplementedException();
+            return await _repository
+              .Query()
+              .Where(theater => theater.City.Name == cityName)
+              .ToListAsync();
         }
 
-        public Task<IEnumerable<Session>> GetCinemaTheaterScheduleAsync(int cinemaTheaterId)
+        public async Task<IEnumerable<Session>> GetCinemaTheaterScheduleAsync(Guid cinemaTheaterId)
         {
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .Where(theater => theater.Id == cinemaTheaterId)
+                .SelectMany(theater => theater.Halls.SelectMany(hall => hall.Sessions))
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<CinemaTheater>> GetCinemaTheatersWithUpcomingMoviesAsync()
+        public async Task<IEnumerable<CinemaTheater>> GetCinemaTheatersWithUpcomingMoviesAsync()
         {
-            throw new NotImplementedException();
+            var today = DateTime.Today;
+
+            return await _repository
+                .Query()
+                .Where(theater => theater.Rentals.Any(rental => rental.RentalDate >= today))
+                .ToListAsync();
         }
     }
 }

@@ -42,6 +42,8 @@ builder.Services.ConfigureApplicationCookie(config =>
 
 var app = builder.Build();
 
+app.UseIdentityServer();
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 

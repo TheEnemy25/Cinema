@@ -12,15 +12,11 @@ namespace Cinema.Domain.Services.BaseService
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
-        {
-            return await _repository.Query().ToListAsync();
-        }
+        public async Task<IEnumerable<TEntity>> GetAllAsync() =>
+            await _repository.Query().ToListAsync();
 
-        public async Task<TEntity> GetByIdAsync(int id)
-        {
-            return await _repository.GetByIdAsync(id);
-        }
+        public async Task<TEntity> GetByIdAsync(int id) =>
+            await _repository.GetByIdAsync(id);
 
         public async Task CreateAsync(TEntity entity)
         {
@@ -39,7 +35,7 @@ namespace Cinema.Domain.Services.BaseService
             var entityToDelete = await _repository.GetByIdAsync(id);
             if (entityToDelete != null)
             {
-                _repository.Delete(entityToDelete);
+                await _repository.DeleteAsync(entityToDelete);
                 await _repository.SaveChangesAsync();
             }
         }

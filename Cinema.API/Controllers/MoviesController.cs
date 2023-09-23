@@ -1,4 +1,5 @@
 ﻿using Cinema.Data.Context;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.API.Controllers
@@ -19,6 +20,8 @@ namespace Cinema.API.Controllers
         //    var user = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "sub");
         //    return Ok(user);
         //}
-
+        [Authorize]
+        [HttpGet("~/api/ping")]
+        public IActionResult Ping() => Ok("Pong");
     }
 }

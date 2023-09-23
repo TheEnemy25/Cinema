@@ -5,8 +5,8 @@ namespace Cinema.Domain.Services.Interfaces
 {
     public interface IDiscountService : IBaseService<Discount>
     {
-        Task<IEnumerable<Discount>> GetDiscountsByMovieAsync(int movieId);
-        Task<IEnumerable<Discount>> GetDiscountsByCinemaTheaterAsync(int cinemaTheaterId);
+        Task<IEnumerable<Discount>> GetDiscountsByMovieAsync(Guid movieId);
+        Task<IEnumerable<Discount>> GetDiscountsBySessionAsync(Guid sessionId);
         Task<IEnumerable<Discount>> GetActiveDiscountsAsync();
     }
 }

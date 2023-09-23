@@ -2,6 +2,7 @@
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
@@ -11,19 +12,20 @@ namespace Cinema.Domain.Services.Implementation
         {
         }
 
-        public Task<IEnumerable<Actor>> GetActorsByCountryAsync(int countryId)
+        public async Task<IEnumerable<Actor>> GetActorsByMovieAsync(Guid movieId)
         {
-            throw new NotImplementedException();
+            return await _repository
+               .Query()
+               .Where(actor => actor.MovieActors.Any(movieActor => movieActor.MovieId == movieId))
+               .ToListAsync();
         }
 
-        public Task<IEnumerable<Actor>> GetActorsByMovieAsync(int movieId)
+        public async Task<IEnumerable<Actor>> SearchActorsAsync(string query)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Actor>> SearchActorsAsync(string query)
-        {
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .Where(actor => actor.FullName.Contains(query))
+                .ToListAsync();
         }
     }
 }

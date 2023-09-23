@@ -2,6 +2,7 @@
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
@@ -11,19 +12,30 @@ namespace Cinema.Domain.Services.Implementation
         {
         }
 
-        public Task<IEnumerable<Discount>> GetActiveDiscountsAsync()
+        public async Task<IEnumerable<Discount>> GetActiveDiscountsAsync()
         {
-            throw new NotImplementedException();
+            var currentDate = DateTime.Now;
+
+            return await _repository
+                .Query()
+                .Where(discount => discount.StartDate <= currentDate && discount.EndDate >= currentDate)
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<Discount>> GetDiscountsByCinemaTheaterAsync(int cinemaTheaterId)
+        public async Task<IEnumerable<Discount>> GetDiscountsBySessionAsync(Guid sessionId)
         {
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .Where(discount => discount.Sessions.Any(session => session.Id == sessionId))
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<Discount>> GetDiscountsByMovieAsync(int movieId)
+        public async Task<IEnumerable<Discount>> GetDiscountsByMovieAsync(Guid movieId)
         {
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .Where(discount => discount.Sessions.Any(session => session.MovieId == movieId))
+                .ToListAsync();
         }
     }
 }

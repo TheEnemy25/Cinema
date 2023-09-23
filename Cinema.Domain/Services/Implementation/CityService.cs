@@ -2,11 +2,7 @@
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
@@ -16,9 +12,12 @@ namespace Cinema.Domain.Services.Implementation
         {
         }
 
-        public Task<IEnumerable<City>> GetCitiesByCountryAsync(int countryId)
+        public async Task<IEnumerable<City>> GetCitiesByCountryAsync(Guid countryId)
         {
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .Where(city => city.CountryId == countryId)
+                .ToListAsync();
         }
     }
 }

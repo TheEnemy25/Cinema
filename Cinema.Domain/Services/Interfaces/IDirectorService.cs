@@ -5,8 +5,7 @@ namespace Cinema.Domain.Services.Interfaces
 {
     public interface IDirectorService : IBaseService<Director>
     {
-        Task<IEnumerable<Director>> GetDirectorsByMovieAsync(int movieId);
+        Task<IEnumerable<Director>> GetDirectorsByMovieAsync(Guid movieId);
         Task<IEnumerable<Director>> SearchDirectorsAsync(string query);
-        Task<IEnumerable<Director>> GetDirectorsByCountryAsync(int countryId);
     }
 }

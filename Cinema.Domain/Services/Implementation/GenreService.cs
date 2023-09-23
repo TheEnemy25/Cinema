@@ -2,6 +2,7 @@
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
@@ -11,19 +12,30 @@ namespace Cinema.Domain.Services.Implementation
         {
         }
 
-        public Task<IEnumerable<Genre>> GetAllGenresAsync()
+        public async Task<Genre> GetGenreByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            var genre = await _repository
+                 .Query()
+                 .Where(genre => genre.Name == name)
+                 .FirstOrDefaultAsync();
+
+            return genre ?? new Genre();
         }
 
-        public Task<Genre> GetGenreByNameAsync(string name)
+        public async Task<IEnumerable<Movie>> GetGenresByMovieAsync(Guid genreId)
         {
-            throw new NotImplementedException();
-        }
+            var genreWithMovies = await _repository
+                .Query(g => g.MovieGenres)
+                .Where(g => g.Id == genreId)
+                .FirstOrDefaultAsync();
 
-        public Task<IEnumerable<Movie>> GetMoviesByGenreAsync(Guid genreId)
-        {
-            throw new NotImplementedException();
+            if (genreWithMovies != null)
+            {
+                var movies = genreWithMovies.MovieGenres.Select(mg => mg.Movie).ToList();
+                return movies;
+            }
+
+            return Enumerable.Empty<Movie>();
         }
     }
 }

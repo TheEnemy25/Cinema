@@ -66,7 +66,8 @@ namespace Exam.Data.Infrastructure
         /// </summary>
         /// <param name="entities">Entities to delete.</param>
         /// <returns>Task.</returns>
-        public async Task DeleteRangeAsync(IEnumerable<TEntity> entities) => await Task.Run(() => entities.ToList().ForEach(item => context.Entry(item).State = EntityState.Deleted));
+        public async Task DeleteRangeAsync(IEnumerable<TEntity> entities) => 
+            await Task.Run(() => entities.ToList().ForEach(item => context.Entry(item).State = EntityState.Deleted));
 
         /// <summary>
         /// Saves changes in the database asynchronously.
@@ -93,12 +94,14 @@ namespace Exam.Data.Infrastructure
         /// Removes entity from DBContext
         /// </summary>
         /// <param name="entity">entity</param>
-        public void Delete(TEntity entity) => context.Entry(entity).State = EntityState.Deleted;
+        public async Task DeleteAsync(TEntity entity) =>
+            await Task.Run(() => context.Entry(entity).State = EntityState.Deleted);
 
         /// <summary>
         /// Detaches entity
         /// </summary>
         /// <param name="entity">entity</param>
-        public void Detach(TEntity entity) => context.Entry(entity).State = EntityState.Detached;
+        public async Task DetachAsync(TEntity entity) =>
+            await Task.Run(() => context.Entry(entity).State = EntityState.Detached);
     }
 }

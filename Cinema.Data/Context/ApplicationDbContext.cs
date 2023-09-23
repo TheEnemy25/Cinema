@@ -1,10 +1,12 @@
-﻿using Cinema.Data.Entities;
+﻿using Cinema.Application.Entities;
+using Cinema.Data.Entities;
 using Cinema.Data.EntityConfiguration;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Data.Context
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         public DbSet<Actor> Actors { get; set; }
         public DbSet<CinemaTheater> CinemaTheaters { get; set; }

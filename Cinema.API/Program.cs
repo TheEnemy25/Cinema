@@ -1,7 +1,6 @@
 using Cinema.API;
 using Cinema.Data.Context;
-using Cinema.Data.Entities;
-using Exam.Data.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +26,18 @@ builder.Services.AddCors(options =>
 {
     // Add your CORS policy configuration here
 });
+
+builder.Services.AddAuthentication(config =>
+            {
+                config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer("Bearer", options =>
+                 {
+                     options.Authority = "https://localhost:5443`/";
+                     options.Audience = "CinemaWebAPI";
+                     options.RequireHttpsMetadata = false;
+                 });
 
 var app = builder.Build();
 

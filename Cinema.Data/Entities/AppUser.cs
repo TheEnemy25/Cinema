@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Cinema.Application.Entities
+namespace Cinema.Data.Entities
 {
     public class AppUser : IdentityUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public ICollection<Review> Reviews { get; set; }
+        public ICollection<ShoppingCart> ShoppingCarts { get; set; }
+        public ICollection<UserProductPromoCode> UserProductPromoCodes { get; set; }
+        public ICollection<UserSessionPromoCode> UserSessionPromoCodes { get; set; }
     }
 }
-//public ICollection<Review> Reviews { get; set; } // Зв'язок багато до багатьох з відгуками, що залишив користувач

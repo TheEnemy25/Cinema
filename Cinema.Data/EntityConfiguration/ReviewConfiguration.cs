@@ -16,6 +16,11 @@ namespace Cinema.Data.EntityConfiguration
                 .WithMany(m => m.Reviews)
                 .HasForeignKey(r => r.MovieId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(r => r.User)
+                .WithMany(m => m.Reviews)
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -3,6 +3,7 @@ using Cinema.Data.Enums;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
@@ -12,29 +13,44 @@ namespace Cinema.Domain.Services.Implementation
         {
         }
 
-        public Task<IEnumerable<Hall>> GetHallsByCinemaTheaterIdAsync(Guid cinemaTheaterId)
+        public async Task<IEnumerable<Hall>> GetHallsByCinemaTheaterIdAsync(Guid cinemaTheaterId)
         {
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .Where(hall => hall.CinemaTheaterId == cinemaTheaterId)
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<Hall>> GetHallsByStatusAsync(EHallStatus status)
+        public async Task<IEnumerable<Hall>> GetHallsByStatusAsync(EHallStatus status)
         {
-            throw new NotImplementedException();
+            return await _repository
+                 .Query()
+                 .Where(hall => hall.Status == status)
+                 .ToListAsync();
         }
 
-        public Task<IEnumerable<Hall>> GetHallsByTypeAsync(EHallType hallType)
+        public async Task<IEnumerable<Hall>> GetHallsByTypeAsync(EHallType hallType)
         {
-            throw new NotImplementedException();
+            return await _repository
+               .Query()
+               .Where(hall => hall.HallType == hallType)
+               .ToListAsync();
         }
 
-        public Task<IEnumerable<Hall>> GetHallsWithMoreNormalSeatsAsync(int seatCount)
+        public async Task<IEnumerable<Hall>> GetHallsWithMoreNormalSeatsAsync(int seatCount)
         {
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .Where(hall => hall.NormalSeatsCount > seatCount)
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<Hall>> GetHallsWithMoreVIPSeatsAsync(int seatCount)
+        public async Task<IEnumerable<Hall>> GetHallsWithMoreVIPSeatsAsync(int seatCount)
         {
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .Where(hall => hall.VIPSeatsCount > seatCount)
+                .ToListAsync();
         }
     }
 }

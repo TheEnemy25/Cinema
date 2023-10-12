@@ -17,6 +17,11 @@ namespace Cinema.Data.EntityConfiguration
                 .HasForeignKey<Receipt>(r => r.ShoppingCartId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.HasOne(sc => sc.User)
+                .WithMany(a => a.ShoppingCarts)
+                .HasForeignKey(sc => sc.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasMany(sc => sc.ShoppingCartItems)
                 .WithOne(sci => sci.ShoppingCart)
                 .HasForeignKey(sci => sci.ShoppingCartId)

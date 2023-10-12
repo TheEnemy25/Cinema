@@ -5,13 +5,52 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cinema.Data.Migrations
 {
-    public partial class MoveUserToDataLayer : Migration
+    public partial class adduser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Country",
-                table: "Actor");
+            migrationBuilder.AddColumn<string>(
+                name: "UserId",
+                table: "ShoppingCart",
+                type: "nvarchar(450)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AlterColumn<int>(
+                name: "Status",
+                table: "SessionSeats",
+                type: "int",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
+
+            migrationBuilder.AddColumn<string>(
+                name: "UserId",
+                table: "SessionPromoCode",
+                type: "nvarchar(450)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "UserId",
+                table: "Review",
+                type: "nvarchar(450)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "UserId",
+                table: "PromoCodeUsage",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "UserId",
+                table: "ProductPromoCode",
+                type: "nvarchar(450)",
+                nullable: false,
+                defaultValue: "");
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
@@ -161,6 +200,26 @@ namespace Cinema.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCart_UserId",
+                table: "ShoppingCart",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SessionPromoCode_UserId",
+                table: "SessionPromoCode",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Review_UserId",
+                table: "Review",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductPromoCode_UserId",
+                table: "ProductPromoCode",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -198,10 +257,54 @@ namespace Cinema.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_ProductPromoCode_AspNetUsers_UserId",
+                table: "ProductPromoCode",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Review_AspNetUsers_UserId",
+                table: "Review",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_SessionPromoCode_AspNetUsers_UserId",
+                table: "SessionPromoCode",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_ShoppingCart_AspNetUsers_UserId",
+                table: "ShoppingCart",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_ProductPromoCode_AspNetUsers_UserId",
+                table: "ProductPromoCode");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Review_AspNetUsers_UserId",
+                table: "Review");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_SessionPromoCode_AspNetUsers_UserId",
+                table: "SessionPromoCode");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_ShoppingCart_AspNetUsers_UserId",
+                table: "ShoppingCart");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -223,12 +326,49 @@ namespace Cinema.Data.Migrations
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
-            migrationBuilder.AddColumn<string>(
-                name: "Country",
-                table: "Actor",
+            migrationBuilder.DropIndex(
+                name: "IX_ShoppingCart_UserId",
+                table: "ShoppingCart");
+
+            migrationBuilder.DropIndex(
+                name: "IX_SessionPromoCode_UserId",
+                table: "SessionPromoCode");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Review_UserId",
+                table: "Review");
+
+            migrationBuilder.DropIndex(
+                name: "IX_ProductPromoCode_UserId",
+                table: "ProductPromoCode");
+
+            migrationBuilder.DropColumn(
+                name: "UserId",
+                table: "ShoppingCart");
+
+            migrationBuilder.DropColumn(
+                name: "UserId",
+                table: "SessionPromoCode");
+
+            migrationBuilder.DropColumn(
+                name: "UserId",
+                table: "Review");
+
+            migrationBuilder.DropColumn(
+                name: "UserId",
+                table: "PromoCodeUsage");
+
+            migrationBuilder.DropColumn(
+                name: "UserId",
+                table: "ProductPromoCode");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Status",
+                table: "SessionSeats",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "");
+                oldClrType: typeof(int),
+                oldType: "int");
         }
     }
 }

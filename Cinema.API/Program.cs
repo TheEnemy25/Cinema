@@ -28,16 +28,16 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddAuthentication(config =>
-            {
-                config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
+{
+    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
                 .AddJwtBearer("Bearer", options =>
-                 {
-                     options.Authority = "https://localhost:5443`/";
-                     options.Audience = "CinemaWebAPI";
-                     options.RequireHttpsMetadata = false;
-                 });
+                {
+                    options.Authority = "https://localhost:5443`/";
+                    options.Audience = "CinemaWebAPI";
+                    options.RequireHttpsMetadata = false;
+                });
 
 var app = builder.Build();
 

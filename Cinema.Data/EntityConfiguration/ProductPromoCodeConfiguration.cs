@@ -17,9 +17,9 @@ namespace Cinema.Data.EntityConfiguration
                 .HasForeignKey(ppc => ppc.ProductId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(ppc => ppc.PromoCodeUsages)
-                .WithOne(pcu => pcu.ProductPromoCode)
-                .HasForeignKey(pcu => pcu.ProductPromoCodeId)
+            builder.HasMany(ppc => ppc.UserProductPromoCodes)
+                .WithOne(uppc => uppc.ProductPromoCode)
+                .HasForeignKey(uppc => uppc.ProductPromoCodeId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

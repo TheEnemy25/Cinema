@@ -12,6 +12,6 @@ namespace Cinema.Data.Entities
         public int MaxUsageCount { get; set; } // Максимальна кількість використань
 
         public Session Session { get; set; }
-        public ICollection<PromoCodeUsage> PromoCodeUsages { get; set; }
+        public ICollection<UserSessionPromoCode> UserSessionPromoCodes { get; set; }
     }
 }

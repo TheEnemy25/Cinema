@@ -1,34 +1,82 @@
 ﻿using Cinema.Data.Entities;
+using Cinema.Data.Enums;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
     internal class SessionService : BaseService<Session>, ISessionService
     {
-        public SessionService(IBaseRepository<Session> repository) : base(repository)
+        private readonly ISessionPromoCodeService _promoCodeService;
+        public SessionService(IBaseRepository<Session> repository, ISessionPromoCodeService promoCodeService) : base(repository)
         {
+            _promoCodeService = promoCodeService;
         }
 
-        public Task<decimal> CalculateTicketPriceAsync(Guid sessionId, string promoCode = null)
+        public async Task<decimal> CalculateTicketPriceAsync(Guid sessionId, string promoCode = null)
         {
-            throw new NotImplementedException();
+            var session = await _repository
+               .Query()
+               .Include(s => s.SessionSeats)
+               .Include(s => s.Hall)
+               .FirstOrDefaultAsync(s => s.Id == sessionId);
+
+            if (session == null)
+            {
+                throw new InvalidOperationException("Session not found.");
+            }
+
+            int availableSeatsCount = session.SessionSeats.Count(ss => ss.Status == ESeatStatus.Available);
+
+            decimal ticketPrice = session.Hall.BasePrice;
+
+            if (!string.IsNullOrEmpty(promoCode))
+            {
+                decimal promoDiscount = await _promoCodeService.CalculateSessionDiscountAsync(promoCode, ticketPrice);
+                ticketPrice -= promoDiscount;
+            }
+
+            return ticketPrice;
         }
 
-        public Task<int> GetAvailableSeatsCountAsync(Guid sessionId)
+
+        public async Task<int> GetAvailableSeatsCountAsync(Guid sessionId)
         {
-            throw new NotImplementedException();
+            var session = await _repository
+                .Query()
+                .Include(s => s.SessionSeats)
+                .FirstOrDefaultAsync(s => s.Id == sessionId);
+
+            if (session == null)
+            {
+                throw new InvalidOperationException("Session not found.");
+            }
+
+            int availableSeatsCount = session.SessionSeats.Count(ss => ss.Status == ESeatStatus.Available);
+
+            return availableSeatsCount;
         }
 
-        public Task<IEnumerable<Session>> GetSessionsByHallIdAsync(Guid hallId)
+        public async Task<IEnumerable<Session>> GetSessionsByHallIdAsync(Guid hallId)
         {
-            throw new NotImplementedException();
+            var sessions = await _repository
+                .Query()
+                .Where(s => s.Hall.Id == hallId)
+                .ToListAsync();
+
+            return sessions;
         }
 
-        public Task<IEnumerable<Session>> GetSessionsByMovieIdAsync(Guid movieId)
+        public async Task<IEnumerable<Session>> GetSessionsByMovieIdAsync(Guid movieId)
         {
-            throw new NotImplementedException();
+            var sessions = await _repository
+                .Query()
+                .Where(s => s.Movie.Id == movieId)
+                .ToListAsync();
+
+            return sessions;
         }
     }
 }

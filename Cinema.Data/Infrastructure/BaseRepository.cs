@@ -66,7 +66,7 @@ namespace Exam.Data.Infrastructure
         /// </summary>
         /// <param name="entities">Entities to delete.</param>
         /// <returns>Task.</returns>
-        public async Task DeleteRangeAsync(IEnumerable<TEntity> entities) => 
+        public async Task DeleteRangeAsync(IEnumerable<TEntity> entities) =>
             await Task.Run(() => entities.ToList().ForEach(item => context.Entry(item).State = EntityState.Deleted));
 
         /// <summary>

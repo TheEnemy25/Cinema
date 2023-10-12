@@ -12,7 +12,7 @@ namespace Cinema.Data.Entities
         public int MaxUsageCount { get; set; } // Максимальна кількість використань
 
         //Relationships
-        public Product Product { get; set; }
-        public ICollection<PromoCodeUsage> PromoCodeUsages { get; set; }
+        public Product Product{ get; set; }
+        public ICollection<UserProductPromoCode> UserProductPromoCodes { get; set; }
     } 
 }

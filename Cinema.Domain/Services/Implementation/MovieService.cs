@@ -2,6 +2,7 @@
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
@@ -11,44 +12,63 @@ namespace Cinema.Domain.Services.Implementation
         {
         }
 
-        public Task<IEnumerable<Movie>> GetMoviesByActorAsync(int actorId)
+        public async Task<IEnumerable<Movie>> GetMoviesByActorAsync(Guid actorId)
         {
-            throw new NotImplementedException();
+            return await _repository
+               .Query()
+               .Where(movie => movie.MovieActors.Any(ma => ma.ActorId == actorId))
+               .ToListAsync();
         }
 
-        public Task<IEnumerable<Movie>> GetMoviesByCountryAsync(int countryId)
+        public async Task<IEnumerable<Movie>> GetMoviesByCountryAsync(Guid countryId)
         {
-            throw new NotImplementedException();
+            return await _repository
+              .Query()
+              .Where(movie => movie.MovieProductionCountries.Any(pc => pc.ProductionCountry.Id == countryId))
+              .ToListAsync();
         }
 
-        public Task<IEnumerable<Movie>> GetMoviesByDirectorAsync(int directorId)
+        public async Task<IEnumerable<Movie>> GetMoviesByDirectorAsync(Guid directorId)
         {
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .Where(movie => movie.MovieDirectors.Any(md => md.Director.Id == directorId))
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<Movie>> GetMoviesByGenreAsync(int genreId)
+        public async Task<IEnumerable<Movie>> GetMoviesByGenreAsync(Guid genreId)
         {
-            throw new NotImplementedException();
+            return await _repository
+               .Query()
+               .Where(movie => movie.MovieGenres.Any(mg => mg.Genre.Id == genreId))
+               .ToListAsync();
         }
 
-        public Task<IEnumerable<Movie>> GetMoviesReleasedThisYearAsync()
+        public async Task<IEnumerable<Movie>> GetMoviesReleasedThisYearAsync()
         {
-            throw new NotImplementedException();
+            int currentYear = DateTime.Now.Year;
+
+            return await _repository
+                .Query()
+                .Where(movie => movie.ReleaseDate.Year == currentYear)
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<Movie>> GetMoviesWithHighestGrossAsync(int count)
+        public async Task<IEnumerable<Movie>> GetTopRatedMoviesAsync(int count)
         {
-            throw new NotImplementedException();
+            return await _repository
+                .Query()
+                .OrderByDescending(movie => movie.Rating)
+                .Take(count)
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<Movie>> GetTopRatedMoviesAsync(int count)
+        public async Task<IEnumerable<Movie>> SearchMoviesAsync(string query)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Movie>> SearchMoviesAsync(string query)
-        {
-            throw new NotImplementedException();
+            return await _repository
+               .Query()
+               .Where(movie => movie.Title.Contains(query) || movie.Description.Contains(query))
+               .ToListAsync();
         }
     }
 }

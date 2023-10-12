@@ -2,6 +2,7 @@
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
@@ -11,29 +12,65 @@ namespace Cinema.Domain.Services.Implementation
         {
         }
 
-        public Task<decimal> GetAverageReceiptAmountByMonthAsync(int year, int month)
+        public async Task<decimal> GetAverageReceiptAmountByMonthAsync(int year, int month)
         {
-            throw new NotImplementedException();
+            var receipts = await _repository
+                    .Query()
+                    .Where(r => r.CreatedAt.Year == year && r.CreatedAt.Month == month)
+                    .ToListAsync();
+
+            if (receipts.Any())
+            {
+                decimal averageAmount = receipts.Average(r => r.TotalAmount);
+                return averageAmount;
+            }
+
+            else
+            {
+                return 0;
+            }
         }
 
-        public Task<IEnumerable<Receipt>> GetReceiptByShoppingCartIdAsync(Guid shoppingCartId)
+        public async Task<IEnumerable<Receipt>> GetReceiptByShoppingCartIdAsync(Guid shoppingCartId)
         {
-            throw new NotImplementedException();
+            var receipts = await _repository
+                .Query()
+                .Where(r => r.ShoppingCartId == shoppingCartId)
+                .ToListAsync();
+
+            return receipts;
         }
 
-        public Task<IEnumerable<Receipt>> GetReceiptsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<Receipt>> GetReceiptsByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            var receipts = await _repository
+                .Query()
+                .Where(r => r.CreatedAt >= startDate && r.CreatedAt <= endDate)
+                .ToListAsync();
+
+            return receipts;
         }
 
-        public Task<IEnumerable<Receipt>> GetReceiptsByUserIdAsync(Guid userId)
+        public async Task<IEnumerable<Receipt>> GetReceiptsByUserIdAsync(string userId)
         {
-            throw new NotImplementedException();
+            var receipts = await _repository
+                .Query()
+                .Where(r => r.ShoppingCart.UserId == userId)
+                .ToListAsync();
+
+            return receipts;
         }
 
-        public Task<decimal> GetTotalAmountByDateRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<decimal> GetTotalAmountByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            var receipts = await _repository
+                .Query()
+                .Where(r => r.CreatedAt >= startDate && r.CreatedAt <= endDate)
+                .ToListAsync();
+
+            decimal totalAmount = receipts.Sum(r => r.TotalAmount);
+
+            return totalAmount;
         }
     }
 }

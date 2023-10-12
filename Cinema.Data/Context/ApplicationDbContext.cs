@@ -1,5 +1,4 @@
-﻿using Cinema.Application.Entities;
-using Cinema.Data.Entities;
+﻿using Cinema.Data.Entities;
 using Cinema.Data.EntityConfiguration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +28,6 @@ namespace Cinema.Data.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductionCountry> ProductionCountries { get; set; }
         public DbSet<ProductPromoCode> ProductPromoCodes { get; set; }
-        public DbSet<PromoCodeUsage> PromoCodeUsages { get; set; }
         public DbSet<Receipt> Receipts { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<Review> Reviews { get; set; }
@@ -42,6 +40,8 @@ namespace Cinema.Data.Context
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         public DbSet<Studio> Studios { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<UserProductPromoCode> UserProductPromoCodes { get; set; }
+        public DbSet<UserSessionPromoCode> UserSessionPromoCodes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -51,6 +51,7 @@ namespace Cinema.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ActorConfiguration());
+            modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.ApplyConfiguration(new CinemaTheaterConfiguration());
             modelBuilder.ApplyConfiguration(new CityConfiguration());
             modelBuilder.ApplyConfiguration(new CountryConfiguration());
@@ -71,7 +72,6 @@ namespace Cinema.Data.Context
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new ProductionCountryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductPromoCodeConfiguration());
-            modelBuilder.ApplyConfiguration(new PromoCodeUsageConfiguration());
             modelBuilder.ApplyConfiguration(new ReceiptConfiguration());
             modelBuilder.ApplyConfiguration(new RentalConfiguration());
             modelBuilder.ApplyConfiguration(new ReviewConfiguration());
@@ -84,6 +84,8 @@ namespace Cinema.Data.Context
             modelBuilder.ApplyConfiguration(new ShoppingCartItemConfiguration());
             modelBuilder.ApplyConfiguration(new StudioConfiguration());
             modelBuilder.ApplyConfiguration(new TicketConfiguration());
+            modelBuilder.ApplyConfiguration(new UserProductPromoCodeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserSessionPromoCodeConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

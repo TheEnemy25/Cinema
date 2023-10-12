@@ -2,6 +2,7 @@
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
@@ -11,29 +12,63 @@ namespace Cinema.Domain.Services.Implementation
         {
         }
 
-        public Task<IEnumerable<Product>> GetAllProductsSortedByNameAsync()
+        public async Task<IEnumerable<Product>> GetAllProductsSortedByNameAsync()
         {
-            throw new NotImplementedException();
+            var products = await _repository
+               .Query()
+               .OrderBy(p => p.Name)
+               .ToListAsync();
+
+            return products;
         }
 
-        public Task<IEnumerable<Product>> GetAllProductsSortedByPriceAsync()
+        public async Task<IEnumerable<Product>> GetAllProductsSortedByPriceAsync()
         {
-            throw new NotImplementedException();
+            var products = await _repository
+                .Query()
+                .OrderBy(p => p.Price)
+                .ToListAsync();
+
+            return products;
         }
 
-        public Task<IEnumerable<Product>> GetAllProductsSortedByPriceDescendingAsync()
+        public async Task<IEnumerable<Product>> GetAllProductsSortedByPriceDescendingAsync()
         {
-            throw new NotImplementedException();
+            var products = await _repository
+                .Query()
+                .OrderByDescending(p => p.Price)
+                .ToListAsync();
+
+            return products;
         }
 
-        public Task<IEnumerable<Product>> GetMostPopularProductsAsync()
+        public async Task<IEnumerable<Product>> GetMostPopularProductsAsync()
         {
-            throw new NotImplementedException();
+            var products = await _repository
+                .Query()
+                .Include(p => p.ShoppingCartItems)
+                .ToListAsync();
+
+            // Визначити кількість продажів для кожного продукту
+            var productsWithSalesCount = products.Select(product => new
+            {
+                Product = product,
+                SalesCount = product.ShoppingCartItems.Count
+            });
+
+            var sortedProducts = productsWithSalesCount.OrderByDescending(p => p.SalesCount).Select(p => p.Product);
+
+            return sortedProducts;
         }
 
-        public Task<IEnumerable<Product>> GetProductsWithDiscountAsync()
+        public async Task<IEnumerable<Product>> GetProductsWithDiscountAsync()
         {
-            throw new NotImplementedException();
+            var productsWithDiscount = await _repository
+               .Query()
+               .Where(p => p.ProductPromoCodes.Any(pc => pc.MaxUsageCount > 0))
+               .ToListAsync();
+
+            return productsWithDiscount;
         }
     }
 }

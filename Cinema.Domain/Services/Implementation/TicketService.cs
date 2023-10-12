@@ -3,6 +3,7 @@ using Cinema.Data.Enums;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
@@ -12,24 +13,44 @@ namespace Cinema.Domain.Services.Implementation
         {
         }
 
-        public Task<IEnumerable<Ticket>> GetTicketsByReceiptIdAsync(Guid receiptId)
+        public async Task<IEnumerable<Ticket>> GetTicketsByReceiptIdAsync(Guid receiptId)
         {
-            throw new NotImplementedException();
+            var tickets = await _repository
+                .Query()
+                .Where(t => t.ReceiptId == receiptId)
+                .ToListAsync();
+
+            return tickets;
         }
 
-        public Task<IEnumerable<Ticket>> GetTicketsBySessionIdAsync(Guid sessionId)
+        public async Task<IEnumerable<Ticket>> GetTicketsBySessionIdAsync(Guid sessionId)
         {
-            throw new NotImplementedException();
+            var tickets = await _repository
+                .Query()
+                .Where(t => t.SessionId == sessionId)
+                .ToListAsync();
+
+            return tickets;
         }
 
-        public Task<IEnumerable<Ticket>> GetTicketsByShoppingCartIdAsync(Guid shoppingCartId)
+        public async Task<IEnumerable<Ticket>> GetTicketsByShoppingCartIdAsync(Guid shoppingCartId)
         {
-            throw new NotImplementedException();
+            var tickets = await _repository
+                .Query()
+                .Where(t => t.ShoppingCartItems.Any(item => item.ShoppingCartId == shoppingCartId))
+                .ToListAsync();
+
+            return tickets;
         }
 
-        public Task<IEnumerable<Ticket>> GetTicketsByStatusAsync(Guid receiptId, ETicketStatus status)
+        public async Task<IEnumerable<Ticket>> GetTicketsByStatusAsync(Guid receiptId, ETicketStatus status)
         {
-            throw new NotImplementedException();
+            var tickets = await _repository
+                .Query()
+                .Where(t => t.ReceiptId == receiptId && t.Status == status)
+                .ToListAsync();
+
+            return tickets;
         }
     }
 }

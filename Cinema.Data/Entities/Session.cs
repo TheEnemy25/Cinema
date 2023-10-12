@@ -21,5 +21,3 @@ namespace Cinema.Data.Entities
         public ICollection<Ticket> Tickets { get; set; } // Зв'язок з пропусками
     }
 }
-
-//public int AvailableSeatsCount { get; set; } // Кількість вільних місць на сеансі

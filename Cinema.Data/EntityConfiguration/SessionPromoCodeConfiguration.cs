@@ -13,13 +13,13 @@ namespace Cinema.Data.EntityConfiguration
             builder.HasKey(spc => spc.Id);
 
             builder.HasOne(spc => spc.Session)
-               .WithMany(s => s.SessionPromoCodes)
-               .HasForeignKey(spc => spc.SessionId)
-               .OnDelete(DeleteBehavior.NoAction);
+                .WithMany(s => s.SessionPromoCodes)
+                .HasForeignKey(spc => spc.SessionId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(spc => spc.PromoCodeUsages)
-                .WithOne(pcu => pcu.SessionPromoCode)
-                .HasForeignKey(pcu => pcu.SessionPromoCodeId)
+            builder.HasMany(spc => spc.UserSessionPromoCodes)
+                .WithOne(uspc => uspc.SessionPromoCode)
+                .HasForeignKey(uspc => uspc.SessionPromoCodeId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

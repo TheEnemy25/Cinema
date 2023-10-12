@@ -21,7 +21,6 @@ namespace Cinema.API
             services.AddScoped<IBaseRepository<Product>, BaseRepository<Product>>();
             services.AddScoped<IBaseRepository<ProductionCountry>, BaseRepository<ProductionCountry>>();
             services.AddScoped<IBaseRepository<ProductPromoCode>, BaseRepository<ProductPromoCode>>();
-            services.AddScoped<IBaseRepository<PromoCodeUsage>, BaseRepository<PromoCodeUsage>>();
             services.AddScoped<IBaseRepository<Receipt>, BaseRepository<Receipt>>();
             services.AddScoped<IBaseRepository<Rental>, BaseRepository<Rental>>();
             services.AddScoped<IBaseRepository<Review>, BaseRepository<Review>>();

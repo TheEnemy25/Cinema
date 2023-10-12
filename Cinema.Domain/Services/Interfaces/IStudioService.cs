@@ -5,6 +5,6 @@ namespace Cinema.Domain.Services.Interfaces
 {
     public interface IStudioService : IBaseService<Studio>
     {
-        Task<IEnumerable<Movie>> GetMoviesByStudioIdAsync(Guid studioId);
+        Task<IEnumerable<Studio>> GetStudiosByMovieAsync(Guid movieId);
     }
 }

@@ -24,11 +24,12 @@ namespace Cinema.Application.Controllers
         }
 
         [HttpPut("register")]
-        public async Task<IActionResult> Register([FromBody] RegistrationModel registrationModel)
+        public async Task<IActionResult> Register([FromForm]RegistrationModel registrationModel)
         {
             var user = new AppUser
             {
                 Email = registrationModel.Email,
+                UserName = $"{registrationModel.FirstName}{registrationModel.LastName}",
                 FirstName = registrationModel.FirstName,
                 LastName = registrationModel.LastName
             };

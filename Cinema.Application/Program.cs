@@ -8,6 +8,11 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "Auth", Version = "v1" });
+});
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 

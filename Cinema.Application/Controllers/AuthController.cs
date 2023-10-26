@@ -72,12 +72,5 @@ namespace Cinema.Application.Controllers
 
             return Redirect(logoutRequest.PostLogoutRedirectUri);
         }
-
-        [HttpGet("ping")]
-        public IActionResult Ping()
-        {
-            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<AppUser>>();
-            return Ok("pong");
-        }
     }
 }

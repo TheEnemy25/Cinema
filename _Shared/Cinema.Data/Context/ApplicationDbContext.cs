@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Data.Context
 {
+    // comment
     public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         public DbSet<Actor> Actors { get; set; }

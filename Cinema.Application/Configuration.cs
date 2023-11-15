@@ -35,7 +35,7 @@ namespace Cinema.Application
                 new Client()
                 {
                     ClientId = "k-spot",
-                    ClientName = "",
+                    ClientName = "Cinema Web",
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireClientSecret = false,
                     RequirePkce = true,

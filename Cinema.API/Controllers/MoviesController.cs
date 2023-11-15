@@ -20,7 +20,7 @@ namespace Cinema.API.Controllers
         //    var user = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "sub");
         //    return Ok(user);
         //}
-        [Authorize]
+        //[Authorize]
         [HttpGet("~/api/ping")]
         public IActionResult Ping() => Ok("Pong");
     }

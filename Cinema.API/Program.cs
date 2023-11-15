@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new() { Title = "Cinema", Version = "v1" });
 });
 
-//rep
+
 DependencyInjection.RegisterDependencies(builder.Services);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -24,8 +24,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddCors(options =>
 {
-    // Add your CORS policy configuration here
+    options.AddDefaultPolicy(builder =>
+    {
+        builder
+            .WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
 });
+
 
 builder.Services.AddAuthentication(config =>
 {
@@ -34,7 +42,7 @@ builder.Services.AddAuthentication(config =>
 })
                 .AddJwtBearer("Bearer", options =>
                 {
-                    options.Authority = "https://localhost:5443`/";
+                    options.Authority = "https://localhost:5443/";
                     options.Audience = "CinemaWebAPI";
                     options.RequireHttpsMetadata = false;
                 });

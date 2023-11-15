@@ -24,7 +24,7 @@ namespace Cinema.Application.Controllers
         }
 
         [HttpPut("register")]
-        public async Task<IActionResult> Register([FromForm]RegistrationModel registrationModel)
+        public async Task<IActionResult> Register(/* TODO: Replace attribute*/[FromForm]RegistrationModel registrationModel)
         {
             var user = new AppUser
             {

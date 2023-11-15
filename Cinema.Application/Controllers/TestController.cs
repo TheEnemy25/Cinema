@@ -21,8 +21,7 @@ namespace Cinema.Application.Controllers
         [HttpGet("ping")]
         public IActionResult Ping()
         {
-            var userManager = HttpContext.RequestServices.GetRequiredService<UserManager<AppUser>>();
-            return Ok("pong");
+            return Ok("API is alive!");
         }
     }       
 }

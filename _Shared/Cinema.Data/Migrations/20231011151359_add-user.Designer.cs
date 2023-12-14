@@ -24,7 +24,7 @@ namespace Cinema.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Cinema.Application.Entities.AppUser", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -1283,7 +1283,7 @@ namespace Cinema.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Application.Entities.AppUser", "User")
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", "User")
                         .WithMany("ProductPromoCodes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1351,7 +1351,7 @@ namespace Cinema.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Application.Entities.AppUser", "User")
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1408,7 +1408,7 @@ namespace Cinema.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Application.Entities.AppUser", "User")
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", "User")
                         .WithMany("SessionPromoCodes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1440,7 +1440,7 @@ namespace Cinema.Data.Migrations
 
             modelBuilder.Entity("Cinema.Infrastructure.Entities.ShoppingCart", b =>
                 {
-                    b.HasOne("Cinema.Application.Entities.AppUser", "User")
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", "User")
                         .WithMany("ShoppingCarts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1518,7 +1518,7 @@ namespace Cinema.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Cinema.Application.Entities.AppUser", null)
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1527,7 +1527,7 @@ namespace Cinema.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Cinema.Application.Entities.AppUser", null)
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1542,7 +1542,7 @@ namespace Cinema.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Application.Entities.AppUser", null)
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1551,14 +1551,14 @@ namespace Cinema.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Cinema.Application.Entities.AppUser", null)
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Cinema.Application.Entities.AppUser", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.AppUser", b =>
                 {
                     b.Navigation("ProductPromoCodes");
 

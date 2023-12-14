@@ -7,13 +7,13 @@ namespace Exam.Data.Infrastructure
     {
         IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
         ValueTask<TEntity> GetByIdAsync(params object[] keys);
-        Task<TEntity> AddAsync(TEntity entity);
-        Task AddRangeAsync(IEnumerable<TEntity> entities);
-        Task<TEntity> UpdateAsync(TEntity entity);
-        Task UpdateRangeAsync(IEnumerable<TEntity> entities);
-        Task DeleteRangeAsync(IEnumerable<TEntity> entities);
-        Task DeleteAsync(TEntity entity);
-        Task DetachAsync(TEntity entity);
-        Task<int> SaveChangesAsync();
+        Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+        Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+        Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+        Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task DetachAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

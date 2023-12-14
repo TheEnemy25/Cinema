@@ -1,7 +1,6 @@
-using Cinema.API;
-using Cinema.Data.Context;
+using Cinema.Data;
+using Cinema.Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,14 +12,9 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
-DependencyInjection.RegisterDependencies(builder.Services);
-
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseSqlServer(connectionString);
-});
+builder.Services.RegisterContext(builder.Configuration)
+    .RegisterRepositories()
+    .RegisterServices();
 
 builder.Services.AddCors(options =>
 {
@@ -33,7 +27,6 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 });
-
 
 builder.Services.AddAuthentication(config =>
 {

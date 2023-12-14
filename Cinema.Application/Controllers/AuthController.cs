@@ -1,12 +1,12 @@
-﻿using Cinema.Application.Models.Register;
-using Cinema.Application.Models.SignIn;
+﻿using Cinema.Identity.Models.Register;
+using Cinema.Identity.Models.SignIn;
 using Cinema.Infrastructure.Entities;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cinema.Application.Controllers
+namespace Cinema.Identity.Controllers
 {
     [AllowAnonymous]
     [Route("~/auth")]

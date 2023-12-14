@@ -2,7 +2,7 @@
 using IdentityServer4;
 using IdentityServer4.Models;
 
-namespace Cinema.Application
+namespace Cinema.Identity
 {
     public static class Configuration
     {

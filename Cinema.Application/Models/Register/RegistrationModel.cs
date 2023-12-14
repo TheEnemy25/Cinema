@@ -1,4 +1,4 @@
-﻿namespace Cinema.Application.Models.Register
+﻿namespace Cinema.Identity.Models.Register
 {
     public class RegistrationModel
     {

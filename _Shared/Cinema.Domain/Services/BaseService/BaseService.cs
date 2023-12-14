@@ -15,7 +15,7 @@ namespace Cinema.Domain.Services.BaseService
         public async Task<IEnumerable<TEntity>> GetAllAsync() =>
             await _repository.Query().ToListAsync();
 
-        public async Task<TEntity> GetByIdAsync(int id) =>
+        public async Task<TEntity> GetByIdAsync(Guid id) =>
             await _repository.GetByIdAsync(id);
 
         public async Task CreateAsync(TEntity entity)
@@ -30,7 +30,7 @@ namespace Cinema.Domain.Services.BaseService
             await _repository.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var entityToDelete = await _repository.GetByIdAsync(id);
             if (entityToDelete != null)

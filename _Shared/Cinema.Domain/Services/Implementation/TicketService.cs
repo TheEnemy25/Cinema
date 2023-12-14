@@ -7,11 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class TicketService : BaseService<Ticket>, ITicketService
+    internal sealed class TicketService : BaseService<Ticket>, ITicketService
     {
-        public TicketService(IBaseRepository<Ticket> repository) : base(repository)
-        {
-        }
+        public TicketService(IBaseRepository<Ticket> repository) : base(repository) { }
 
         public async Task<IEnumerable<Ticket>> GetTicketsByReceiptIdAsync(Guid receiptId)
         {

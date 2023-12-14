@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class ScreenwriterService : BaseService<Screenwriter>, IScreenwriterService
+    internal sealed class ScreenwriterService : BaseService<Screenwriter>, IScreenwriterService
     {
-        public ScreenwriterService(IBaseRepository<Screenwriter> repository) : base(repository)
-        {
-        }
+        public ScreenwriterService(IBaseRepository<Screenwriter> repository) : base(repository) { }
 
         public async Task<IEnumerable<Screenwriter>> GetScreenwritersByMovieAsync(Guid movieId)
         {

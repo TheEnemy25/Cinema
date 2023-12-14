@@ -7,11 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class HallService : BaseService<Hall>, IHallService
+    internal sealed class HallService : BaseService<Hall>, IHallService
     {
-        public HallService(IBaseRepository<Hall> repository) : base(repository)
-        {
-        }
+        public HallService(IBaseRepository<Hall> repository) : base(repository) { }
 
         public async Task<IEnumerable<Hall>> GetHallsByCinemaTheaterIdAsync(Guid cinemaTheaterId)
         {

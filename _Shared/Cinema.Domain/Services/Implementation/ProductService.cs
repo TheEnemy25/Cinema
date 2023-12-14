@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class ProductService : BaseService<Product>, IProductService
+    internal sealed class ProductService : BaseService<Product>, IProductService
     {
-        public ProductService(IBaseRepository<Product> repository) : base(repository)
-        {
-        }
+        public ProductService(IBaseRepository<Product> repository) : base(repository) { }
 
         public async Task<IEnumerable<Product>> GetAllProductsSortedByNameAsync()
         {

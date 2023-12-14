@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class CityService : BaseService<City>, ICityService
+    internal sealed class CityService : BaseService<City>, ICityService
     {
         public CityService(IBaseRepository<City> repository) : base(repository) { }
 

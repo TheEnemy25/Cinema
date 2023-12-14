@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class SessionPromoCodeService : BaseService<SessionPromoCode>, ISessionPromoCodeService
+    internal sealed class SessionPromoCodeService : BaseService<SessionPromoCode>, ISessionPromoCodeService
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;

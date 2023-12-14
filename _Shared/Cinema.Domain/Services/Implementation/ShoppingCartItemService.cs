@@ -6,18 +6,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class ShoppingCartItemService : BaseService<ShoppingCartItem>, IShoppingCartItemService
+    internal sealed class ShoppingCartItemService : BaseService<ShoppingCartItem>, IShoppingCartItemService
     {
 
-        public ShoppingCartItemService(IBaseRepository<ShoppingCartItem> repository) : base(repository)
-        {
-        }
+        public ShoppingCartItemService(IBaseRepository<ShoppingCartItem> repository) : base(repository) { }
 
         public async Task AddItemToShoppingCartAsync(string userId, Guid productId, Guid sessionId, Guid seatId, int quantity)
         {
             var existingCartItem = await _repository
-         .Query()
-         .FirstOrDefaultAsync(item => item.ShoppingCart.UserId == userId && item.ProductId == productId && item.Ticket.SessionId == sessionId && item.Ticket.SessionSeatId == seatId);
+                .Query()
+                .FirstOrDefaultAsync(item => 
+                    item.ShoppingCart.UserId == userId 
+                    && item.ProductId == productId 
+                    && item.Ticket.SessionId == sessionId 
+                    && item.Ticket.SessionSeatId == seatId);
 
             if (existingCartItem != null)
             {

@@ -7,11 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class EmployeeService : BaseService<Employee>, IEmployeeService
+    internal sealed class EmployeeService : BaseService<Employee>, IEmployeeService
     {
-        public EmployeeService(IBaseRepository<Employee> repository) : base(repository)
-        {
-        }
+        public EmployeeService(IBaseRepository<Employee> repository) : base(repository) { }
 
         public async Task<IEnumerable<Employee>> GetEmployeesByBirthDateRangeAsync(DateTime startDate, DateTime endDate)
         {

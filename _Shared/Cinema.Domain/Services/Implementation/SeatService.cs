@@ -7,11 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class SeatService : BaseService<Seat>, ISeatService
+    internal sealed class SeatService : BaseService<Seat>, ISeatService
     {
-        public SeatService(IBaseRepository<Seat> repository) : base(repository)
-        {
-        }
+        public SeatService(IBaseRepository<Seat> repository) : base(repository) { }
 
         public async Task<bool> AreSeatsAvailableAsync(Guid sessionId, IEnumerable<Guid> seatIds)
         {

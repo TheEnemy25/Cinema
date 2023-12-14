@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class ProductPromoCodeService : BaseService<ProductPromoCode>, IProductPromoCodeService
+    internal sealed class ProductPromoCodeService : BaseService<ProductPromoCode>, IProductPromoCodeService
     {
-        public ProductPromoCodeService(IBaseRepository<ProductPromoCode> repository) : base(repository)
-        {
-        }
+        public ProductPromoCodeService(IBaseRepository<ProductPromoCode> repository) : base(repository) { }
 
         public async Task<decimal> CalculateProductDiscountAsync(string promoCode, decimal originalPrice)
         {

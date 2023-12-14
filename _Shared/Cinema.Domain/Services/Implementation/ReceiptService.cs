@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class ReceiptService : BaseService<Receipt>, IReceiptService
+    internal sealed class ReceiptService : BaseService<Receipt>, IReceiptService
     {
-        public ReceiptService(IBaseRepository<Receipt> repository) : base(repository)
-        {
-        }
+        public ReceiptService(IBaseRepository<Receipt> repository) : base(repository) { }
 
         public async Task<decimal> GetAverageReceiptAmountByMonthAsync(int year, int month)
         {

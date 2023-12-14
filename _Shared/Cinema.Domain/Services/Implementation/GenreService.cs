@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class GenreService : BaseService<Genre>, IGenreService
+    internal sealed class GenreService : BaseService<Genre>, IGenreService
     {
-        public GenreService(IBaseRepository<Genre> repository) : base(repository)
-        {
-        }
+        public GenreService(IBaseRepository<Genre> repository) : base(repository) { }
 
         public async Task<Genre> GetGenreByNameAsync(string name)
         {

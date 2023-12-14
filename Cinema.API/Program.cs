@@ -50,6 +50,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cinema v1"));
 }
+else
+{
+    app.UseHsts();
+}
 
 app.UseHttpsRedirection();
 

@@ -1,8 +1,4 @@
-﻿using Cinema.Data.Context;
-using Cinema.Infrastructure.Entities;
-using Cinema.Domain.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.API.Controllers
 {
@@ -10,13 +6,13 @@ namespace Cinema.API.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        //    private readonly ApplicationDbContext _context;
         //private readonly IMovieService _movieService;
 
 
-        public MoviesController(/*IMovieService movieService,*/ ApplicationDbContext context)
+        public MoviesController(/*IMovieService movieService,*/ /*ApplicationDbContext context*/)
         {
-            _context = context;
+            //_context = context;
             //_movieService = movieService ?? throw new ArgumentNullException(nameof(movieService));
         }
 

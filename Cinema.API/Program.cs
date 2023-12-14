@@ -1,5 +1,6 @@
-using Cinema.Data;
+using Cinema.Applicaton;
 using Cinema.Domain;
+using Cinema.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,8 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.RegisterContext(builder.Configuration)
     .RegisterRepositories()
-    .RegisterServices();
+    .RegisterServices()
+    .RegisterMediatRAndHanlders();
 
 builder.Services.AddCors(options =>
 {

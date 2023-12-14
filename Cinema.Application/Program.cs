@@ -1,4 +1,4 @@
-using Cinema.Application;
+using Cinema.Identity;
 using Cinema.Data.Context;
 using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;

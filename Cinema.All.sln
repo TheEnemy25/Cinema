@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Domain", "_Shared\Ci
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Data", "_Shared\Cinema.Data\Cinema.Data.csproj", "{D300136F-C4A0-4AF8-BD91-C775D5678DAF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Application", "Cinema.Application\Cinema.Application.csproj", "{01DE4FDD-7C52-430A-817F-FE9D90C3CC94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Identity", "Cinema.Application\Cinema.Identity.csproj", "{01DE4FDD-7C52-430A-817F-FE9D90C3CC94}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Shared", "_Shared", "{3A2E005D-4CEF-4F06-9861-CB5068FDC7A2}"
 EndProject

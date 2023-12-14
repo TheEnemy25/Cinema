@@ -1,4 +1,4 @@
-﻿namespace Cinema.Application.Models.SignIn;
+﻿namespace Cinema.Identity.Models.SignIn;
 
 public class SignInModel
 {

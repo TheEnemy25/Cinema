@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Cinema.Application": {
+    "Cinema.Identity": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

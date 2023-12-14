@@ -1,11 +1,15 @@
-﻿using Cinema.Data.Entities;
+﻿using Cinema.Data.Context;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Cinema.API
+namespace Cinema.Data
 {
-    public class DependencyInjection
+    public static class Dependencies
     {
-        public static void RegisterDependencies(IServiceCollection services)
+        public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
             services.AddScoped<IBaseRepository<Actor>, BaseRepository<Actor>>();
             services.AddScoped<IBaseRepository<CinemaTheater>, BaseRepository<CinemaTheater>>();
@@ -33,6 +37,16 @@ namespace Cinema.API
             services.AddScoped<IBaseRepository<ShoppingCartItem>, BaseRepository<ShoppingCartItem>>();
             services.AddScoped<IBaseRepository<Studio>, BaseRepository<Studio>>();
             services.AddScoped<IBaseRepository<Ticket>, BaseRepository<Ticket>>();
+
+            return services;
+        }
+
+        public static IServiceCollection RegisterContext(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            return services;
         }
     }
 }

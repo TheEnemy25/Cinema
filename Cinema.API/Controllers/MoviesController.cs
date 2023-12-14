@@ -1,5 +1,5 @@
 ﻿using Cinema.Data.Context;
-using Cinema.Data.Entities;
+using Cinema.Infrastructure.Entities;
 using Cinema.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

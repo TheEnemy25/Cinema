@@ -1,6 +1,6 @@
 using Cinema.Application;
 using Cinema.Data.Context;
-using Cinema.Data.Entities;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

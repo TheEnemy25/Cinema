@@ -1,4 +1,4 @@
-﻿using Cinema.Data.Entities;
+﻿using Cinema.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

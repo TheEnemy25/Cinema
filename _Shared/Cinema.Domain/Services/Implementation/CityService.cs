@@ -1,4 +1,4 @@
-﻿using Cinema.Data.Entities;
+﻿using Cinema.Infrastructure.Entities;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
@@ -8,9 +8,7 @@ namespace Cinema.Domain.Services.Implementation
 {
     internal class CityService : BaseService<City>, ICityService
     {
-        public CityService(IBaseRepository<City> repository) : base(repository)
-        {
-        }
+        public CityService(IBaseRepository<City> repository) : base(repository) { }
 
         public async Task<IEnumerable<City>> GetCitiesByCountryAsync(Guid countryId)
         {

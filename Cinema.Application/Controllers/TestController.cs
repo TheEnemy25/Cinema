@@ -1,6 +1,6 @@
 ﻿using Cinema.Application.Models.Register;
 using Cinema.Application.Models.SignIn;
-using Cinema.Data.Entities;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;

@@ -1,5 +1,5 @@
 ﻿using Cinema.Data.Context;
-using Cinema.Data.Entities.Interfaces;
+using Cinema.Infrastructure.Entities.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

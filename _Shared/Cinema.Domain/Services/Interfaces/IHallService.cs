@@ -1,5 +1,5 @@
-﻿using Cinema.Data.Entities;
-using Cinema.Data.Enums;
+﻿using Cinema.Infrastructure.Entities;
+using Cinema.Infrastructure.Enums;
 using Cinema.Domain.Services.BaseService;
 
 namespace Cinema.Domain.Services.Interfaces

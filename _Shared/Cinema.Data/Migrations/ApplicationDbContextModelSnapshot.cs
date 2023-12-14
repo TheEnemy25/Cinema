@@ -22,7 +22,7 @@ namespace Cinema.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Cinema.Data.Entities.Actor", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Actor", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Actor", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.AppUser", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -116,7 +116,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.CinemaTheater", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.CinemaTheater", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -138,7 +138,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("CinemaTheater", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.City", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.City", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,7 +157,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("City", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Country", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Country", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -174,7 +174,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Country", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Director", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Director", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -200,7 +200,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Director", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Discount", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Discount", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -226,7 +226,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Discount", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Employee", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Employee", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -260,7 +260,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Employee", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Genre", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Genre", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -280,7 +280,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Genre", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Hall", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Hall", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -323,7 +323,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Hall", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Movie", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Movie", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -358,7 +358,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Movie", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieActor", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieActor", b =>
                 {
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
@@ -373,7 +373,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("MovieActor", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieDirector", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieDirector", b =>
                 {
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
@@ -388,7 +388,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("MovieDirector", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieGenre", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieGenre", b =>
                 {
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
@@ -403,7 +403,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("MovieGenre", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieProducer", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieProducer", b =>
                 {
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
@@ -418,7 +418,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("MovieProducer", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieProductionCountry", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieProductionCountry", b =>
                 {
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
@@ -433,7 +433,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("MovieProductionCountry", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieScreenwriter", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieScreenwriter", b =>
                 {
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
@@ -448,7 +448,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("MovieScreenwriter", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieStudio", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieStudio", b =>
                 {
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
@@ -463,7 +463,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("MovieStudio", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Producer", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Producer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -486,7 +486,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Producer", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Product", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -514,7 +514,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Product", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.ProductionCountry", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.ProductionCountry", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -528,7 +528,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("ProductionCountry", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.ProductPromoCode", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.ProductPromoCode", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -553,7 +553,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("ProductPromoCode", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Receipt", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Receipt", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -576,7 +576,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Receipt", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Rental", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Rental", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -600,7 +600,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Rental", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Review", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Review", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -630,7 +630,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Review", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Screenwriter", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Screenwriter", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -653,7 +653,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Screenwriter", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Seat", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Seat", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -675,7 +675,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Seat", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Session", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Session", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -707,7 +707,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Session", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.SessionPromoCode", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.SessionPromoCode", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -732,7 +732,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("SessionPromoCode", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.SessionSeat", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.SessionSeat", b =>
                 {
                     b.Property<Guid>("SessionId")
                         .HasColumnType("uniqueidentifier");
@@ -750,7 +750,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("SessionSeats");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.ShoppingCart", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.ShoppingCart", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -769,7 +769,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("ShoppingCart", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.ShoppingCartItem", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.ShoppingCartItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -806,7 +806,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("ShoppingCartItem", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Studio", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Studio", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -826,7 +826,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Studio", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Ticket", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Ticket", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -867,7 +867,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("Ticket", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.UserProductPromoCode", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.UserProductPromoCode", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -885,7 +885,7 @@ namespace Cinema.Data.Migrations
                     b.ToTable("UserProductPromoCode", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.UserSessionPromoCode", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.UserSessionPromoCode", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -1036,9 +1036,9 @@ namespace Cinema.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.CinemaTheater", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.CinemaTheater", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.City", "City")
+                    b.HasOne("Cinema.Infrastructure.Entities.City", "City")
                         .WithMany("CinemaTheaters")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1047,9 +1047,9 @@ namespace Cinema.Data.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.City", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.City", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Country", "Country")
+                    b.HasOne("Cinema.Infrastructure.Entities.Country", "Country")
                         .WithMany("Cities")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1058,9 +1058,9 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Employee", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Employee", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.CinemaTheater", "CinemaTheater")
+                    b.HasOne("Cinema.Infrastructure.Entities.CinemaTheater", "CinemaTheater")
                         .WithMany("Employees")
                         .HasForeignKey("CinemaTheaterId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1069,9 +1069,9 @@ namespace Cinema.Data.Migrations
                     b.Navigation("CinemaTheater");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Hall", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Hall", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.CinemaTheater", "CinemaTheater")
+                    b.HasOne("Cinema.Infrastructure.Entities.CinemaTheater", "CinemaTheater")
                         .WithMany("Halls")
                         .HasForeignKey("CinemaTheaterId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1080,15 +1080,15 @@ namespace Cinema.Data.Migrations
                     b.Navigation("CinemaTheater");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieActor", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieActor", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Actor", "Actor")
+                    b.HasOne("Cinema.Infrastructure.Entities.Actor", "Actor")
                         .WithMany("MovieActors")
                         .HasForeignKey("ActorId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Movie", "Movie")
+                    b.HasOne("Cinema.Infrastructure.Entities.Movie", "Movie")
                         .WithMany("MovieActors")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1099,15 +1099,15 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieDirector", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieDirector", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Director", "Director")
+                    b.HasOne("Cinema.Infrastructure.Entities.Director", "Director")
                         .WithMany("MovieDirectors")
                         .HasForeignKey("DirectorId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Movie", "Movie")
+                    b.HasOne("Cinema.Infrastructure.Entities.Movie", "Movie")
                         .WithMany("MovieDirectors")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1118,15 +1118,15 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieGenre", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieGenre", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Genre", "Genre")
+                    b.HasOne("Cinema.Infrastructure.Entities.Genre", "Genre")
                         .WithMany("MovieGenres")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Movie", "Movie")
+                    b.HasOne("Cinema.Infrastructure.Entities.Movie", "Movie")
                         .WithMany("MovieGenres")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1137,15 +1137,15 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieProducer", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieProducer", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Movie", "Movie")
+                    b.HasOne("Cinema.Infrastructure.Entities.Movie", "Movie")
                         .WithMany("MovieProducers")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Producer", "Producer")
+                    b.HasOne("Cinema.Infrastructure.Entities.Producer", "Producer")
                         .WithMany("MovieProducers")
                         .HasForeignKey("ProducerId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1156,15 +1156,15 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Producer");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieProductionCountry", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieProductionCountry", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Movie", "Movie")
+                    b.HasOne("Cinema.Infrastructure.Entities.Movie", "Movie")
                         .WithMany("MovieProductionCountries")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.ProductionCountry", "ProductionCountry")
+                    b.HasOne("Cinema.Infrastructure.Entities.ProductionCountry", "ProductionCountry")
                         .WithMany("MovieProductionCountries")
                         .HasForeignKey("ProductionCountryId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1175,15 +1175,15 @@ namespace Cinema.Data.Migrations
                     b.Navigation("ProductionCountry");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieScreenwriter", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieScreenwriter", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Movie", "Movie")
+                    b.HasOne("Cinema.Infrastructure.Entities.Movie", "Movie")
                         .WithMany("MovieScreenwriters")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Screenwriter", "Screenwriter")
+                    b.HasOne("Cinema.Infrastructure.Entities.Screenwriter", "Screenwriter")
                         .WithMany("MovieScreenwriters")
                         .HasForeignKey("ScreenwriterId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1194,15 +1194,15 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Screenwriter");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.MovieStudio", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.MovieStudio", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Movie", "Movie")
+                    b.HasOne("Cinema.Infrastructure.Entities.Movie", "Movie")
                         .WithMany("MovieStudios")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Studio", "Studio")
+                    b.HasOne("Cinema.Infrastructure.Entities.Studio", "Studio")
                         .WithMany("MovieStudios")
                         .HasForeignKey("StudioId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1213,9 +1213,9 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Studio");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Product", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Product", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Discount", "Discount")
+                    b.HasOne("Cinema.Infrastructure.Entities.Discount", "Discount")
                         .WithMany("Products")
                         .HasForeignKey("DiscountId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1224,9 +1224,9 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Discount");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.ProductPromoCode", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.ProductPromoCode", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Product", "Product")
+                    b.HasOne("Cinema.Infrastructure.Entities.Product", "Product")
                         .WithMany("ProductPromoCodes")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1235,26 +1235,26 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Receipt", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Receipt", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.ShoppingCart", "ShoppingCart")
+                    b.HasOne("Cinema.Infrastructure.Entities.ShoppingCart", "ShoppingCart")
                         .WithOne("Receipt")
-                        .HasForeignKey("Cinema.Data.Entities.Receipt", "ShoppingCartId")
+                        .HasForeignKey("Cinema.Infrastructure.Entities.Receipt", "ShoppingCartId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ShoppingCart");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Rental", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Rental", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.CinemaTheater", "CinemaTheater")
+                    b.HasOne("Cinema.Infrastructure.Entities.CinemaTheater", "CinemaTheater")
                         .WithMany("Rentals")
                         .HasForeignKey("CinemaTheaterId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Movie", "Movie")
+                    b.HasOne("Cinema.Infrastructure.Entities.Movie", "Movie")
                         .WithMany("Rentals")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1265,15 +1265,15 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Review", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Review", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Movie", "Movie")
+                    b.HasOne("Cinema.Infrastructure.Entities.Movie", "Movie")
                         .WithMany("Reviews")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.AppUser", "User")
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1283,9 +1283,9 @@ namespace Cinema.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Seat", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Seat", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Hall", "Hall")
+                    b.HasOne("Cinema.Infrastructure.Entities.Hall", "Hall")
                         .WithMany("Seats")
                         .HasForeignKey("HallId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1294,21 +1294,21 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Hall");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Session", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Session", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Discount", "Discount")
+                    b.HasOne("Cinema.Infrastructure.Entities.Discount", "Discount")
                         .WithMany("Sessions")
                         .HasForeignKey("DiscountId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Hall", "Hall")
+                    b.HasOne("Cinema.Infrastructure.Entities.Hall", "Hall")
                         .WithMany("Sessions")
                         .HasForeignKey("HallId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Movie", "Movie")
+                    b.HasOne("Cinema.Infrastructure.Entities.Movie", "Movie")
                         .WithMany("Sessions")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1321,9 +1321,9 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.SessionPromoCode", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.SessionPromoCode", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Session", "Session")
+                    b.HasOne("Cinema.Infrastructure.Entities.Session", "Session")
                         .WithMany("SessionPromoCodes")
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1332,15 +1332,15 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Session");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.SessionSeat", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.SessionSeat", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Seat", "Seat")
+                    b.HasOne("Cinema.Infrastructure.Entities.Seat", "Seat")
                         .WithMany("SessionSeats")
                         .HasForeignKey("SeatId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Session", "Session")
+                    b.HasOne("Cinema.Infrastructure.Entities.Session", "Session")
                         .WithMany("SessionSeats")
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1351,9 +1351,9 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Session");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.ShoppingCart", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.ShoppingCart", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.AppUser", "User")
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", "User")
                         .WithMany("ShoppingCarts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1361,25 +1361,25 @@ namespace Cinema.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.ShoppingCartItem", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.ShoppingCartItem", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Product", "Product")
+                    b.HasOne("Cinema.Infrastructure.Entities.Product", "Product")
                         .WithMany("ShoppingCartItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Seat", null)
+                    b.HasOne("Cinema.Infrastructure.Entities.Seat", null)
                         .WithMany("ShoppingCartItems")
                         .HasForeignKey("SeatId");
 
-                    b.HasOne("Cinema.Data.Entities.ShoppingCart", "ShoppingCart")
+                    b.HasOne("Cinema.Infrastructure.Entities.ShoppingCart", "ShoppingCart")
                         .WithMany("ShoppingCartItems")
                         .HasForeignKey("ShoppingCartId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Ticket", "Ticket")
+                    b.HasOne("Cinema.Infrastructure.Entities.Ticket", "Ticket")
                         .WithMany("ShoppingCartItems")
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1392,21 +1392,21 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Ticket");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Ticket", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Ticket", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.Receipt", "Receipt")
+                    b.HasOne("Cinema.Infrastructure.Entities.Receipt", "Receipt")
                         .WithMany("Tickets")
                         .HasForeignKey("ReceiptId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.Session", "Session")
+                    b.HasOne("Cinema.Infrastructure.Entities.Session", "Session")
                         .WithMany("Tickets")
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.SessionSeat", "SessionSeat")
+                    b.HasOne("Cinema.Infrastructure.Entities.SessionSeat", "SessionSeat")
                         .WithMany()
                         .HasForeignKey("SessionSeatSessionId", "SessionSeatSeatId");
 
@@ -1417,15 +1417,15 @@ namespace Cinema.Data.Migrations
                     b.Navigation("SessionSeat");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.UserProductPromoCode", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.UserProductPromoCode", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.ProductPromoCode", "ProductPromoCode")
+                    b.HasOne("Cinema.Infrastructure.Entities.ProductPromoCode", "ProductPromoCode")
                         .WithMany("UserProductPromoCodes")
                         .HasForeignKey("ProductPromoCodeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.AppUser", "User")
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", "User")
                         .WithMany("UserProductPromoCodes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1436,15 +1436,15 @@ namespace Cinema.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.UserSessionPromoCode", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.UserSessionPromoCode", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.SessionPromoCode", "SessionPromoCode")
+                    b.HasOne("Cinema.Infrastructure.Entities.SessionPromoCode", "SessionPromoCode")
                         .WithMany("UserSessionPromoCodes")
                         .HasForeignKey("SessionPromoCodeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.AppUser", "User")
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", "User")
                         .WithMany("UserSessionPromoCodes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1466,7 +1466,7 @@ namespace Cinema.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.AppUser", null)
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1475,7 +1475,7 @@ namespace Cinema.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.AppUser", null)
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1490,7 +1490,7 @@ namespace Cinema.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Data.Entities.AppUser", null)
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1499,19 +1499,19 @@ namespace Cinema.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Cinema.Data.Entities.AppUser", null)
+                    b.HasOne("Cinema.Infrastructure.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Actor", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Actor", b =>
                 {
                     b.Navigation("MovieActors");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.AppUser", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.AppUser", b =>
                 {
                     b.Navigation("Reviews");
 
@@ -1522,7 +1522,7 @@ namespace Cinema.Data.Migrations
                     b.Navigation("UserSessionPromoCodes");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.CinemaTheater", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.CinemaTheater", b =>
                 {
                     b.Navigation("Employees");
 
@@ -1531,41 +1531,41 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Rentals");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.City", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.City", b =>
                 {
                     b.Navigation("CinemaTheaters");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Country", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Country", b =>
                 {
                     b.Navigation("Cities");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Director", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Director", b =>
                 {
                     b.Navigation("MovieDirectors");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Discount", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Discount", b =>
                 {
                     b.Navigation("Products");
 
                     b.Navigation("Sessions");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Genre", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Genre", b =>
                 {
                     b.Navigation("MovieGenres");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Hall", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Hall", b =>
                 {
                     b.Navigation("Seats");
 
                     b.Navigation("Sessions");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Movie", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Movie", b =>
                 {
                     b.Navigation("MovieActors");
 
@@ -1588,46 +1588,46 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Sessions");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Producer", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Producer", b =>
                 {
                     b.Navigation("MovieProducers");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Product", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Product", b =>
                 {
                     b.Navigation("ProductPromoCodes");
 
                     b.Navigation("ShoppingCartItems");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.ProductionCountry", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.ProductionCountry", b =>
                 {
                     b.Navigation("MovieProductionCountries");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.ProductPromoCode", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.ProductPromoCode", b =>
                 {
                     b.Navigation("UserProductPromoCodes");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Receipt", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Receipt", b =>
                 {
                     b.Navigation("Tickets");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Screenwriter", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Screenwriter", b =>
                 {
                     b.Navigation("MovieScreenwriters");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Seat", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Seat", b =>
                 {
                     b.Navigation("SessionSeats");
 
                     b.Navigation("ShoppingCartItems");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Session", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Session", b =>
                 {
                     b.Navigation("SessionPromoCodes");
 
@@ -1636,24 +1636,24 @@ namespace Cinema.Data.Migrations
                     b.Navigation("Tickets");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.SessionPromoCode", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.SessionPromoCode", b =>
                 {
                     b.Navigation("UserSessionPromoCodes");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.ShoppingCart", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.ShoppingCart", b =>
                 {
                     b.Navigation("Receipt");
 
                     b.Navigation("ShoppingCartItems");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Studio", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Studio", b =>
                 {
                     b.Navigation("MovieStudios");
                 });
 
-            modelBuilder.Entity("Cinema.Data.Entities.Ticket", b =>
+            modelBuilder.Entity("Cinema.Infrastructure.Entities.Ticket", b =>
                 {
                     b.Navigation("ShoppingCartItems");
                 });

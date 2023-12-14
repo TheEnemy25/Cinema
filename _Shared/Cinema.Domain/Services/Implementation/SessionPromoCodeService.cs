@@ -1,4 +1,4 @@
-﻿using Cinema.Data.Entities;
+﻿using Cinema.Infrastructure.Entities;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;

@@ -1,4 +1,4 @@
-﻿using Cinema.Data.Entities;
+﻿using Cinema.Infrastructure.Entities;
 using Cinema.Data.EntityConfiguration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

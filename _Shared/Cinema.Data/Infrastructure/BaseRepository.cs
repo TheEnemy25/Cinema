@@ -11,7 +11,7 @@ namespace Exam.Data.Infrastructure
         private readonly ApplicationDbContext context;
         private readonly DbSet<TEntity> dbEntities;
 
-        public BaseRepository(ApplicationDbContext context)
+        public BaseRepository(ApplicationDbContext context, CancellationToken cancellationToken = default)
         {
             this.context = context;
             dbEntities = this.context.Set<TEntity>();
@@ -43,41 +43,44 @@ namespace Exam.Data.Infrastructure
         /// <param name="entity">entity</param>
         /// <exception cref="ArgumentNullException">The entity to add cannot be <see langword="null"/>.</exception>
         /// <returns>added entity</returns>
-        public async Task<TEntity> AddAsync(TEntity entity) => (await dbEntities.AddAsync(entity)).Entity;
+        public async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default) =>
+            (await dbEntities.AddAsync(entity, cancellationToken)).Entity;
 
         /// <summary>
         /// Adds a range of entities.
         /// </summary>
         /// <param name="entities">Entities to add.</param>
         /// <returns>Task.</returns>
-        public Task AddRangeAsync(IEnumerable<TEntity> entities) => dbEntities.AddRangeAsync(entities);
+        public Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default) =>
+            dbEntities.AddRangeAsync(entities, cancellationToken);
 
         /// <summary>
         /// Updates entity asynchronously
         /// </summary>
         /// <param name="entity">entity</param>
         /// <returns>awaitable task with updated entity</returns>
-        public async Task<TEntity> UpdateAsync(TEntity entity) => await Task.Run(() => dbEntities.Update(entity).Entity);
+        public async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default) => await Task.Run(() => dbEntities.Update(entity).Entity);
 
-        public async Task UpdateRangeAsync(IEnumerable<TEntity> entities) => await Task.Run(() => dbEntities.UpdateRange(entities));
+        public async Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default) =>
+            await Task.Run(() => dbEntities.UpdateRange(entities), cancellationToken);
 
         /// <summary>
         /// Deletes range.
         /// </summary>
         /// <param name="entities">Entities to delete.</param>
         /// <returns>Task.</returns>
-        public async Task DeleteRangeAsync(IEnumerable<TEntity> entities) =>
-            await Task.Run(() => entities.ToList().ForEach(item => context.Entry(item).State = EntityState.Deleted));
+        public async Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default) =>
+            await Task.Run(() => entities.ToList().ForEach(item => context.Entry(item).State = EntityState.Deleted), cancellationToken);
 
         /// <summary>
         /// Saves changes in the database asynchronously.
         /// </summary>
         /// <returns>Task</returns>
-        public async Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             try
             {
-                return await context.SaveChangesAsync();
+                return await context.SaveChangesAsync(cancellationToken);
             }
             catch
             {
@@ -94,14 +97,14 @@ namespace Exam.Data.Infrastructure
         /// Removes entity from DBContext
         /// </summary>
         /// <param name="entity">entity</param>
-        public async Task DeleteAsync(TEntity entity) =>
-            await Task.Run(() => context.Entry(entity).State = EntityState.Deleted);
+        public async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default) =>
+            await Task.Run(() => context.Entry(entity).State = EntityState.Deleted, cancellationToken);
 
         /// <summary>
         /// Detaches entity
         /// </summary>
         /// <param name="entity">entity</param>
-        public async Task DetachAsync(TEntity entity) =>
-            await Task.Run(() => context.Entry(entity).State = EntityState.Detached);
+        public async Task DetachAsync(TEntity entity, CancellationToken cancellationToken = default) =>
+            await Task.Run(() => context.Entry(entity).State = EntityState.Detached, cancellationToken);
     }
 }

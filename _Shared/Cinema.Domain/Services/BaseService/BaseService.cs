@@ -12,31 +12,31 @@ namespace Cinema.Domain.Services.BaseService
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync() =>
-            await _repository.Query().ToListAsync();
+        public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default) =>
+            await _repository.Query().ToListAsync(cancellationToken);
 
-        public async Task<TEntity> GetByIdAsync(Guid id) =>
+        public async Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) =>
             await _repository.GetByIdAsync(id);
 
-        public async Task CreateAsync(TEntity entity)
+        public async Task CreateAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            await _repository.AddAsync(entity);
-            await _repository.SaveChangesAsync();
+            await _repository.AddAsync(entity, cancellationToken);
+            await _repository.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
-            await _repository.UpdateAsync(entity);
-            await _repository.SaveChangesAsync();
+            await _repository.UpdateAsync(entity, cancellationToken);
+            await _repository.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var entityToDelete = await _repository.GetByIdAsync(id);
             if (entityToDelete != null)
             {
-                await _repository.DeleteAsync(entityToDelete);
-                await _repository.SaveChangesAsync();
+                await _repository.DeleteAsync(entityToDelete, cancellationToken);
+                await _repository.SaveChangesAsync(cancellationToken);
             }
         }
     }

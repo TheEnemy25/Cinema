@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class ReviewService : BaseService<Review>, IReviewService
+    internal sealed class ReviewService : BaseService<Review>, IReviewService
     {
-        public ReviewService(IBaseRepository<Review> repository) : base(repository)
-        {
-        }
+        public ReviewService(IBaseRepository<Review> repository) : base(repository) { }
 
         public async Task<double> GetAverageRatingByMovieIdAsync(Guid movieId)
         {

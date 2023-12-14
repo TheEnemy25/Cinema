@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class StudioService : BaseService<Studio>, IStudioService
+    internal sealed class StudioService : BaseService<Studio>, IStudioService
     {
-        public StudioService(IBaseRepository<Studio> repository) : base(repository)
-        {
-        }
+        public StudioService(IBaseRepository<Studio> repository) : base(repository) { }
 
         public async Task<IEnumerable<Studio>> GetStudiosByMovieAsync(Guid movieId)
         {

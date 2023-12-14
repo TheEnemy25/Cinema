@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class ProducerService : BaseService<Producer>, IProducerService
+    internal sealed class ProducerService : BaseService<Producer>, IProducerService
     {
-        public ProducerService(IBaseRepository<Producer> repository) : base(repository)
-        {
-        }
+        public ProducerService(IBaseRepository<Producer> repository) : base(repository) { }
 
         public async Task<IEnumerable<Producer>> GetProducersByMovieAsync(Guid movieId)
         {

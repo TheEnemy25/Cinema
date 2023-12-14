@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class DiscountService : BaseService<Discount>, IDiscountService
+    internal sealed class DiscountService : BaseService<Discount>, IDiscountService
     {
         public DiscountService(IBaseRepository<Discount> repository) : base(repository) { }
 

@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class ShoppingCartService : BaseService<ShoppingCart>, IShoppingCartService
+    internal sealed class ShoppingCartService : BaseService<ShoppingCart>, IShoppingCartService
     {
-        public ShoppingCartService(IBaseRepository<ShoppingCart> repository) : base(repository)
-        {
-        }
+        public ShoppingCartService(IBaseRepository<ShoppingCart> repository) : base(repository) { }
 
         public async Task AddItemToCartWithSessionAsync(string userId, Guid productId, Guid sessionId, Guid seatId, int quantity)
         {

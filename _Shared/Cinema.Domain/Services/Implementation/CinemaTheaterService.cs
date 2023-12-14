@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class CinemaTheaterService : BaseService<CinemaTheater>, ICinemaTheaterService
+    internal sealed class CinemaTheaterService : BaseService<CinemaTheater>, ICinemaTheaterService
     {
-        public CinemaTheaterService(IBaseRepository<CinemaTheater> repository) : base(repository)
-        {
-        }
+        public CinemaTheaterService(IBaseRepository<CinemaTheater> repository) : base(repository) { }
 
         public async Task<IEnumerable<CinemaTheater>> GetCinemaTheatersByCityAsync(string cityName)
         {

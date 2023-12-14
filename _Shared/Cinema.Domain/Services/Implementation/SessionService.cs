@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal class SessionService : BaseService<Session>, ISessionService
+    internal sealed class SessionService : BaseService<Session>, ISessionService
     {
         private readonly ISessionPromoCodeService _promoCodeService;
         public SessionService(IBaseRepository<Session> repository, ISessionPromoCodeService promoCodeService) : base(repository)

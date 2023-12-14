@@ -16,16 +16,11 @@ builder.Services.AddSwaggerGen(c =>
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new() { Title = "Auth", Version = "v1" });
-});
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
+
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(config =>
 {
@@ -49,6 +44,17 @@ builder.Services.AddIdentityServer()
     .AddInMemoryClients(Configuration.Clients)
     .AddDeveloperSigningCredential();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactCorsPolicy", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000")
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials();
+    });
+});
+
 builder.Services.ConfigureApplicationCookie(config =>
 {
     config.Cookie.Name = "Cinema.Identity.Cookie";
@@ -58,11 +64,16 @@ builder.Services.ConfigureApplicationCookie(config =>
 
 var app = builder.Build();
 
-app.UseIdentityServer();
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cinema v2"));
+}
 
+app.UseIdentityServer();
+app.UseCors("ReactCorsPolicy");
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

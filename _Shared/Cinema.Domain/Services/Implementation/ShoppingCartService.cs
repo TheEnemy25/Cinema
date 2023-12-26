@@ -10,7 +10,7 @@ namespace Cinema.Domain.Services.Implementation
     {
         public ShoppingCartService(IBaseRepository<ShoppingCart> repository) : base(repository) { }
 
-        public async Task AddItemToCartWithSessionAsync(string userId, Guid productId, Guid sessionId, Guid seatId, int quantity)
+        public async Task AddItemToCartWithSessionAsync(Guid userId, Guid productId, Guid sessionId, Guid seatId, int quantity)
         {
             var shoppingCart = await _repository
                 .Query()
@@ -49,7 +49,7 @@ namespace Cinema.Domain.Services.Implementation
             await _repository.UpdateAsync(shoppingCart);
         }
 
-        public async Task<IEnumerable<ShoppingCartItem>> GetItemsInCartAsync(string userId)
+        public async Task<IEnumerable<ShoppingCartItem>> GetItemsInCartAsync(Guid userId)
         {
             var shoppingCart = await _repository
                 .Query()
@@ -62,7 +62,7 @@ namespace Cinema.Domain.Services.Implementation
             return shoppingCart?.ShoppingCartItems ?? Enumerable.Empty<ShoppingCartItem>();
         }
 
-        public async Task<decimal> GetTotalCartAmountAsync(string userId)
+        public async Task<decimal> GetTotalCartAmountAsync(Guid userId)
         {
             var shoppingCart = await _repository
                 .Query()
@@ -81,7 +81,7 @@ namespace Cinema.Domain.Services.Implementation
             return totalAmount;
         }
 
-        public async Task RemoveItemFromCartWithSessionAsync(string userId, Guid productId, Guid sessionId, Guid seatId)
+        public async Task RemoveItemFromCartWithSessionAsync(Guid userId, Guid productId, Guid sessionId, Guid seatId)
         {
             var shoppingCart = await _repository
                 .Query()

@@ -4,7 +4,7 @@ namespace Cinema.Infrastructure.Entities
 {
     public class UserProductPromoCode : IEntity
     {
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
         public Guid ProductPromoCodeId { get; set; }
 
         public DateTime UsageDate { get; set; }

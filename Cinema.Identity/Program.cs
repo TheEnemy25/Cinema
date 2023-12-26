@@ -22,7 +22,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 
-builder.Services.AddIdentity<AppUser, IdentityRole>(config =>
+builder.Services.AddIdentity<AppUser, AppRole>(config =>
 {
     config.Password.RequiredLength = 8;
     config.Password.RequireDigit = true;

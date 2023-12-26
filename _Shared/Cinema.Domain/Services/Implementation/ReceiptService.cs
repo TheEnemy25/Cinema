@@ -49,7 +49,7 @@ namespace Cinema.Domain.Services.Implementation
             return receipts;
         }
 
-        public async Task<IEnumerable<Receipt>> GetReceiptsByUserIdAsync(string userId)
+        public async Task<IEnumerable<Receipt>> GetReceiptsByUserIdAsync(Guid userId)
         {
             var receipts = await _repository
                 .Query()

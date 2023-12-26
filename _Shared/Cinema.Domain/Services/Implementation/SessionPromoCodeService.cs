@@ -15,8 +15,9 @@ namespace Cinema.Domain.Services.Implementation
 
         public SessionPromoCodeService(IBaseRepository<SessionPromoCode> repository, UserManager<AppUser> userManager, IHttpContextAccessor httpContextAccessor) : base(repository)
         {
-            _userManager = userManager;
-            _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+            Console.WriteLine("SessionPromoCodeService constructor called");
         }
 
         public async Task<decimal> CalculateSessionDiscountAsync(string promoCode, decimal originalPrice)
@@ -36,7 +37,7 @@ namespace Cinema.Domain.Services.Implementation
             {
                 return 0;
             }
-             
+
             var sessionPromoCode = await _repository
                 .Query()
                 .FirstOrDefaultAsync(code => code.PromoCode == promoCode);
@@ -51,14 +52,8 @@ namespace Cinema.Domain.Services.Implementation
 
                     await _repository.UpdateAsync(sessionPromoCode);
 
-                    var promoCodeUsage = new UserSessionPromoCode
-                    {
-                        SessionPromoCodeId = sessionPromoCode.Id,
-                        UsageDate = DateTime.Now,
-                        UserId = user.Id
-                    };
-
-                    await _repository.AddAsync(sessionPromoCode);
+                    // Закоментуйте або видаліть наступний рядок
+                    // await _repository.AddAsync(promoCodeUsage);
 
                     return discountAmount;
                 }
@@ -66,6 +61,7 @@ namespace Cinema.Domain.Services.Implementation
 
             return 0;
         }
+
 
         public async Task<IEnumerable<SessionPromoCode>> GetActiveSessionPromoCodesAsync()
         {

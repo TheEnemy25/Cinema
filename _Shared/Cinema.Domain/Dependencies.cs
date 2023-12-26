@@ -1,5 +1,8 @@
-﻿using Cinema.Domain.Services.Implementation;
+﻿using Cinema.Data.Context;
+using Cinema.Domain.Services.Implementation;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cinema.Domain
@@ -30,6 +33,18 @@ namespace Cinema.Domain
             services.AddScoped<IShoppingCartService, ShoppingCartService>();
             services.AddScoped<IStudioService, StudioService>();
             services.AddScoped<ITicketService, TicketService>();
+
+            services.AddIdentity<AppUser, AppRole>(config =>
+            {
+                config.Password.RequiredLength = 8;
+                config.Password.RequireDigit = true;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+                config.User.RequireUniqueEmail = true;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders()
+            .AddSignInManager<SignInManager<AppUser>>();
 
             return services;
         }

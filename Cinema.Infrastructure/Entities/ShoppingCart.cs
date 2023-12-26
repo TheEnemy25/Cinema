@@ -6,7 +6,7 @@ namespace Cinema.Infrastructure.Entities
     {
         public Guid Id { get; set; }
         public Guid ReceiptId { get; set; }
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
 
 
         public Receipt Receipt { get; set; }

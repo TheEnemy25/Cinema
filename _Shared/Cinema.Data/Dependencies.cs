@@ -44,7 +44,7 @@ namespace Cinema.Data
         public static IServiceCollection RegisterContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("CinemaDb")));
 
             return services;
         }

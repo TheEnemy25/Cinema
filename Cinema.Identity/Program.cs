@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new() { Title = "Auth", Version = "v1" });
 });
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = builder.Configuration.GetConnectionString("CinemaDb");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

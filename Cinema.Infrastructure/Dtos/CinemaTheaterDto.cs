@@ -2,10 +2,10 @@
 {
     public record CinemaTheaterDto
     {
-        public Guid Id { get; set; }
-        public Guid CityId { get; set; }
+        public Guid Id { get; init; }
+        public Guid CityId { get; init; }
 
-        public string Address { get; set; }
-        public string ContactInfo { get; set; }
+        public string Address { get; init; }
+        public string ContactInfo { get; init; }
     }
 }

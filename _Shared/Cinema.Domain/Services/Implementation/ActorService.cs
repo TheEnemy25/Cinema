@@ -10,7 +10,7 @@ namespace Cinema.Domain.Services.Implementation
     {
         public ActorService(IBaseRepository<Actor> repository) : base(repository) { }
 
-        public async Task<IEnumerable<Actor>> GetActorsByMovieAsync(Guid movieId)
+        public async Task<IEnumerable<Actor>> GetActorsByMovieAsync(Guid movieId, CancellationToken cancellationToken = default)
         {
             return await _repository
                .Query()
@@ -18,12 +18,18 @@ namespace Cinema.Domain.Services.Implementation
                .ToListAsync();
         }
 
-        public async Task<IEnumerable<Actor>> SearchActorsAsync(string query)
+        public async Task<IEnumerable<Actor>> SearchActorsAsync(string query, CancellationToken cancellationToken = default)
         {
             return await _repository
                 .Query()
                 .Where(actor => actor.FullName.Contains(query))
                 .ToListAsync();
+        }
+
+        public async Task<bool> CheckIfExistsAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            var entity = await _repository.Query().Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
+            return entity is not null;
         }
     }
 }

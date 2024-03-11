@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cinema.Application\Cinema.Application.csproj" />
     <ProjectReference Include="..\Cinema.Applicaton\Cinema.Application.csproj" />
     <ProjectReference Include="..\_Shared\Cinema.Domain\Cinema.Domain.csproj" />
   </ItemGroup>

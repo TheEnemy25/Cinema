@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.BaseService
 {
+    // TODO: Inject and use mapper, return and accept as a param only business models, fix generics
     internal class BaseService<TEntity> : IBaseService<TEntity> where TEntity : class
     {
         protected readonly IBaseRepository<TEntity> _repository;
@@ -33,6 +34,7 @@ namespace Cinema.Domain.Services.BaseService
         public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var entityToDelete = await _repository.GetByIdAsync(id);
+
             if (entityToDelete != null)
             {
                 await _repository.DeleteAsync(entityToDelete, cancellationToken);

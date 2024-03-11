@@ -1,15 +1,21 @@
-﻿using Cinema.Domain.Services.Interfaces;
+﻿using Cinema.API.Controllers.Base;
+using Cinema.Application.Commands.Actor;
+using Cinema.Application.Queries.Actor;
+using Cinema.Domain.Services.Interfaces;
 using Cinema.Infrastructure.Dtos;
 using Cinema.Infrastructure.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.API.Controllers
 {
-    public class ActorController : ControllerBase
+    // TODO: Fix endpoint namings
+    public class ActorController : CinemaControllerBase
     {
+        //TODO: Remove service injection, replace with CQRS handlers
         private readonly IActorService _actorService;
 
-        public ActorController(IActorService actorService)
+        public ActorController(IActorService actorService, IMediator mediator) : base(mediator)
         {
             _actorService = actorService;
         }
@@ -27,9 +33,9 @@ namespace Cinema.API.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> SearchActorsAsync([FromQuery] string query)
+        public async Task<IActionResult> SearchActorsAsync([FromQuery] SearchActorsQuery request, CancellationToken cancellationToken)
         {
-            var actors = await _actorService.SearchActorsAsync(query);
+            var actors = await _mediator.Send(request, cancellationToken);
 
             if (actors == null || !actors.Any())
             {
@@ -39,7 +45,7 @@ namespace Cinema.API.Controllers
             return Ok(actors);
         }
 
-        [HttpGet]
+        [HttpGet("get-all")]
         public async Task<IActionResult> GetAllAsync()
         {
             var actors = await _actorService.GetAllAsync();
@@ -66,6 +72,7 @@ namespace Cinema.API.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> CreateAsync([FromBody] ActorDto actorDto)
         {
+            // TODO: use AutoMapper in business layer instead
             var actor = new Actor();
             actor.Id = Guid.NewGuid();
             actor.FullName = actorDto.FullName;
@@ -77,23 +84,20 @@ namespace Cinema.API.Controllers
             return Ok(actor);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] ActorDto actorDto)
-        {
-            var actor = await _actorService.GetByIdAsync(id);
 
-            if (actor == null)
+        // TODO: Додати валідацію, написати хендлер команди на апдейт, 
+        [HttpPut("put")]
+        public async Task<IActionResult> UpdateAsync([FromBody] UpdateActorCommand command, CancellationToken cancellationToken)
+        {
+            //TODO: Move existance checks and similiar validations to business layer
+            if (!await _actorService.CheckIfExistsAsync(command.Id, cancellationToken))
             {
-                return NotFound($"Actor with ID {id} not found.");
+                return NotFound($"Actor with ID {command.Id} not found.");
             }
 
-            actor.FullName = actorDto.FullName;
-            actor.Image = actorDto.Image;
-            actor.Biography = actorDto.Biography;
-            actor.DateOfBirth = actorDto.DateOfBirth;
+            var result = await _mediator.Send(command, cancellationToken);
 
-            await _actorService.UpdateAsync(actor);
-            return Ok(actor);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]

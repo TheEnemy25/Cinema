@@ -11,6 +11,11 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("Studio");
 
             builder.HasKey(s => s.Id);
+            builder.Property(s => s.Id).ValueGeneratedOnAdd();
+
+            builder.Property(s => s.Name).IsRequired().HasMaxLength(50);
+            builder.Property(s => s.Description).IsRequired().HasMaxLength(1000);
+            builder.Property(s => s.Image).IsRequired();
 
             builder.HasMany(s => s.MovieStudios)
                 .WithOne(ms => ms.Studio)

@@ -11,6 +11,10 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("Session");
 
             builder.HasKey(s => s.Id);
+            builder.Property(s => s.Id).ValueGeneratedOnAdd();
+
+            builder.Property(s => s.Date).IsRequired();
+            builder.Property(s => s.StartTime).IsRequired();
 
             builder.HasOne(s => s.Hall)
                 .WithMany(h => h.Sessions)

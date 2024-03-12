@@ -11,6 +11,16 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("Movie");
 
             builder.HasKey(m => m.Id);
+            builder.Property(m => m.Id).ValueGeneratedOnAdd();
+
+            builder.Property(m => m.Title).IsRequired().HasMaxLength(50);
+            builder.Property(m => m.AgeRestriction).IsRequired();
+            builder.Property(m => m.Description).IsRequired().HasMaxLength(1000);
+            builder.Property(m => m.ImageLink).IsRequired();
+            builder.Property(m => m.TrailerLink).IsRequired();
+            builder.Property(m => m.Rating).IsRequired();
+            builder.Property(m => m.Duration);
+            builder.Property(m => m.ReleaseDate).IsRequired();
 
             builder.HasMany(m => m.MovieDirectors)
                 .WithOne(md => md.Movie)

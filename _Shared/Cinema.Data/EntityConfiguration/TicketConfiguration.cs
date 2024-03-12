@@ -11,6 +11,11 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("Ticket");
 
             builder.HasKey(t => t.Id);
+            builder.Property(t => t.Id).ValueGeneratedOnAdd();
+
+            builder.Property(t => t.Status).IsRequired();
+            builder.Property(t => t.Row).IsRequired();
+            builder.Property(t => t.SeatNumber).IsRequired();
 
             builder.HasOne(t => t.Session)
                 .WithMany(s => s.Tickets)

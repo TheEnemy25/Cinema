@@ -10,12 +10,14 @@ namespace Cinema.Data.EntityConfiguration
         {
             builder.ToTable("Actor");
 
-            builder.HasKey(a => a.Id);
-
             // TODO: Complete all entity configurations
+            builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).ValueGeneratedOnAdd();
 
             builder.Property(a => a.FullName).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.Image).IsRequired();
+            builder.Property(a => a.Biography).IsRequired();
+            builder.Property(a => a.Country).IsRequired().HasMaxLength(50);
             builder.Property(a => a.DateOfBirth).IsRequired();
 
             builder.HasMany(a => a.MovieActors)

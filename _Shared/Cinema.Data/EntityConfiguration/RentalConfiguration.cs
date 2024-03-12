@@ -11,6 +11,9 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("Rental");
 
             builder.HasKey(r => r.Id);
+            builder.Property(r => r.Id).ValueGeneratedOnAdd();
+
+            builder.Property(r => r.RentalDate).IsRequired();
 
             builder.HasOne(r => r.Movie)
                 .WithMany(m => m.Rentals)

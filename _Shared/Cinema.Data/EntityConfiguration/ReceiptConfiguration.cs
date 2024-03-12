@@ -11,6 +11,10 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("Receipt");
 
             builder.HasKey(r => r.Id);
+            builder.Property(r => r.Id).ValueGeneratedOnAdd();
+
+            builder.Property(r => r.TotalAmount).IsRequired();
+            builder.Property(r => r.CreatedAt).IsRequired();
 
             builder.HasOne(r => r.ShoppingCart)
                 .WithOne(sc => sc.Receipt)

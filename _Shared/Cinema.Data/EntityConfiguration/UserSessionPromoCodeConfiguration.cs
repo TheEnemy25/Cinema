@@ -12,6 +12,8 @@ namespace Cinema.Data.EntityConfiguration
 
             builder.HasKey(uspc => new { uspc.UserId, uspc.SessionPromoCodeId });
 
+            builder.Property(uspc => uspc.UsageDate).IsRequired();
+
             builder.HasOne(uspc => uspc.User)
                 .WithMany(m => m.UserSessionPromoCodes)
                 .HasForeignKey(uspc => uspc.UserId)

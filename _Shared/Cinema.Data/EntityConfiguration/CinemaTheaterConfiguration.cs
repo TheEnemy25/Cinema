@@ -11,6 +11,10 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("CinemaTheater");
 
             builder.HasKey(ct => ct.Id);
+            builder.Property(ct => ct.Id).ValueGeneratedOnAdd();
+
+            builder.Property(ct => ct.Address).IsRequired().HasMaxLength(50);
+            builder.Property(ct => ct.ContactInfo).IsRequired().HasMaxLength(50);
 
             builder.HasMany(ct => ct.Halls)
                 .WithOne(h => h.CinemaTheater)

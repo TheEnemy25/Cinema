@@ -10,6 +10,8 @@ namespace Cinema.Data.EntityConfiguration
         {
             builder.HasKey(ss => new { ss.SessionId, ss.SeatId });
 
+            builder.Property(ss => ss.Status).IsRequired();
+
             builder.HasOne(ss => ss.Session)
                 .WithMany(m => m.SessionSeats)
                 .HasForeignKey(ss => ss.SessionId)

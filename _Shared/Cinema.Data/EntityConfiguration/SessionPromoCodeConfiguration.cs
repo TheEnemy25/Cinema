@@ -11,6 +11,11 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("SessionPromoCode");
 
             builder.HasKey(spc => spc.Id);
+            builder.Property(spc => spc.Id).ValueGeneratedOnAdd();
+
+            builder.Property(spc => spc.PromoCode).IsRequired().HasMaxLength(50);
+            builder.Property(spc => spc.DiscountPercentage).IsRequired();
+            builder.Property(spc => spc.MaxUsageCount).IsRequired();
 
             builder.HasOne(spc => spc.Session)
                 .WithMany(s => s.SessionPromoCodes)

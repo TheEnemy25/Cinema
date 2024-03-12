@@ -11,6 +11,11 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("Genre");
 
             builder.HasKey(g => g.Id);
+            builder.Property(g => g.Id).ValueGeneratedOnAdd();
+
+            builder.Property(g => g.Name).IsRequired().HasMaxLength(50);
+            builder.Property(g => g.Description).IsRequired().HasMaxLength(100);
+            builder.Property(g => g.ImageURL).IsRequired();
 
             builder.HasMany(g => g.MovieGenres)
                 .WithOne(mg => mg.Genre)

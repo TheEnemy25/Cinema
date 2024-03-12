@@ -11,6 +11,10 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("AppUser");
 
             builder.HasKey(a => a.Id);
+            builder.Property(a => a.Id).ValueGeneratedOnAdd();
+
+            builder.Property(a => a.FirstName).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.LastName).IsRequired().HasMaxLength(50);
 
             builder.HasMany(a => a.Reviews)
                 .WithOne(r => r.User)

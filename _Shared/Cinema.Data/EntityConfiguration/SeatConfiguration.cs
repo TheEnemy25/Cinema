@@ -11,6 +11,10 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("Seat");
 
             builder.HasKey(s => s.Id);
+            builder.Property(s => s.Id).ValueGeneratedOnAdd();
+
+            builder.Property(s => s.Row).IsRequired();
+            builder.Property(s => s.Number).IsRequired();
 
             builder.HasOne(s => s.Hall)
                 .WithMany(h => h.Seats)

@@ -11,6 +11,9 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("City");
 
             builder.HasKey(c => c.Id);
+            builder.Property(с => с.Id).ValueGeneratedOnAdd();
+
+            builder.Property(с => с.Name).IsRequired().HasMaxLength(50);
 
             builder.HasOne(c => c.Country)
                 .WithMany(co => co.Cities)

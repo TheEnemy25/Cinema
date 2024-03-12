@@ -10,6 +10,10 @@ public class ShoppingCartItemConfiguration : IEntityTypeConfiguration<ShoppingCa
         builder.ToTable("ShoppingCartItem");
 
         builder.HasKey(sci => sci.Id);
+        builder.Property(sci => sci.Id).ValueGeneratedOnAdd();
+
+        builder.Property(sci => sci.Quantity).IsRequired();
+        builder.Property(sci => sci.UnitPrice).IsRequired();
 
         builder.HasOne(sci => sci.ShoppingCart)
             .WithMany(sc => sc.ShoppingCartItems)

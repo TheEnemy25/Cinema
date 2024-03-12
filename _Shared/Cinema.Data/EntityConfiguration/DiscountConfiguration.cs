@@ -11,6 +11,13 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("Discount");
 
             builder.HasKey(d => d.Id);
+            builder.Property(d => d.Id).ValueGeneratedOnAdd();
+
+            builder.Property(d => d.Name).IsRequired().HasMaxLength(50);
+            builder.Property(d => d.Description).IsRequired().HasMaxLength(100);
+            builder.Property(d => d.Amount).IsRequired();
+            builder.Property(d => d.StartDate).IsRequired();
+            builder.Property(d => d.EndDate).IsRequired();
 
             builder.HasMany(d => d.Sessions)
                 .WithOne(s => s.Discount)

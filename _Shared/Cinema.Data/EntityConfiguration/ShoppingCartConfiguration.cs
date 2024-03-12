@@ -11,6 +11,7 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("ShoppingCart");
 
             builder.HasKey(sc => sc.Id);
+            builder.Property(sc => sc.Id).ValueGeneratedOnAdd();
 
             builder.HasOne(sc => sc.Receipt)
                 .WithOne(r => r.ShoppingCart)

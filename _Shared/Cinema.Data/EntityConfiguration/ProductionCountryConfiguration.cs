@@ -11,6 +11,9 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("ProductionCountry");
 
             builder.HasKey(pc => pc.Id);
+            builder.Property(pc => pc.Id).ValueGeneratedOnAdd();
+
+            builder.Property(pc => pc.CountryName).IsRequired();
 
             builder.HasMany(pc => pc.MovieProductionCountries)
                 .WithOne(mpc => mpc.ProductionCountry)

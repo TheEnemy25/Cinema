@@ -11,6 +11,11 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("ProductPromoCode");
 
             builder.HasKey(ppc => ppc.Id);
+            builder.Property(ppc => ppc.Id).ValueGeneratedOnAdd();
+
+            builder.Property(ppc => ppc.PromoCode).IsRequired().HasMaxLength(50);
+            builder.Property(ppc => ppc.DiscountPercentage).IsRequired();
+            builder.Property(ppc => ppc.MaxUsageCount).IsRequired();
 
             builder.HasOne(ppc => ppc.Product)
                 .WithMany(p => p.ProductPromoCodes)

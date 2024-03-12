@@ -11,6 +11,11 @@ namespace Cinema.Data.EntityConfiguration
             builder.ToTable("Review");
 
             builder.HasKey(r => r.Id);
+            builder.Property(r => r.Id).ValueGeneratedOnAdd();
+
+            builder.Property(r => r.Content).IsRequired().HasMaxLength(500);
+            builder.Property(r => r.Rating);
+            builder.Property(r => r.Date).IsRequired();
 
             builder.HasOne(r => r.Movie)
                 .WithMany(m => m.Reviews)

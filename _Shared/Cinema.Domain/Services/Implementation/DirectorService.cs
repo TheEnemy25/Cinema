@@ -1,29 +1,37 @@
-﻿using Cinema.Infrastructure.Entities;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class DirectorService : BaseService<Director>, IDirectorService
+    internal sealed class DirectorService : BaseService<Director, DirectorDto>, IDirectorService
     {
-        public DirectorService(IBaseRepository<Director> repository) : base(repository) { }
+        private readonly IMapper _mapper;
 
-        public async Task<IEnumerable<Director>> GetDirectorsByMovieAsync(Guid movieId)
+        public DirectorService(IBaseRepository<Director> repository, IMapper mapper) : base(repository, mapper) { }
+
+        public async Task<IEnumerable<DirectorDto>> GetDirectorsByMovieAsync(Guid movieId, CancellationToken cancellationToken = default)
         {
-            return await _repository
+            var director = _repository
                 .Query()
-                .Where(director => director.MovieDirectors.Any(movieDirector => movieDirector.MovieId == movieId))
-                .ToListAsync();
+                .Where(d => d.MovieDirectors.Any(md => md.MovieId == movieId))
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<DirectorDto>>(director);
         }
 
-        public async Task<IEnumerable<Director>> SearchDirectorsAsync(string query)
+        public async Task<IEnumerable<DirectorDto>> SearchDirectorsAsync(string query, CancellationToken cancellationToken = default)
         {
-            return await _repository
+            var director = await _repository
                 .Query()
-                .Where(director => director.FullName.Contains(query))
-                .ToListAsync();
+                .Where(d => d.FullName.Contains(query))
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<DirectorDto>>(director);
         }
     }
 }

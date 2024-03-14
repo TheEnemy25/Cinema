@@ -1,54 +1,58 @@
-﻿using Cinema.Infrastructure.Entities;
-using Cinema.Infrastructure.Enums;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
+using Cinema.Infrastructure.Enums;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class TicketService : BaseService<Ticket>, ITicketService
+    internal sealed class TicketService : BaseService<Ticket, TicketDto>, ITicketService
     {
-        public TicketService(IBaseRepository<Ticket> repository) : base(repository) { }
+        private readonly IMapper _mapper;
 
-        public async Task<IEnumerable<Ticket>> GetTicketsByReceiptIdAsync(Guid receiptId)
+        public TicketService(IBaseRepository<Ticket> repository, IMapper mapper) : base(repository, mapper) { }
+
+        public async Task<IEnumerable<TicketDto>> GetTicketsByReceiptIdAsync(Guid receiptId, CancellationToken cancellationToken = default)
         {
             var tickets = await _repository
                 .Query()
                 .Where(t => t.ReceiptId == receiptId)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            return tickets;
+            return _mapper.Map<IEnumerable<TicketDto>>(tickets);
         }
 
-        public async Task<IEnumerable<Ticket>> GetTicketsBySessionIdAsync(Guid sessionId)
+        public async Task<IEnumerable<TicketDto>> GetTicketsBySessionIdAsync(Guid sessionId, CancellationToken cancellationToken = default)
         {
             var tickets = await _repository
                 .Query()
                 .Where(t => t.SessionId == sessionId)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            return tickets;
+            return _mapper.Map<IEnumerable<TicketDto>>(tickets);
         }
 
-        public async Task<IEnumerable<Ticket>> GetTicketsByShoppingCartIdAsync(Guid shoppingCartId)
+        public async Task<IEnumerable<TicketDto>> GetTicketsByShoppingCartIdAsync(Guid shoppingCartId, CancellationToken cancellationToken = default)
         {
             var tickets = await _repository
                 .Query()
                 .Where(t => t.ShoppingCartItems.Any(item => item.ShoppingCartId == shoppingCartId))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            return tickets;
+            return _mapper.Map<IEnumerable<TicketDto>>(tickets);
         }
 
-        public async Task<IEnumerable<Ticket>> GetTicketsByStatusAsync(Guid receiptId, ETicketStatus status)
+        public async Task<IEnumerable<TicketDto>> GetTicketsByStatusAsync(Guid receiptId, ETicketStatus status, CancellationToken cancellationToken)
         {
             var tickets = await _repository
                 .Query()
                 .Where(t => t.ReceiptId == receiptId && t.Status == status)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            return tickets;
+            return _mapper.Map<IEnumerable<TicketDto>>(tickets);
         }
     }
 }

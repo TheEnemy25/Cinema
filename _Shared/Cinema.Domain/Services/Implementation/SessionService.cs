@@ -1,21 +1,25 @@
-﻿using Cinema.Infrastructure.Entities;
-using Cinema.Infrastructure.Enums;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
+using Cinema.Infrastructure.Enums;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class SessionService : BaseService<Session>, ISessionService
+    internal sealed class SessionService : BaseService<Session, SessionDto>, ISessionService
     {
         private readonly ISessionPromoCodeService _promoCodeService;
-        public SessionService(IBaseRepository<Session> repository, ISessionPromoCodeService promoCodeService) : base(repository)
+        private readonly IMapper _mapper;
+
+        public SessionService(IBaseRepository<Session> repository, ISessionPromoCodeService promoCodeService, IMapper mapper) : base(repository, mapper)
         {
             _promoCodeService = promoCodeService;
         }
 
-        public async Task<decimal> CalculateTicketPriceAsync(Guid sessionId, string promoCode = null)
+        public async Task<decimal> CalculateTicketPriceAsync(Guid sessionId, string promoCode = null, CancellationToken cancellationToken = default)
         {
             var session = await _repository
                .Query()
@@ -42,7 +46,7 @@ namespace Cinema.Domain.Services.Implementation
         }
 
 
-        public async Task<int> GetAvailableSeatsCountAsync(Guid sessionId)
+        public async Task<int> GetAvailableSeatsCountAsync(Guid sessionId, CancellationToken cancellationToken = default)
         {
             var session = await _repository
                 .Query()
@@ -59,24 +63,24 @@ namespace Cinema.Domain.Services.Implementation
             return availableSeatsCount;
         }
 
-        public async Task<IEnumerable<Session>> GetSessionsByHallIdAsync(Guid hallId)
+        public async Task<IEnumerable<SessionDto>> GetSessionsByHallIdAsync(Guid hallId, CancellationToken cancellationToken = default)
         {
             var sessions = await _repository
                 .Query()
                 .Where(s => s.Hall.Id == hallId)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            return sessions;
+            return _mapper.Map<IEnumerable<SessionDto>>(sessions);
         }
 
-        public async Task<IEnumerable<Session>> GetSessionsByMovieIdAsync(Guid movieId)
+        public async Task<IEnumerable<SessionDto>> GetSessionsByMovieIdAsync(Guid movieId, CancellationToken cancellationToken = default)
         {
             var sessions = await _repository
                 .Query()
                 .Where(s => s.Movie.Id == movieId)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            return sessions;
+            return _mapper.Map<IEnumerable<SessionDto>>(sessions);
         }
     }
 }

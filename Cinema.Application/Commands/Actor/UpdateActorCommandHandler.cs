@@ -36,7 +36,7 @@ namespace Cinema.Application.Commands.Actor
                 DateOfBirth = request.DateOfBirth,
             };
 
-            await _actorService.UpdateAsync(actor, cancellationToken);
+            //await _actorService.UpdateAsync(/*actor,*/ /*cancellationToken*/);
 
             _logger.LogInformation($"Actor with id {request.Id} was successfully updated");
 

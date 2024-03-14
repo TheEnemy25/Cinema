@@ -1,21 +1,25 @@
-﻿using Cinema.Infrastructure.Entities;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class ProductPromoCodeService : BaseService<ProductPromoCode>, IProductPromoCodeService
+    internal sealed class ProductPromoCodeService : BaseService<ProductPromoCode, ProductPromoCodeDto>, IProductPromoCodeService
     {
-        public ProductPromoCodeService(IBaseRepository<ProductPromoCode> repository) : base(repository) { }
+        private readonly IMapper _mapper;
 
-        public async Task<decimal> CalculateProductDiscountAsync(string promoCode, decimal originalPrice)
+        public ProductPromoCodeService(IBaseRepository<ProductPromoCode> repository, IMapper mapper) : base(repository, mapper) { }
+
+        public async Task<decimal> CalculateProductDiscountAsync(string promoCode, decimal originalPrice, CancellationToken cancellationToken)
         {
             var productPromoCode = await _repository
                 .Query()
-                .Where(code => code.PromoCode == promoCode)
-                .FirstOrDefaultAsync();
+                .Where(ppc => ppc.PromoCode == promoCode)
+                .FirstOrDefaultAsync(cancellationToken);
 
             if (productPromoCode != null)
             {
@@ -26,7 +30,7 @@ namespace Cinema.Domain.Services.Implementation
 
                     productPromoCode.MaxUsageCount--;
 
-                    await _repository.UpdateAsync(productPromoCode);
+                    await _repository.UpdateAsync(productPromoCode, cancellationToken);
 
                     return discountAmount;
                 }
@@ -34,30 +38,30 @@ namespace Cinema.Domain.Services.Implementation
             return 0;
         }
 
-        public async Task<IEnumerable<ProductPromoCode>> GetActiveProductPromoCodesAsync()
+        public async Task<IEnumerable<ProductPromoCodeDto>> GetActiveProductPromoCodesAsync(CancellationToken cancellationToken)
         {
             var activePromoCodes = await _repository
                 .Query()
-                .Where(code => code.MaxUsageCount > 0)
-                .ToListAsync();
+                .Where(ppc => ppc.MaxUsageCount > 0)
+                .ToListAsync(cancellationToken);
 
-            return activePromoCodes;
+            return _mapper.Map<IEnumerable<ProductPromoCodeDto>>(activePromoCodes);
         }
 
-        public async Task<IEnumerable<ProductPromoCode>> GetAllValidProductPromoCodesAsync()
+        public async Task<IEnumerable<ProductPromoCodeDto>> GetAllValidProductPromoCodesAsync(CancellationToken cancellationToken)
         {
             var validPromoCodes = await _repository
                     .Query()
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken);
 
-            return validPromoCodes;
+            return _mapper.Map<IEnumerable<ProductPromoCodeDto>>(validPromoCodes);
         }
 
-        public async Task<bool> IsProductPromoCodeValidAsync(string promoCode)
+        public async Task<bool> IsProductPromoCodeValidAsync(string promoCode, CancellationToken cancellationToken)
         {
             var isValid = await _repository
                 .Query()
-                .AnyAsync(code => code.PromoCode == promoCode && code.MaxUsageCount > 0);
+                .AnyAsync(code => code.PromoCode == promoCode && code.MaxUsageCount > 0, cancellationToken);
 
             return isValid;
         }

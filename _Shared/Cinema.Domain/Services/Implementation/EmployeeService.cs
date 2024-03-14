@@ -1,30 +1,38 @@
-﻿using Cinema.Infrastructure.Entities;
-using Cinema.Infrastructure.Enums;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
+using Cinema.Infrastructure.Enums;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class EmployeeService : BaseService<Employee>, IEmployeeService
+    internal sealed class EmployeeService : BaseService<Employee, EmployeeDto>, IEmployeeService
     {
-        public EmployeeService(IBaseRepository<Employee> repository) : base(repository) { }
+        private readonly IMapper _mapper;
 
-        public async Task<IEnumerable<Employee>> GetEmployeesByBirthDateRangeAsync(DateTime startDate, DateTime endDate)
+        public EmployeeService(IBaseRepository<Employee> repository, IMapper mapper) : base(repository, mapper) { }
+
+        public async Task<IEnumerable<EmployeeDto>> GetEmployeesByBirthDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default)
         {
-            return await _repository
+            var employee = await _repository
                 .Query()
-                .Where(employee => employee.DateOfBirth >= startDate && employee.DateOfBirth <= endDate)
-                .ToListAsync();
+                .Where(e => e.DateOfBirth >= startDate && e.DateOfBirth <= endDate)
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<EmployeeDto>>(employee);
         }
 
-        public async Task<IEnumerable<Employee>> GetEmployeesByRoleAsync(EEmployeeRole role)
+        public async Task<IEnumerable<EmployeeDto>> GetEmployeesByRoleAsync(EEmployeeRole role, CancellationToken cancellationToken = default)
         {
-            return await _repository
+            var employee = await _repository
                 .Query()
-                .Where(employee => employee.Role == role)
-                .ToListAsync();
+                .Where(e => e.Role == role)
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<EmployeeDto>>(employee);
         }
     }
 }

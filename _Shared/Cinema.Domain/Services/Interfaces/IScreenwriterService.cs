@@ -1,11 +1,12 @@
-﻿using Cinema.Infrastructure.Entities;
-using Cinema.Domain.Services.BaseService;
+﻿using Cinema.Domain.Services.BaseService;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 
 namespace Cinema.Domain.Services.Interfaces
 {
-    public interface IScreenwriterService : IBaseService<Screenwriter>
+    public interface IScreenwriterService : IBaseService<Screenwriter, ScreenwriterDto>
     {
-        Task<IEnumerable<Screenwriter>> GetScreenwritersByMovieAsync(Guid movieId);
-        Task<IEnumerable<Screenwriter>> SearchScreenwritersAsync(string query);
+        Task<IEnumerable<ScreenwriterDto>> GetScreenwritersByMovieAsync(Guid movieId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<ScreenwriterDto>> SearchScreenwritersAsync(string query, CancellationToken cancellationToken = default);
     }
 }

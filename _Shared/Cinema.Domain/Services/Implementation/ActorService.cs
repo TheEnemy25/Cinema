@@ -1,29 +1,37 @@
-﻿using Cinema.Infrastructure.Entities;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class ActorService : BaseService<Actor>, IActorService
+    internal sealed class ActorService : BaseService<Actor, ActorDto>, IActorService
     {
-        public ActorService(IBaseRepository<Actor> repository) : base(repository) { }
+        private readonly IMapper _mapper;
 
-        public async Task<IEnumerable<Actor>> GetActorsByMovieAsync(Guid movieId, CancellationToken cancellationToken = default)
+        public ActorService(IBaseRepository<Actor> repository, IMapper mapper) : base(repository, mapper) { }
+
+        public async Task<IEnumerable<ActorDto>> GetActorsByMovieAsync(Guid movieId, CancellationToken cancellationToken = default)
         {
-            return await _repository
-               .Query()
-               .Where(actor => actor.MovieActors.Any(movieActor => movieActor.MovieId == movieId))
-               .ToListAsync();
+            var actors = await _repository
+                .Query()
+                .Where(actors => actors.MovieActors.Any(movieActor => movieActor.MovieId == movieId))
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<ActorDto>>(actors);
         }
 
-        public async Task<IEnumerable<Actor>> SearchActorsAsync(string query, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ActorDto>> SearchActorsAsync(string query, CancellationToken cancellationToken = default)
         {
-            return await _repository
+            var actors = await _repository
                 .Query()
                 .Where(actor => actor.FullName.Contains(query))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<ActorDto>>(actors);
         }
 
         public async Task<bool> CheckIfExistsAsync(Guid id, CancellationToken cancellationToken = default)

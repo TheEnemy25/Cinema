@@ -1,23 +1,27 @@
-﻿using Cinema.Infrastructure.Entities;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class StudioService : BaseService<Studio>, IStudioService
+    internal sealed class StudioService : BaseService<Studio, StudioDto>, IStudioService
     {
-        public StudioService(IBaseRepository<Studio> repository) : base(repository) { }
+        private readonly IMapper _mapper;
 
-        public async Task<IEnumerable<Studio>> GetStudiosByMovieAsync(Guid movieId)
+        public StudioService(IBaseRepository<Studio> repository, IMapper mapper) : base(repository, mapper) { }
+
+        public async Task<IEnumerable<StudioDto>> GetStudiosByMovieAsync(Guid movieId, CancellationToken cancellationToken = default)
         {
             var movies = await _repository
                 .Query()
                 .Where(s => s.MovieStudios.Any(ms => ms.Movie.Id == movieId))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            return movies;
+            return _mapper.Map<IEnumerable<StudioDto>>(movies);
         }
     }
 }

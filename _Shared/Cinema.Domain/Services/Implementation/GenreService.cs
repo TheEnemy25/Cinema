@@ -1,39 +1,37 @@
-﻿using Cinema.Infrastructure.Entities;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class GenreService : BaseService<Genre>, IGenreService
+    internal sealed class GenreService : BaseService<Genre, GenreDto>, IGenreService
     {
-        public GenreService(IBaseRepository<Genre> repository) : base(repository) { }
+        private readonly IMapper _mapper;
 
-        public async Task<Genre> GetGenreByNameAsync(string name)
+        public GenreService(IBaseRepository<Genre> repository, IMapper mapper) : base(repository, mapper) { }
+
+        public async Task<GenreDto> GetGenreByNameAsync(string name, CancellationToken cancellationToken = default)
         {
             var genre = await _repository
                  .Query()
-                 .Where(genre => genre.Name == name)
-                 .FirstOrDefaultAsync();
+                 .Where(g => g.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                 .FirstOrDefaultAsync(cancellationToken);
 
-            return genre ?? new Genre();
+            return _mapper.Map<GenreDto>(genre);
         }
 
-        public async Task<IEnumerable<Movie>> GetGenresByMovieAsync(Guid genreId)
+        public async Task<IEnumerable<MovieDto>> GetGenresByMovieAsync(Guid genreId, CancellationToken cancellationToken = default)
         {
-            var genreWithMovies = await _repository
-                .Query(g => g.MovieGenres)
-                .Where(g => g.Id == genreId)
-                .FirstOrDefaultAsync();
+            var genre = await _repository
+                .Query()
+                .Where(g => g.MovieGenres.Any(mg => mg.MovieId == genreId))
+                .ToListAsync(cancellationToken);
 
-            if (genreWithMovies != null)
-            {
-                var movies = genreWithMovies.MovieGenres.Select(mg => mg.Movie).ToList();
-                return movies;
-            }
-
-            return Enumerable.Empty<Movie>();
+            return _mapper.Map<IEnumerable<MovieDto>>(genre);
         }
     }
 }

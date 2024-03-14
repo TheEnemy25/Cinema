@@ -1,21 +1,27 @@
-﻿using Cinema.Infrastructure.Entities;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class CityService : BaseService<City>, ICityService
+    internal sealed class CityService : BaseService<City, CityDto>, ICityService
     {
-        public CityService(IBaseRepository<City> repository) : base(repository) { }
+        private readonly IMapper _mapper;
 
-        public async Task<IEnumerable<City>> GetCitiesByCountryAsync(Guid countryId)
+        public CityService(IBaseRepository<City> repository, IMapper mapper) : base(repository, mapper) { }
+
+        public async Task<IEnumerable<CityDto>> GetCitiesByCountryAsync(Guid countryId, CancellationToken cancellationToken = default)
         {
-            return await _repository
+            var city = await _repository
                 .Query()
-                .Where(city => city.CountryId == countryId)
-                .ToListAsync();
+                .Where(c => c.CountryId == countryId)
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<CityDto>>(city);
         }
     }
 }

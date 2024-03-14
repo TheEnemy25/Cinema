@@ -1,11 +1,12 @@
-﻿using Cinema.Infrastructure.Entities;
-using Cinema.Domain.Services.BaseService;
+﻿using Cinema.Domain.Services.BaseService;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 
 namespace Cinema.Domain.Services.Interfaces
 {
-    public interface IGenreService : IBaseService<Genre>
+    public interface IGenreService : IBaseService<Genre, GenreDto>
     {
-        Task<Genre> GetGenreByNameAsync(string name);
-        Task<IEnumerable<Movie>> GetGenresByMovieAsync(Guid genreId);
+        Task<GenreDto> GetGenreByNameAsync(string name, CancellationToken cancellationToken = default);
+        Task<IEnumerable<MovieDto>> GetGenresByMovieAsync(Guid genreId, CancellationToken cancellationToken = default);
     }
 }

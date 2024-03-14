@@ -1,33 +1,37 @@
-﻿using Cinema.Infrastructure.Entities;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class ProducerService : BaseService<Producer>, IProducerService
+    internal sealed class ProducerService : BaseService<Producer, ProducerDto>, IProducerService
     {
-        public ProducerService(IBaseRepository<Producer> repository) : base(repository) { }
+        private readonly IMapper _mapper;
 
-        public async Task<IEnumerable<Producer>> GetProducersByMovieAsync(Guid movieId)
+        public ProducerService(IBaseRepository<Producer> repository, IMapper mapper) : base(repository, mapper) { }
+
+        public async Task<IEnumerable<ProducerDto>> GetProducersByMovieAsync(Guid movieId, CancellationToken cancellationToken)
         {
             var producers = await _repository
                .Query()
-               .Where(p => p.MovieProducers.Any(mp => mp.Movie.Id == movieId))
-               .ToListAsync();
+               .Where(p => p.MovieProducers.Any(mp => mp.MovieId == movieId))
+               .ToListAsync(cancellationToken);
 
-            return producers;
+            return _mapper.Map<IEnumerable<ProducerDto>>(producers);
         }
 
-        public async Task<IEnumerable<Producer>> SearchProducersAsync(string query)
+        public async Task<IEnumerable<ProducerDto>> SearchProducersAsync(string query, CancellationToken cancellationToken)
         {
             var producers = await _repository
                 .Query()
                 .Where(p => p.FullName.Contains(query) || p.Biography.Contains(query))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            return producers;
+            return _mapper.Map<IEnumerable<ProducerDto>>(producers);
         }
     }
 }

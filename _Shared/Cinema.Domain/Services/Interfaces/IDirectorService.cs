@@ -1,11 +1,12 @@
-﻿using Cinema.Infrastructure.Entities;
-using Cinema.Domain.Services.BaseService;
+﻿using Cinema.Domain.Services.BaseService;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 
 namespace Cinema.Domain.Services.Interfaces
 {
-    public interface IDirectorService : IBaseService<Director>
+    public interface IDirectorService : IBaseService<Director, DirectorDto>
     {
-        Task<IEnumerable<Director>> GetDirectorsByMovieAsync(Guid movieId);
-        Task<IEnumerable<Director>> SearchDirectorsAsync(string query);
+        Task<IEnumerable<DirectorDto>> GetDirectorsByMovieAsync(Guid movieId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<DirectorDto>> SearchDirectorsAsync(string query, CancellationToken cancellationToken = default);
     }
 }

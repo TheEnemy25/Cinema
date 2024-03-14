@@ -3,31 +3,35 @@ using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Cinema.Infrastructure.Dtos;
+using AutoMapper;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class ScreenwriterService : BaseService<Screenwriter>, IScreenwriterService
+    internal sealed class ScreenwriterService : BaseService<Screenwriter, ScreenwriterDto>, IScreenwriterService
     {
-        public ScreenwriterService(IBaseRepository<Screenwriter> repository) : base(repository) { }
+        private readonly IMapper _mapper;
 
-        public async Task<IEnumerable<Screenwriter>> GetScreenwritersByMovieAsync(Guid movieId)
+        public ScreenwriterService(IBaseRepository<Screenwriter> repository, IMapper mapper) : base(repository, mapper) { }
+
+        public async Task<IEnumerable<ScreenwriterDto>> GetScreenwritersByMovieAsync(Guid movieId, CancellationToken cancellationToken = default)
         {
             var screenwriters = await _repository
                 .Query()
                 .Where(s => s.MovieScreenwriters.Any(ms => ms.Movie.Id == movieId))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            return screenwriters;
+            return _mapper.Map<IEnumerable<ScreenwriterDto>>(screenwriters);
         }
 
-        public async Task<IEnumerable<Screenwriter>> SearchScreenwritersAsync(string query)
+        public async Task<IEnumerable<ScreenwriterDto>> SearchScreenwritersAsync(string query, CancellationToken cancellationToken = default)
         {
             var screenwriters = await _repository
                 .Query()
                 .Where(s => s.FullName.Contains(query) || s.Biography.Contains(query))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            return screenwriters;
+            return _mapper.Map<IEnumerable<ScreenwriterDto>>(screenwriters);
         }
     }
 }

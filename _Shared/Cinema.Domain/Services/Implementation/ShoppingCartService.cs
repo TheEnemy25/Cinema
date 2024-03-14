@@ -1,25 +1,29 @@
-﻿using Cinema.Infrastructure.Entities;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class ShoppingCartService : BaseService<ShoppingCart>, IShoppingCartService
+    internal sealed class ShoppingCartService : BaseService<ShoppingCart, ShoppingCartDto>, IShoppingCartService
     {
-        public ShoppingCartService(IBaseRepository<ShoppingCart> repository) : base(repository) { }
+        private readonly IMapper _mapper;
 
-        public async Task AddItemToCartWithSessionAsync(Guid userId, Guid productId, Guid sessionId, Guid seatId, int quantity)
+        public ShoppingCartService(IBaseRepository<ShoppingCart> repository, IMapper mapper) : base(repository, mapper) { }
+
+        public async Task AddItemToCartWithSessionAsync(Guid userId, Guid productId, Guid sessionId, Guid seatId, int quantity, CancellationToken cancellationToken = default)
         {
             var shoppingCart = await _repository
                 .Query()
-                .FirstOrDefaultAsync(cart => cart.UserId == userId);
+                .FirstOrDefaultAsync(cart => cart.UserId == userId, cancellationToken);
 
             if (shoppingCart == null)
             {
                 shoppingCart = new ShoppingCart { UserId = userId };
-                await _repository.AddAsync(shoppingCart);
+                await _repository.AddAsync(shoppingCart, cancellationToken);
             }
 
             var existingCartItem = shoppingCart.ShoppingCartItems
@@ -40,7 +44,7 @@ namespace Cinema.Domain.Services.Implementation
                     TicketId = sessionId,
                     ShoppingCartId = shoppingCart.Id,
                     Quantity = quantity,
-                    UnitPrice = 0, // Встановіть ціну за товар, якщо вам потрібно
+                    UnitPrice = 0, // Встановити ціну за товар
                 };
 
                 shoppingCart.ShoppingCartItems.Add(newCartItem);
@@ -49,7 +53,7 @@ namespace Cinema.Domain.Services.Implementation
             await _repository.UpdateAsync(shoppingCart);
         }
 
-        public async Task<IEnumerable<ShoppingCartItem>> GetItemsInCartAsync(Guid userId)
+        public async Task<IEnumerable<ShoppingCartDto>> GetItemsInCartAsync(Guid userId, CancellationToken cancellationToken = default)
         {
             var shoppingCart = await _repository
                 .Query()
@@ -57,12 +61,19 @@ namespace Cinema.Domain.Services.Implementation
                     .ThenInclude(item => item.Ticket)
                         .ThenInclude(ticket => ticket.Session)
                 .Where(cart => cart.UserId == userId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken);
 
-            return shoppingCart?.ShoppingCartItems ?? Enumerable.Empty<ShoppingCartItem>();
+            if (shoppingCart == null)
+                return Enumerable.Empty<ShoppingCartDto>();
+
+            var shoppingCartDto = _mapper.Map<ShoppingCartDto>(shoppingCart);
+
+            return null; // return shoppingCartDto.ShoppingCartItems;
+
+            //return shoppingCart?.ShoppingCartItems ?? Enumerable.Empty<ShoppingCartItem>();
         }
 
-        public async Task<decimal> GetTotalCartAmountAsync(Guid userId)
+        public async Task<decimal> GetTotalCartAmountAsync(Guid userId, CancellationToken cancellationToken = default)
         {
             var shoppingCart = await _repository
                 .Query()
@@ -81,11 +92,11 @@ namespace Cinema.Domain.Services.Implementation
             return totalAmount;
         }
 
-        public async Task RemoveItemFromCartWithSessionAsync(Guid userId, Guid productId, Guid sessionId, Guid seatId)
+        public async Task RemoveItemFromCartWithSessionAsync(Guid userId, Guid productId, Guid sessionId, Guid seatId, CancellationToken cancellationToken = default)
         {
             var shoppingCart = await _repository
                 .Query()
-                .FirstOrDefaultAsync(cart => cart.UserId == userId);
+                .FirstOrDefaultAsync(cart => cart.UserId == userId, cancellationToken);
 
             if (shoppingCart == null)
             {
@@ -101,7 +112,7 @@ namespace Cinema.Domain.Services.Implementation
             if (existingCartItem != null)
             {
                 shoppingCart.ShoppingCartItems.Remove(existingCartItem);
-                await _repository.UpdateAsync(shoppingCart);
+                await _repository.UpdateAsync(shoppingCart, cancellationToken);
             }
         }
     }

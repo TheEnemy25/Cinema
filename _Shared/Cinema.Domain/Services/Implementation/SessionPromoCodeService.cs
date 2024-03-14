@@ -1,6 +1,8 @@
-﻿using Cinema.Infrastructure.Entities;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -8,19 +10,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class SessionPromoCodeService : BaseService<SessionPromoCode>, ISessionPromoCodeService
+    internal sealed class SessionPromoCodeService : BaseService<SessionPromoCode, SessionPromoCodeDto>, ISessionPromoCodeService
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMapper _mapper;
 
-        public SessionPromoCodeService(IBaseRepository<SessionPromoCode> repository, UserManager<AppUser> userManager, IHttpContextAccessor httpContextAccessor) : base(repository)
+        public SessionPromoCodeService(IBaseRepository<SessionPromoCode> repository, UserManager<AppUser> userManager, IHttpContextAccessor httpContextAccessor, IMapper mapper) : base(repository, mapper)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
             Console.WriteLine("SessionPromoCodeService constructor called");
         }
 
-        public async Task<decimal> CalculateSessionDiscountAsync(string promoCode, decimal originalPrice)
+        public async Task<decimal> CalculateSessionDiscountAsync(string promoCode, decimal originalPrice, CancellationToken cancellationToken = default)
         {
             var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
 
@@ -31,7 +34,7 @@ namespace Cinema.Domain.Services.Implementation
 
             bool hasUsedSessionPromoCode = await _repository
                .Query()
-               .AnyAsync(code => code.PromoCode == promoCode && code.UserSessionPromoCodes.Any(sessionCode => sessionCode.UserId == user.Id));
+               .AnyAsync(spc => spc.PromoCode == promoCode && spc.UserSessionPromoCodes.Any(sessionCode => sessionCode.UserId == user.Id), cancellationToken);
 
             if (hasUsedSessionPromoCode)
             {
@@ -52,7 +55,6 @@ namespace Cinema.Domain.Services.Implementation
 
                     await _repository.UpdateAsync(sessionPromoCode);
 
-                    // Закоментуйте або видаліть наступний рядок
                     // await _repository.AddAsync(promoCodeUsage);
 
                     return discountAmount;
@@ -63,27 +65,27 @@ namespace Cinema.Domain.Services.Implementation
         }
 
 
-        public async Task<IEnumerable<SessionPromoCode>> GetActiveSessionPromoCodesAsync()
+        public async Task<IEnumerable<SessionPromoCodeDto>> GetActiveSessionPromoCodesAsync(CancellationToken cancellationToken = default)
         {
             var activePromoCodes = await _repository
                 .Query()
                 .Where(spc => spc.MaxUsageCount > 0)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            return activePromoCodes;
+            return _mapper.Map<IEnumerable<SessionPromoCodeDto>>(activePromoCodes);
         }
 
-        public async Task<IEnumerable<SessionPromoCode>> GetAllValidSessionPromoCodesAsync()
+        public async Task<IEnumerable<SessionPromoCodeDto>> GetAllValidSessionPromoCodesAsync(CancellationToken cancellationToken = default)
         {
             var validPromoCodes = await _repository
                .Query()
                .Where(spc => spc.MaxUsageCount > 0)
-               .ToListAsync();
+               .ToListAsync(cancellationToken);
 
-            return validPromoCodes;
+            return _mapper.Map<IEnumerable<SessionPromoCodeDto>>(validPromoCodes);
         }
 
-        public async Task<bool> IsSessionPromoCodeValidAsync(string promoCode)
+        public async Task<bool> IsSessionPromoCodeValidAsync(string promoCode, CancellationToken cancellationToken = default)
         {
             var isValid = await _repository
                 .Query()

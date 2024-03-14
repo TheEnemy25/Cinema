@@ -1,72 +1,89 @@
-﻿using Cinema.Infrastructure.Entities;
+﻿using AutoMapper;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {
-    internal sealed class MovieService : BaseService<Movie>, IMovieService
+    internal sealed class MovieService : BaseService<Movie, MovieDto>, IMovieService
     {
-        public MovieService(IBaseRepository<Movie> repository) : base(repository) { }
+        private readonly IMapper _mapper;
 
-        public async Task<IEnumerable<Movie>> GetMoviesByActorAsync(Guid actorId)
-        {
-            return await _repository
-               .Query()
-               .Where(movie => movie.MovieActors.Any(ma => ma.ActorId == actorId))
-               .ToListAsync();
-        }
+        public MovieService(IBaseRepository<Movie> repository, IMapper mapper) : base(repository, mapper) { }
 
-        public async Task<IEnumerable<Movie>> GetMoviesByCountryAsync(Guid countryId)
+        public async Task<IEnumerable<MovieDto>> GetMoviesByActorAsync(Guid actorId, CancellationToken cancellationToken)
         {
-            return await _repository
-              .Query()
-              .Where(movie => movie.MovieProductionCountries.Any(pc => pc.ProductionCountry.Id == countryId))
-              .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Movie>> GetMoviesByDirectorAsync(Guid directorId)
-        {
-            return await _repository
+            var movie = await _repository
                 .Query()
-                .Where(movie => movie.MovieDirectors.Any(md => md.Director.Id == directorId))
-                .ToListAsync();
+                .Where(m => m.MovieActors.Any(ma => ma.ActorId == actorId))
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<MovieDto>>(movie);
         }
 
-        public async Task<IEnumerable<Movie>> GetMoviesByGenreAsync(Guid genreId)
+        public async Task<IEnumerable<MovieDto>> GetMoviesByCountryAsync(Guid countryId, CancellationToken cancellationToken)
         {
-            return await _repository
-               .Query()
-               .Where(movie => movie.MovieGenres.Any(mg => mg.Genre.Id == genreId))
-               .ToListAsync();
+            var movies = await _repository
+                .Query()
+                .Where(m => m.MovieProductionCountries.Any(mpc => mpc.ProductionCountry.Id == countryId))
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<MovieDto>>(movies);
         }
 
-        public async Task<IEnumerable<Movie>> GetMoviesReleasedThisYearAsync()
+        public async Task<IEnumerable<MovieDto>> GetMoviesByDirectorAsync(Guid directorId, CancellationToken cancellationToken)
+        {
+            var movies = await _repository
+                .Query()
+                .Where(m => m.MovieDirectors.Any(md => md.DirectorId == directorId))
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<MovieDto>>(movies);
+        }
+
+        public async Task<IEnumerable<MovieDto>> GetMoviesByGenreAsync(Guid genreId, CancellationToken cancellationToken)
+        {
+            var movies = await _repository
+                .Query()
+                .Where(m => m.MovieGenres.Any(mg => mg.GenreId == genreId))
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<MovieDto>>(movies);
+        }
+
+        public async Task<IEnumerable<MovieDto>> GetMoviesReleasedThisYearAsync(CancellationToken cancellationToken)
         {
             int currentYear = DateTime.Now.Year;
-
-            return await _repository
+            var movies = await _repository
                 .Query()
-                .Where(movie => movie.ReleaseDate.Year == currentYear)
-                .ToListAsync();
+                .Where(m => m.ReleaseDate.Year == currentYear)
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<MovieDto>>(cancellationToken);
         }
 
-        public async Task<IEnumerable<Movie>> GetTopRatedMoviesAsync(int count)
+        public async Task<IEnumerable<MovieDto>> GetTopRatedMoviesAsync(int count, CancellationToken cancellationToken)
         {
-            return await _repository
+            var movies = await _repository
                 .Query()
-                .OrderByDescending(movie => movie.Rating)
+                .OrderByDescending(m => m.Rating)
                 .Take(count)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<MovieDto>>(movies);
         }
 
-        public async Task<IEnumerable<Movie>> SearchMoviesAsync(string query)
+        public async Task<IEnumerable<MovieDto>> SearchMoviesAsync(string query, CancellationToken cancellationToken)
         {
-            return await _repository
-               .Query()
-               .Where(movie => movie.Title.Contains(query) || movie.Description.Contains(query))
-               .ToListAsync();
+            var movies = await _repository
+                .Query()
+                .Where(m => m.Title.Contains(query) || m.Description.Contains(query))
+                .ToListAsync(cancellationToken);
+
+            return _mapper.Map<IEnumerable<MovieDto>>(movies);
         }
     }
 }

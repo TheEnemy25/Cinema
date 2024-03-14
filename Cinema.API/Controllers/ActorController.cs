@@ -80,7 +80,7 @@ namespace Cinema.API.Controllers
             actor.Biography = actorDto.Biography;
             actor.DateOfBirth = actorDto.DateOfBirth;
 
-            await _actorService.CreateAsync(actor);
+            //await _actorService.CreateAsync(actor);
             return Ok(actor);
         }
 

@@ -1,13 +1,14 @@
-﻿using Cinema.Infrastructure.Entities;
-using Cinema.Domain.Services.BaseService;
+﻿using Cinema.Domain.Services.BaseService;
+using Cinema.Infrastructure.Dtos;
+using Cinema.Infrastructure.Entities;
 
 namespace Cinema.Domain.Services.Interfaces
 {
-    public interface ISessionPromoCodeService : IBaseService<SessionPromoCode>
+    public interface ISessionPromoCodeService : IBaseService<SessionPromoCode, SessionPromoCodeDto>
     {
-        Task<IEnumerable<SessionPromoCode>> GetActiveSessionPromoCodesAsync();
-        Task<bool> IsSessionPromoCodeValidAsync(string promoCode);
-        Task<decimal> CalculateSessionDiscountAsync(string promoCode, decimal originalPrice);
-        Task<IEnumerable<SessionPromoCode>> GetAllValidSessionPromoCodesAsync();
+        Task<IEnumerable<SessionPromoCodeDto>> GetActiveSessionPromoCodesAsync(CancellationToken cancellationToken = default);
+        Task<bool> IsSessionPromoCodeValidAsync(string promoCode, CancellationToken cancellationToken = default);
+        Task<decimal> CalculateSessionDiscountAsync(string promoCode, decimal originalPrice, CancellationToken cancellationToken = default);
+        Task<IEnumerable<SessionPromoCodeDto>> GetAllValidSessionPromoCodesAsync(CancellationToken cancellationToken = default);
     }
 }

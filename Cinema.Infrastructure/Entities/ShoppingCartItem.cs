@@ -2,7 +2,7 @@
 
 namespace Cinema.Infrastructure.Entities
 {
-    public class ShoppingCartItem : IEntity
+    public class ShoppingCartItem : IEntityWithId
     {
         public Guid Id { get; set; }
         public Guid ShoppingCartId { get; set; }

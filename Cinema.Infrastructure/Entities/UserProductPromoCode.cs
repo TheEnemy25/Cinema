@@ -2,8 +2,9 @@
 
 namespace Cinema.Infrastructure.Entities
 {
-    public class UserProductPromoCode : IEntity
+    public class UserProductPromoCode : IEntityWithId
     {
+        public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public Guid ProductPromoCodeId { get; set; }
 

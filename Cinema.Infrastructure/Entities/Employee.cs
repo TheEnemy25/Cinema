@@ -3,7 +3,7 @@ using Cinema.Infrastructure.Enums;
 
 namespace Cinema.Infrastructure.Entities
 {
-    public class Employee : IEntity
+    public class Employee : IEntityWithId
     {
         public Guid Id { get; set; }
         public Guid CinemaTheaterId { get; set; }

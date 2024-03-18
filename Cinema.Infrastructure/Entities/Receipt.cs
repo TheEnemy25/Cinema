@@ -3,7 +3,7 @@
 namespace Cinema.Infrastructure.Entities
 {
     //Квиток
-    public class Receipt : IEntity
+    public class Receipt : IEntityWithId
     {
         public Guid Id { get; set; }
         public Guid ShoppingCartId { get; set; }

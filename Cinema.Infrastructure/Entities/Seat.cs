@@ -2,7 +2,7 @@
 
 namespace Cinema.Infrastructure.Entities
 {
-    public class Seat : IEntity
+    public class Seat : IEntityWithId
     {
         public Guid Id { get; set; }
         public Guid HallId { get; set; }

@@ -4,7 +4,7 @@ using Cinema.Infrastructure.Enums;
 namespace Cinema.Infrastructure.Entities
 {
     // Пропуск на фільм
-    public class Ticket : IEntity
+    public class Ticket : IEntityWithId
     {
         public Guid Id { get; set; }
         public Guid SessionId { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Cinema.Infrastructure.Entities
 {
-    public class Country : IEntity
+    public class Country : IEntityWithId
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

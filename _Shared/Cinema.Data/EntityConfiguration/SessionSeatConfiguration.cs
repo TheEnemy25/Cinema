@@ -8,7 +8,8 @@ namespace Cinema.Data.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<SessionSeat> builder)
         {
-            builder.HasKey(ss => new { ss.SessionId, ss.SeatId });
+            builder.HasKey(ss => ss.Id);
+            builder.Property(ss => ss.Id).ValueGeneratedOnAdd();
 
             builder.Property(ss => ss.Status).IsRequired();
 

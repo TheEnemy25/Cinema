@@ -10,7 +10,8 @@ namespace Cinema.Data.EntityConfiguration
         {
             builder.ToTable("UserSessionPromoCode");
 
-            builder.HasKey(uspc => new { uspc.UserId, uspc.SessionPromoCodeId });
+            builder.HasKey(uspc => uspc.Id);
+            builder.Property(uspc => uspc.Id).ValueGeneratedOnAdd();
 
             builder.Property(uspc => uspc.UsageDate).IsRequired();
 

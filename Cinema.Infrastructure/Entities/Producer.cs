@@ -3,7 +3,7 @@
 namespace Cinema.Infrastructure.Entities
 {
     //Продюсер
-    public class Producer : IEntity
+    public class Producer : IEntityWithId
     {
         public Guid Id { get; set; }
 

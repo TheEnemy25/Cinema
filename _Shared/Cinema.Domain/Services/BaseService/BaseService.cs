@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
+using Cinema.Infrastructure.Dtos.Base;
 using Cinema.Infrastructure.Entities.Interfaces;
+using Cinema.Infrastructure.Exceptions;
 using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.BaseService
 {
     internal abstract class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
-        where TEntity : class, IEntity
-        where TDto : class
+        where TEntity : class, IEntityWithId
+        where TDto : DtoBase
     {
         protected readonly IBaseRepository<TEntity> _repository;
         protected readonly IMapper _mapper;
@@ -24,20 +26,30 @@ namespace Cinema.Domain.Services.BaseService
         public virtual async Task<TDto> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) =>
             _mapper.Map<TDto>(await _repository.GetByIdAsync(id, cancellationToken));
 
-        public virtual async Task CreateAsync(TDto dto, CancellationToken cancellationToken = default)
+        public virtual async Task<Guid> CreateAsync(TDto dto, CancellationToken cancellationToken = default)
         {
             var entity = _mapper.Map<TEntity>(dto);
 
             await _repository.AddAsync(entity, cancellationToken);
             await _repository.SaveChangesAsync(cancellationToken);
+
+            return entity.Id;
         }
 
-        public virtual async Task UpdateAsync(TDto dto, CancellationToken cancellationToken = default)
+        public virtual async Task<TDto> UpdateAsync(TDto dto, CancellationToken cancellationToken = default)
         {
-            var entity = _mapper.Map<TEntity>(dto);
+            var entity = await _repository
+                .GetByIdAsync(dto.Id);
+
+            if (entity == null)
+            {
+                throw new EntityNotFoundException($"{typeof(TEntity).Name} was not found");
+            }
 
             await _repository.UpdateAsync(entity, cancellationToken);
             await _repository.SaveChangesAsync(cancellationToken);
+
+            return _mapper.Map<TDto>(entity);
         }
 
         public virtual async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)

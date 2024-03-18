@@ -1,8 +1,9 @@
-﻿namespace Cinema.Infrastructure.Dtos
+﻿using Cinema.Infrastructure.Dtos.Base;
+
+namespace Cinema.Infrastructure.Dtos
 {
-    public record CityDto
+    public record CityDto : DtoBase
     {
-        public Guid Id { get; init; }
         public Guid CountryId { get; init; }
         public string Name { get; init; }
     }

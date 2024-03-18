@@ -1,10 +1,10 @@
-﻿using Cinema.Infrastructure.Enums;
+﻿using Cinema.Infrastructure.Dtos.Base;
+using Cinema.Infrastructure.Enums;
 
 namespace Cinema.Infrastructure.Dtos
 {
-    public record HallDto
+    public record HallDto : DtoBase
     {
-        public Guid Id { get; init; }
         public Guid CinemaTheaterId { get; init; }
         public int Number { get; init; }
         public int Rows { get; init; }

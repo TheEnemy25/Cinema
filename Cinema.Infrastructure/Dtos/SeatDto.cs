@@ -1,8 +1,9 @@
-﻿namespace Cinema.Infrastructure.Dtos
+﻿using Cinema.Infrastructure.Dtos.Base;
+
+namespace Cinema.Infrastructure.Dtos
 {
-    public record SeatDto
+    public record SeatDto : DtoBase
     {
-        public Guid Id { get; init; }
         public Guid HallId { get; init; }
         public int Row { get; init; }
         public int Number { get; init; }

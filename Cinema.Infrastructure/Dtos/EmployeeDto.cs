@@ -1,10 +1,10 @@
-﻿using Cinema.Infrastructure.Enums;
+﻿using Cinema.Infrastructure.Dtos.Base;
+using Cinema.Infrastructure.Enums;
 
 namespace Cinema.Infrastructure.Dtos
 {
-    public record EmployeeDto
+    public record EmployeeDto : DtoBase
     {
-        public Guid Id { get; init; }
         public Guid CinemaTheaterId { get; init; }
         public string FirstName { get; init; }
         public string LastName { get; init; }

@@ -1,8 +1,9 @@
-﻿namespace Cinema.Infrastructure.Dtos
+﻿using Cinema.Infrastructure.Dtos.Base;
+
+namespace Cinema.Infrastructure.Dtos
 {
-    public record ProductPromoCodeDto
+    public record ProductPromoCodeDto : DtoBase
     {
-        public Guid Id { get; init; }
         public Guid ProductId { get; init; }
         public string PromoCode { get; init; }
         public decimal DiscountPercentage { get; init; }

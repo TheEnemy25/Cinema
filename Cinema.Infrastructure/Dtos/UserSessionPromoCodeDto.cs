@@ -1,6 +1,8 @@
-﻿namespace Cinema.Infrastructure.Dtos
+﻿using Cinema.Infrastructure.Dtos.Base;
+
+namespace Cinema.Infrastructure.Dtos
 {
-    public record UserSessionPromoCodeDto
+    public record UserSessionPromoCodeDto : DtoBase
     {
         public Guid UserId { get; init; }
         public Guid SessionPromoCodeId { get; init; }

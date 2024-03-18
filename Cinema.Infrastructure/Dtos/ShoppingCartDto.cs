@@ -1,8 +1,9 @@
-﻿namespace Cinema.Infrastructure.Dtos
+﻿using Cinema.Infrastructure.Dtos.Base;
+
+namespace Cinema.Infrastructure.Dtos
 {
-    public record ShoppingCartDto
+    public record ShoppingCartDto : DtoBase
     {
-        public Guid Id { get; init; }
         public Guid ReceiptId { get; init; }
         public Guid UserId { get; init; }
     }

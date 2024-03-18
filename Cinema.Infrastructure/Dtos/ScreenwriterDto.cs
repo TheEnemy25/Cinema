@@ -1,8 +1,9 @@
-﻿namespace Cinema.Infrastructure.Dtos
+﻿using Cinema.Infrastructure.Dtos.Base;
+
+namespace Cinema.Infrastructure.Dtos
 {
-    public record ScreenwriterDto
+    public record ScreenwriterDto : DtoBase
     {
-        public Guid Id { get; init; }
         public string FullName { get; init; }
         public string Image { get; init; }
         public string Biography { get; init; }

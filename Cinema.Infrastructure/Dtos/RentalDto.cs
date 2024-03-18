@@ -1,8 +1,9 @@
-﻿namespace Cinema.Infrastructure.Dtos
+﻿using Cinema.Infrastructure.Dtos.Base;
+
+namespace Cinema.Infrastructure.Dtos
 {
-    public record RentalDto
+    public record RentalDto : DtoBase
     {
-        public Guid Id { get; init; }
         public Guid MovieId { get; init; }
         public Guid CinemaTheaterId { get; init; }
         public DateTime RentalDate { get; init; }

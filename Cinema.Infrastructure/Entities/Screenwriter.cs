@@ -3,7 +3,7 @@
 namespace Cinema.Infrastructure.Entities
 {
     //Сценарист
-    public class Screenwriter : IEntity
+    public class Screenwriter : IEntityWithId
     {
         public Guid Id { get; set; }
 

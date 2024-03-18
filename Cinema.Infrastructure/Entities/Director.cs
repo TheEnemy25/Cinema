@@ -3,7 +3,7 @@
 namespace Cinema.Infrastructure.Entities
 {
     //Режисер
-    public class Director : IEntity
+    public class Director : IEntityWithId
     {
         public Guid Id { get; set; }
         public string FullName { get; set; }

@@ -3,7 +3,7 @@
 namespace Cinema.Infrastructure.Entities
 {
     // Відгуки
-    public class Review : IEntity
+    public class Review : IEntityWithId
     {
         public Guid Id { get; set; }
         public Guid MovieId { get; set; }

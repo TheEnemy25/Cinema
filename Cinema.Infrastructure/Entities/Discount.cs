@@ -2,7 +2,7 @@
 
 namespace Cinema.Infrastructure.Entities
 {
-    public class Discount : IEntity
+    public class Discount : IEntityWithId
     {
         public Guid Id { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace Cinema.Infrastructure.Entities
 {
-    public class CinemaTheater : IEntity
+    public class CinemaTheater : IEntityWithId
     {
         public Guid Id { get; set; }
         public Guid CityId { get; set; }

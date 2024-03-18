@@ -10,7 +10,8 @@ namespace Cinema.Data.EntityConfiguration
         {
             builder.ToTable("UserProductPromoCode");
 
-            builder.HasKey(uppc => new { uppc.UserId, uppc.ProductPromoCodeId });
+            builder.HasKey(uppc => uppc.Id);
+            builder.Property(uppc => uppc.Id).ValueGeneratedOnAdd();
 
             builder.Property(uppc => uppc.UsageDate).IsRequired();
 

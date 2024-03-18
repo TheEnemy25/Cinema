@@ -2,7 +2,7 @@
 
 namespace Cinema.Infrastructure.Entities
 {
-    public class SessionPromoCode : IEntity
+    public class SessionPromoCode : IEntityWithId
     {
         public Guid Id { get; set; }
         public Guid SessionId { get; set; }

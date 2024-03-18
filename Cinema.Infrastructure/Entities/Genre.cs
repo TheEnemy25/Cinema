@@ -2,7 +2,7 @@
 
 namespace Cinema.Infrastructure.Entities
 {
-    public class Genre : IEntity
+    public class Genre : IEntityWithId
     {
         public Guid Id { get; set; }
 

@@ -4,21 +4,21 @@ using Cinema.Application.Queries.Actor;
 using Cinema.Domain.Services.Interfaces;
 using Cinema.Infrastructure.Dtos;
 using Cinema.Infrastructure.Entities;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 
 namespace Cinema.API.Controllers
 {
     // TODO: Fix endpoint namings
+    [Route("api/[controller]")]
     public class ActorController : CinemaControllerBase
     {
         //TODO: Remove service injection, replace with CQRS handlers
         private readonly IActorService _actorService;
 
-        public ActorController(IActorService actorService, IMediator mediator) : base(mediator)
-        {
-            _actorService = actorService;
-        }
+        public ActorController(IMediator mediator) : base(mediator) { }
 
         [HttpGet("movieId")]
         public async Task<IActionResult> GetActorsByMovie(Guid movieId)
@@ -69,49 +69,53 @@ namespace Cinema.API.Controllers
             return Ok(actor);
         }
 
-        [HttpPost("{id}")]
-        public async Task<IActionResult> CreateAsync([FromBody] ActorDto actorDto)
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromBody] CreateActorCommand command, CancellationToken cancellationToken)
         {
-            // TODO: use AutoMapper in business layer instead
-            var actor = new Actor();
-            actor.Id = Guid.NewGuid();
-            actor.FullName = actorDto.FullName;
-            actor.Image = actorDto.Image;
-            actor.Biography = actorDto.Biography;
-            actor.DateOfBirth = actorDto.DateOfBirth;
-
-            //await _actorService.CreateAsync(actor);
-            return Ok(actor);
-        }
-
-
-        // TODO: Додати валідацію, написати хендлер команди на апдейт, 
-        [HttpPut("put")]
-        public async Task<IActionResult> UpdateAsync([FromBody] UpdateActorCommand command, CancellationToken cancellationToken)
-        {
-            //TODO: Move existance checks and similiar validations to business layer
-            if (!await _actorService.CheckIfExistsAsync(command.Id, cancellationToken))
+            try
             {
-                return NotFound($"Actor with ID {command.Id} not found.");
+                var result = await _mediator.Send(command, cancellationToken);
+                return Ok(result);
             }
 
-            var result = await _mediator.Send(command, cancellationToken);
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-            return Ok(result);
+        [HttpPut("put")]
+        public async Task<IActionResult> Update(Guid id,[FromBody] UpdateActorCommand command, CancellationToken cancellationToken)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest("Id in URL does not match Id in command body");
+            }
+
+            try
+            {
+                await _mediator.Send(command, cancellationToken);
+                return Ok($"Actor with id {id} was successfully updated");
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            var actor = await _actorService.GetByIdAsync(id);
-
-            if (actor == null)
+            try
             {
-                return NotFound($"Actor with ID {id} not found.");
+                var command = new DeleteActorCommand(id);
+                await _mediator.Send(command, cancellationToken);
+                return Ok($"Actor with id {id} was successfully deleted");
             }
-
-            await _actorService.DeleteAsync(id);
-            return Ok($"Actor with ID {id} has been deleted.");
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

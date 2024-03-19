@@ -18,7 +18,8 @@ builder.Services.RegisterContext(builder.Configuration)
     .RegisterRepositories()
     .RegisterAutoMapper()
     .RegisterServices()
-    .RegisterMediatRAndHanlders();
+    .RegisterMediatRAndHanlders()
+    .RegisterCommandValidators();
 
 builder.Services.AddCors(options =>
 {

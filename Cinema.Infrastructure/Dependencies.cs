@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Cinema.Infrastructure
 {
@@ -6,7 +7,7 @@ namespace Cinema.Infrastructure
     {
         public static IServiceCollection RegisterAutoMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(x => x.AddMaps(typeof(Dependencies).Assembly));
+            services.AddAutoMapper(x => x.AddMaps(typeof(Dependencies).Assembly), Assembly.Load("Cinema.Application"));
 
             return services;
         }

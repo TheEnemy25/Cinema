@@ -38,13 +38,14 @@ namespace Cinema.Domain.Services.BaseService
 
         public virtual async Task<TDto> UpdateAsync(TDto dto, CancellationToken cancellationToken = default)
         {
-            var entity = await _repository
-                .GetByIdAsync(dto.Id);
-
+            var entity = await _repository.GetByIdAsync(dto.Id);
+                
             if (entity == null)
             {
                 throw new EntityNotFoundException($"{typeof(TEntity).Name} was not found");
             }
+
+            _mapper.Map(dto, entity);
 
             await _repository.UpdateAsync(entity, cancellationToken);
             await _repository.SaveChangesAsync(cancellationToken);
@@ -56,11 +57,13 @@ namespace Cinema.Domain.Services.BaseService
         {
             var entityToDelete = await _repository.GetByIdAsync(id);
 
-            if (entityToDelete != null)
+            if (entityToDelete == null)
             {
-                await _repository.DeleteAsync(entityToDelete, cancellationToken);
-                await _repository.SaveChangesAsync(cancellationToken);
+                throw new EntityNotFoundException($"Actor with id {id} was not found");
             }
+
+            await _repository.DeleteAsync(entityToDelete, cancellationToken);
+            await _repository.SaveChangesAsync(cancellationToken);
         }
     }
 }

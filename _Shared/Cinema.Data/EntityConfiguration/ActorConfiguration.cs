@@ -10,7 +10,6 @@ namespace Cinema.Data.EntityConfiguration
         {
             builder.ToTable("Actor");
 
-            // TODO: Complete all entity configurations
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).ValueGeneratedOnAdd();
 

@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
+﻿using Cinema.Application.Commands.Actor;
+using Cinema.Application.Validation.Actor;
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cinema.Application
 {
@@ -9,6 +11,15 @@ namespace Cinema.Application
         {
             services.AddMediatR(m =>
                 m.RegisterServicesFromAssembly(typeof(Dependencies).Assembly));
+
+            return services;
+        }
+
+        public static IServiceCollection RegisterCommandValidators(this IServiceCollection services)
+        {
+            services.AddTransient<IValidator<CreateActorCommand>, CreateActorCommandValidator>();
+            services.AddTransient<IValidator<UpdateActorCommand>, UpdateActorCommandValidator>();
+            services.AddTransient<IValidator<DeleteActorCommand>, DeleteActorCommandValidator>();
 
             return services;
         }

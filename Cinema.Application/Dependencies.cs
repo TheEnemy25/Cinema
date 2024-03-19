@@ -2,6 +2,8 @@
 using Cinema.Application.Validation.Actor;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Enums;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 
 namespace Cinema.Application
 {
@@ -17,9 +19,12 @@ namespace Cinema.Application
 
         public static IServiceCollection RegisterCommandValidators(this IServiceCollection services)
         {
-            services.AddTransient<IValidator<CreateActorCommand>, CreateActorCommandValidator>();
-            services.AddTransient<IValidator<UpdateActorCommand>, UpdateActorCommandValidator>();
-            services.AddTransient<IValidator<DeleteActorCommand>, DeleteActorCommandValidator>();
+            services.AddFluentValidationAutoValidation(m =>
+                m.ValidationStrategy = ValidationStrategy.Annotations);
+
+            services.AddScoped<IValidator<CreateActorCommand>, CreateActorCommandValidator>();
+            services.AddScoped<IValidator<UpdateActorCommand>, UpdateActorCommandValidator>();
+            services.AddScoped<IValidator<DeleteActorCommand>, DeleteActorCommandValidator>();
 
             return services;
         }

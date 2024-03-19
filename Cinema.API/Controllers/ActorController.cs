@@ -7,6 +7,7 @@ using Cinema.Infrastructure.Entities;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Attributes;
 using System.Threading;
 
 namespace Cinema.API.Controllers
@@ -70,6 +71,7 @@ namespace Cinema.API.Controllers
         }
 
         [HttpPost("create")]
+        [AutoValidation]
         public async Task<IActionResult> Create([FromBody] CreateActorCommand command, CancellationToken cancellationToken)
         {
             try

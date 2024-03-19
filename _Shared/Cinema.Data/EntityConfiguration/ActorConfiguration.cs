@@ -17,7 +17,7 @@ namespace Cinema.Data.EntityConfiguration
             builder.Property(a => a.FullName).IsRequired().HasMaxLength(50);
             builder.Property(a => a.Image).IsRequired();
             builder.Property(a => a.Biography).IsRequired();
-            builder.Property(a => a.Country).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.Country).IsRequired(false).HasMaxLength(50);
             builder.Property(a => a.DateOfBirth).IsRequired();
 
             builder.HasMany(a => a.MovieActors)

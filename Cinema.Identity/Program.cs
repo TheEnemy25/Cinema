@@ -1,5 +1,5 @@
-using Cinema.Identity;
 using Cinema.Data.Context;
+using Cinema.Identity;
 using Cinema.Infrastructure.Entities;
 using Exam.Data.Infrastructure;
 using Microsoft.AspNetCore.Identity;

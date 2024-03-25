@@ -1,8 +1,8 @@
-﻿using Cinema.Infrastructure.Entities;
-using Cinema.Data.EntityConfiguration;
+﻿using Cinema.Data.EntityConfiguration;
+using Cinema.Infrastructure.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace Cinema.Data.Context
 {

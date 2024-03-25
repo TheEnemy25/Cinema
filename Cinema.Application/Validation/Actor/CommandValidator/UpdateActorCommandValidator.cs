@@ -1,12 +1,16 @@
 ﻿using Cinema.Application.Commands.Actor;
 using FluentValidation;
 
-namespace Cinema.Application.Validation.Actor
+namespace Cinema.Application.Validation.Actor.CommandValidator
 {
-    public class CreateActorCommandValidator : AbstractValidator<CreateActorCommand>
+    public class UpdateActorCommandValidator : AbstractValidator<UpdateActorCommand>
     {
-        public CreateActorCommandValidator()
+        public UpdateActorCommandValidator()
         {
+            RuleFor(command => command.Id)
+               .NotEmpty()
+               .WithMessage("Actor ID is required.");
+
             RuleFor(command => command.FullName)
                 .NotEmpty()
                 .WithMessage("Full name is required.")

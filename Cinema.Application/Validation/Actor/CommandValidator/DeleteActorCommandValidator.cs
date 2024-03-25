@@ -1,7 +1,7 @@
 ﻿using Cinema.Application.Commands.Actor;
 using FluentValidation;
 
-namespace Cinema.Application.Validation.Actor
+namespace Cinema.Application.Validation.Actor.CommandValidator
 {
     public class DeleteActorCommandValidator : AbstractValidator<DeleteActorCommand>
     {

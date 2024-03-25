@@ -36,7 +36,7 @@ namespace Cinema.Domain.Services.Implementation
 
         public async Task<bool> CheckIfExistsAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var entity = await _repository.Query().Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
+            var entity = await _repository.Query().Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync(cancellationToken);
             return entity is not null;
         }
     }

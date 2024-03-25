@@ -24,7 +24,7 @@ namespace Cinema.Domain.Services.BaseService
                    await _repository.Query().Select(entity => _mapper.Map<TDto>(entity)).ToListAsync(cancellationToken);
 
         public virtual async Task<TDto> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) =>
-            _mapper.Map<TDto>(await _repository.GetByIdAsync(id, cancellationToken));
+            _mapper.Map<TDto>(await _repository.GetByIdAsync(id));
 
         public virtual async Task<Guid> CreateAsync(TDto dto, CancellationToken cancellationToken = default)
         {
@@ -39,7 +39,7 @@ namespace Cinema.Domain.Services.BaseService
         public virtual async Task<TDto> UpdateAsync(TDto dto, CancellationToken cancellationToken = default)
         {
             var entity = await _repository.GetByIdAsync(dto.Id);
-                
+
             if (entity == null)
             {
                 throw new EntityNotFoundException($"{typeof(TEntity).Name} was not found");

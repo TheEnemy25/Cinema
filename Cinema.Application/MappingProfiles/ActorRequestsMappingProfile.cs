@@ -10,7 +10,6 @@ namespace Cinema.Application.MappingProfiles
         {
             CreateMap<CreateActorCommand, ActorDto>();
             CreateMap<UpdateActorCommand, ActorDto>();
-            CreateMap<DeleteActorCommand, ActorDto>();
         }
     }
 }

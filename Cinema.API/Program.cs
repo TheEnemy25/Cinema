@@ -3,6 +3,8 @@ using Cinema.Domain;
 using Cinema.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Cinema.Infrastructure;
+using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Any;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Cinema", Version = "v1" });
+    c.MapType<TimeSpan>(() => new OpenApiSchema
+    {
+        Type = typeof(string).Name,
+        Example = new OpenApiString("00:00:00")
+    });
 });
 
 

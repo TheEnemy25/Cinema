@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Exam.Data.Infrastructure
+namespace Cinema.Data.Infrastructure
 {
     public interface IBaseRepository<TEntity>
         where TEntity : class

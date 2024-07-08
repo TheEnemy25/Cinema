@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using Cinema.Data.Infrastructure;
 using Cinema.Infrastructure.Dtos.Base;
 using Cinema.Infrastructure.Entities.Interfaces;
 using Cinema.Infrastructure.Exceptions;
-using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.BaseService

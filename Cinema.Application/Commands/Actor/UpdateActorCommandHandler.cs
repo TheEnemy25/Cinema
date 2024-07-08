@@ -21,17 +21,17 @@ namespace Cinema.Application.Commands.Actor
             _logger = logger;
         }
 
-        async Task<ActorDto> IRequestHandler<UpdateActorCommand, ActorDto>.Handle(UpdateActorCommand request, CancellationToken cancellationToken)
+        public async Task<ActorDto> Handle(UpdateActorCommand request, CancellationToken cancellationToken)
         {
-            var actorDto = _mapper.Map<ActorDto>(request);
+            var actor = _mapper.Map<ActorDto>(request);
 
             _logger.LogInformation($"Update of actor with id {request.Id} begins");
 
-            await _actorService.UpdateAsync(actorDto, cancellationToken);
+            await _actorService.UpdateAsync(actor, cancellationToken);
 
             _logger.LogInformation($"Actor with id {request.Id} was successfully updated");
 
-            return _mapper.Map<ActorDto>(request);
+            return actor;
         }
     }
 }

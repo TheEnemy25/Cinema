@@ -23,11 +23,11 @@ namespace Cinema.Application.Commands.Actor
 
         public async Task<Guid> Handle(CreateActorCommand request, CancellationToken cancellationToken)
         {
-            var actorDto = _mapper.Map<ActorDto>(request);
+            var actor = _mapper.Map<ActorDto>(request);
 
             _logger.LogInformation($"Creation of actor begins");
 
-            var actorId = await _actorService.CreateAsync(actorDto, cancellationToken);
+            var actorId = await _actorService.CreateAsync(actor, cancellationToken);
 
             _logger.LogInformation($"Creation of actor with id {actorId} was successfull");
 

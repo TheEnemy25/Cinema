@@ -1,7 +1,11 @@
 ﻿using Cinema.Application.Commands.Actor;
+using Cinema.Application.Commands.Movie;
 using Cinema.Application.Queries.Actor;
+using Cinema.Application.Queries.Movie;
 using Cinema.Application.Validation.Actor.CommandValidator;
 using Cinema.Application.Validation.Actor.QueryValidator;
+using Cinema.Application.Validation.Movie.CommandValidator;
+using Cinema.Application.Validation.Movie.QueryValidator;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Enums;
@@ -26,9 +30,14 @@ namespace Cinema.Application
 
             services.AddScoped<IValidator<CreateActorCommand>, CreateActorCommandValidator>();
             services.AddScoped<IValidator<DeleteActorCommand>, DeleteActorCommandValidator>();
+            services.AddScoped<IValidator<UpdateActorCommand>, UpdateActorCommandValidator>();
             services.AddScoped<IValidator<GetActorByIdQuery>, GetActorByIdQueryValidator>();
 
-            services.AddScoped<IValidator<UpdateActorCommand>, UpdateActorCommandValidator>();
+            services.AddScoped<IValidator<CreateMovieCommand>, CreateMovieCommandValidator>();
+            services.AddScoped<IValidator<DeleteMovieCommand>, DeleteMovieCommandValidator>();
+            services.AddScoped<IValidator<UpdateMovieCommand>, UpdateMovieCommandValidator>();
+            services.AddScoped<IValidator<GetMovieByIdQuery>, GetMovieByIdQueryValidator>();
+
 
             return services;
         }

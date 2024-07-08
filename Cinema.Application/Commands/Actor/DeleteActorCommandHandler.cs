@@ -19,13 +19,13 @@ namespace Cinema.Application.Commands.Actor
 
         public async Task Handle(DeleteActorCommand request, CancellationToken cancellationToken)
         {
-            var actorDelete = request.Id;
+            var actor = request.Id;
 
-            _logger.LogInformation($"Deletion of actor with id {actorDelete} begins");
+            _logger.LogInformation($"Deletion of actor with id {actor} begins");
 
-            await _actorService.DeleteAsync(actorDelete, cancellationToken);
+            await _actorService.DeleteAsync(actor, cancellationToken);
 
-            _logger.LogInformation($"Actor with id {actorDelete} was successfully deleted");
+            _logger.LogInformation($"Actor with id {actor} was successfully deleted");
         }
     }
 }

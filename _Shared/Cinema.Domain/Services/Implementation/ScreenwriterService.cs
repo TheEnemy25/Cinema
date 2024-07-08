@@ -1,10 +1,10 @@
-﻿using Cinema.Infrastructure.Entities;
+﻿using AutoMapper;
+using Cinema.Data.Infrastructure;
 using Cinema.Domain.Services.BaseService;
 using Cinema.Domain.Services.Interfaces;
-using Exam.Data.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using Cinema.Infrastructure.Dtos;
-using AutoMapper;
+using Cinema.Infrastructure.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Domain.Services.Implementation
 {

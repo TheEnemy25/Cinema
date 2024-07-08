@@ -1,6 +1,6 @@
 ﻿using Cinema.Data.Context;
+using Cinema.Data.Infrastructure;
 using Cinema.Infrastructure.Entities;
-using Exam.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

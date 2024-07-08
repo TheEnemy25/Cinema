@@ -1,7 +1,6 @@
 ﻿using Cinema.API.Controllers.Base;
 using Cinema.Application.Commands.Actor;
 using Cinema.Application.Queries.Actor;
-using Cinema.Infrastructure.Exceptions;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +11,7 @@ namespace Cinema.API.Controllers
     [Route("api/[controller]")]
     public class ActorController : CinemaControllerBase
     {
-
         public ActorController(IMediator mediator) : base(mediator) { }
-
 
         [HttpGet("get-all")]
         [AutoValidation]
@@ -29,24 +26,18 @@ namespace Cinema.API.Controllers
         [AutoValidation]
         public async Task<IActionResult> GetById([FromQuery] GetActorByIdQuery request, CancellationToken cancellationToken)
         {
-            try
-            {
-                var actorDto = await _mediator.Send(request, cancellationToken);
+            var actor = await _mediator.Send(request, cancellationToken);
 
-                if (actorDto == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(actorDto);
-            }
-            catch (EntityNotFoundException ex)
+            if (actor == null)
             {
-                return NotFound(ex.Message);
+                return NotFound("Actor not found.");
             }
+
+            return Ok(actor);
         }
 
         [HttpPost("create")]
+        [AutoValidation]
         public async Task<IActionResult> Create([FromBody] CreateActorCommand command, CancellationToken cancellationToken)
         {
             try

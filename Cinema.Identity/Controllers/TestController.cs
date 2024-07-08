@@ -1,10 +1,4 @@
-﻿using Cinema.Identity.Models.Register;
-using Cinema.Identity.Models.SignIn;
-using Cinema.Infrastructure.Entities;
-using Exam.Data.Infrastructure;
-using IdentityServer4.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.Identity.Controllers
@@ -23,5 +17,5 @@ namespace Cinema.Identity.Controllers
         {
             return Ok("API is alive!");
         }
-    }       
+    }
 }
